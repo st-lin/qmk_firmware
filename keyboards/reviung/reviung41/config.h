@@ -19,6 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+/* USB Device descriptor parameter */
+#define VENDOR_ID 0x7807
+#define PRODUCT_ID 0xDCCB
+#define DEVICE_VER 0x0001
+#define MANUFACTURER gtips
+#define PRODUCT reviung41
+
 /* key matrix size */
 #define MATRIX_ROWS 7
 #define MATRIX_COLS 6
@@ -37,6 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { F4, F5, F6, F7, B1, B3, B2 }
 #define MATRIX_COL_PINS \
     { D4, C6, D7, E6, B4, B5 }
+#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -134,3 +142,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0
+
+#define RGBLIGHT_LAYERS
+
+
+#define MY_SE_LAYOUT
+
+
+#ifdef MY_SE_LAYOUT
+	#define LSPO_KEYS KC_LSFT, KC_LSFT, KC_8
+	#define RSPC_KEYS KC_RSFT, KC_RSFT, KC_9
+#endif 
+#define LCPO_KEYS KC_LCTL, KC_TRNS, KC_DEL
+#define RCPC_KEYS KC_LALT, KC_TRNS, KC_ENT
+
+#define TAPPING_TOGGLE 1
+#define TAPPING_TERM 350
+#define COMBO_TERM 20
+#define COMBO_ONLY_FROM_LAYER 4
+#define PERMISSIVE_HOLD
+#define HOLD_ON_OTHER_KEY_PRESS
+#define ONESHOT_TAP_TOGGLE 2
+#define ONESHOT_TIMEOUT 2000
