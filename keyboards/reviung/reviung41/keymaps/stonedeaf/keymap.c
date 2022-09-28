@@ -19,6 +19,7 @@
 
 enum layer_names {
     _BASE,
+    _SWE,
     _NUM,
     _NAV,
     _SYM,
@@ -31,7 +32,8 @@ enum custom_keycodes {
   GUI_ALT = SAFE_RANGE,
   STR_SL,
   STR_SM,
-  STR_GM
+  STR_GM,
+  STR_PW
 };
 
 // enum tap_dances {
@@ -52,8 +54,11 @@ enum custom_keycodes {
 #define C_C   C(KC_C)
 #define C_V   C(KC_V)
 
-#define L_MID KC_LSPO   //  (  or SHIFT
-#define R_MID OSM(MOD_RSFT)//KC_RSPC   //  )  or SHIFT
+#define OS_LSFT OSM(MOD_LSFT)
+#define OS_RSFT OSM(MOD_RSFT)
+
+#define L_MID OS_LSFT//KC_LSPO   //  (  or SHIFT
+#define R_MID OS_RSFT//KC_RSPC   //  )  or SHIFT
 #define L_BOT KC_LCPO   // DEL or CTL
 #define R_BOT LALT_T(KC_ENT) // ENT or ALT
 
@@ -71,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     K_MINS,   R_MID,
     L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   K_QUES,   R_BOT,
-                                            GUI_ALT,  SPC_SYM,  KC_SPC,   TT(_NUM), TT(_NAV)
+                                            GUI_ALT,  SPC_SYM, TG(_SWE),  TT(_NUM), TT(_NAV)
   ),
 #else
   [_BASE] = LAYOUT_reviung41(
@@ -81,19 +86,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             GUI_ALT,  SPC_NAV,  KC_SPC,   TT(_NUM), RCTL_T(KC_ENT)
   ),
 #endif
+  [_SWE] = LAYOUT_reviung41(
+    KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     SW_AA,
+    OS_LSFT,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     SW_OE,    SW_AE,
+    L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   K_QUES,   KC_ENT,
+                                            GUI_ALT,  KC_SPC, TG(_SWE),   KC_RSFT,  MO(_NAV)
+  ),
 
   [_NUM] = LAYOUT_reviung41(
-    _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F12,             KC_PSLS,  KC_P7,    KC_P8,    KC_P9,    KC_PMNS,  _______,
-    _______,  KC_F5,    KC_F6,    KC_F7,    KC_F8,  S(KC_F12),            KC_PAST,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,  _______,
-    _______,  KC_F9,    KC_F10,   KC_F11,   KC_F12, C(KC_F12),            KC_KP_0,  KC_P1,    KC_P2,    KC_P3,    KC_PDOT,  KC_PENT,
+    _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,  S(KC_F12),            KC_PSLS,  KC_P7,    KC_P8,    KC_P9,    KC_PMNS,  _______,
+    _______,  KC_F5,    KC_F6,    KC_F7,    KC_F8,  C(KC_F12),            KC_PAST,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,  _______,
+    _______,  KC_F9,    KC_F10,   KC_F11,   KC_F12, A(KC_HOME),           KC_KP_0,  KC_P1,    KC_P2,    KC_P3,    KC_PDOT,  KC_PENT,
                                             _______,  KC_SPC,  TG(_NUM),  TG(_NUM),  ___N___
   ),
 
   [_NAV] = LAYOUT_reviung41(
-    _______,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               ___N___,  ___N___,  ___N___,  ___N___,  KC_HOME,  _______,
-    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_DEL,             ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,
-                                            _______,  KC_SPC,  TG(_NAV),  TG(_NAV), KC_RCTL
+    KC_0,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               ___N___,  ___N___,  ___N___,  ___N___,  KC_HOME,  _______,
+    _______,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,               ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
+    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_DEL,             ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,
+                                            _______,  KC_SPC,  TG(_NAV),  TG(_NAV), TG(_NAV)
   ),
 
 #ifdef TOP_LAYER_NAV_CLUSTER
@@ -105,9 +116,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 #else
   [_SYM] = LAYOUT_reviung41(
-    _______,  K_EXLM,   K_AT,     K_HASH,   K_DLR,    K_PERC,             ___N___,  ___N___,  KC_PAUSE, ___N___,  KC_PSCR,  _______,
-    _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  ___N___,            ___N___,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,  _______,
-    _______,  KC_HOME,  ___N___,  ___N___,  KC_END,   ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    _______,  K_EXLM,   K_AT,     K_HASH,   K_DLR,    K_PERC,             KC_PSCR,  ___N___,  KC_PAUSE, ___N___,  KC_P,     SW_AA,
+    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  SW_OE,    SW_AE,
+    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,  _______,
                                             _______,  KC_SPC,  TG(_SYM),  ___N___,  RGB_MOD
   ),
 #endif
@@ -171,6 +182,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed)
             SEND_STRING("steli268@gmail.com");
         return false;
+    case STR_PW:
+        if (record->event.pressed)
+            SEND_STRING("probi.!#!.natos");
+        return false;
     }
 
     return true;
@@ -199,7 +214,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 enum combos {
     AB_CO, // Debug
     TQ_CO,                  // Tab + Q = Esc
-    ZX_CO, XC_CO, CV_CO,    // Cut Copy Paste
+    // ZX_CO, XC_CO, CV_CO,    // Cut Copy Paste
     QW_CO, WE_CO, ER_CO,    // " ' `
     TG_CO, YH_CO,           // | &
     BG_CO, NH_CO,           // fs bs
@@ -211,15 +226,16 @@ enum combos {
     AA_CO, AE_CO, OE_CO,    // å ä ö
     FS_CO, BS_CO, EX_CO,    // fs bs !
     SL_CO, SM_CO, GM_CO,
+    MKL_CO,
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM ab_co[] = {KC_A, KC_B, COMBO_END};
 const uint16_t PROGMEM tq_co[] = {KC_TAB, KC_Q, COMBO_END};
-const uint16_t PROGMEM zx_co[] = {KC_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM xc_co[] = {KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM cv_co[] = {KC_C, KC_V, COMBO_END};
+// const uint16_t PROGMEM zx_co[] = {KC_Z, KC_X, COMBO_END};
+// const uint16_t PROGMEM xc_co[] = {KC_X, KC_C, COMBO_END};
+// const uint16_t PROGMEM cv_co[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM qw_co[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM we_co[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM er_co[] = {KC_E, KC_R, COMBO_END};
@@ -247,13 +263,14 @@ const uint16_t PROGMEM ex_co[] = {KC_SCLN, KC_MINS, COMBO_END};
 const uint16_t PROGMEM sl_co[] = {KC_S, KC_L, COMBO_END};
 const uint16_t PROGMEM sm_co[] = {KC_S, KC_M, COMBO_END};
 const uint16_t PROGMEM gm_co[] = {KC_G, KC_M, COMBO_END};
+const uint16_t PROGMEM mkl_co[] = {KC_M, KC_K, KC_L, COMBO_END};
 
 combo_t key_combos[] = {
     [AB_CO] = COMBO(ab_co, KC_C),
     [TQ_CO] = COMBO(tq_co, KC_ESC),
-    [ZX_CO] = COMBO(zx_co, C(KC_X)),
-    [XC_CO] = COMBO(xc_co, C(KC_C)),
-    [CV_CO] = COMBO(cv_co, C(KC_V)),
+    // [ZX_CO] = COMBO(zx_co, C(KC_X)),
+    // [XC_CO] = COMBO(xc_co, C(KC_C)),
+    // [CV_CO] = COMBO(cv_co, C(KC_V)),
     [QW_CO] = COMBO(qw_co, K_DQUO),
     [WE_CO] = COMBO(we_co, K_QUOT),
     [ER_CO] = COMBO(er_co, K_GRAVE),
@@ -280,7 +297,8 @@ combo_t key_combos[] = {
     [EX_CO] = COMBO(ex_co, K_EXCLAIM),
     [SL_CO] = COMBO(sl_co, STR_SL),
     [SM_CO] = COMBO(sm_co, STR_SM),
-    [GM_CO] = COMBO(gm_co, STR_GM)
+    [GM_CO] = COMBO(gm_co, STR_GM),
+    [MKL_CO] = COMBO(mkl_co, STR_PW)
 };
 
 
@@ -301,7 +319,10 @@ combo_t key_combos[] = {
 
 // Lighting layers
 const rgblight_segment_t PROGMEM rgb_base[] = RGBLIGHT_LAYER_SEGMENTS(
-    {10, 1, HSV_WHITE}
+    {0, 10, HSV_BLACK}
+);
+const rgblight_segment_t PROGMEM rgb_swe[] = RGBLIGHT_LAYER_SEGMENTS(
+    {10, 1, HSV_YELLOW}
 );
 const rgblight_segment_t PROGMEM rgb_num[] = RGBLIGHT_LAYER_SEGMENTS(
     {10, 1, HSV_BLUE}
@@ -315,6 +336,7 @@ const rgblight_segment_t PROGMEM rgb_sym[] = RGBLIGHT_LAYER_SEGMENTS(
 // Array of lighting layers
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_base,
+    rgb_swe,
     rgb_num,
     rgb_nav,
     rgb_sym
@@ -328,20 +350,16 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     return state;
 }
 layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(1, layer_state_cmp(state, _NUM));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _NAV));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _SYM));
+    rgblight_set_layer_state(1, layer_state_cmp(state, _SWE));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
+    rgblight_set_layer_state(3, layer_state_cmp(state, _NAV));
+    rgblight_set_layer_state(4, layer_state_cmp(state, _SYM));
     return state;
 }
 
 void oneshot_mods_changed_user(uint8_t mods) {
   if (mods & MOD_MASK_SHIFT) {
-    rgblight_sethsv_at(HSV_RED, 11);
-    rgblight_sethsv_at(HSV_RED, 10);
-    rgblight_sethsv_at(HSV_RED, 9);
-    rgblight_sethsv_at(HSV_RED, 7);
-    rgblight_sethsv_at(HSV_RED, 8);
-    rgblight_sethsv_at(HSV_RED, 6);
+    rgblight_sethsv_at(HSV_MAGENTA, 10);
   }
   if (!mods) {
     default_layer_state_set_user(layer_state);
@@ -350,12 +368,7 @@ void oneshot_mods_changed_user(uint8_t mods) {
 }
 void oneshot_locked_mods_changed_user(uint8_t mods) {
   if (mods & MOD_MASK_SHIFT) {
-    rgblight_sethsv_at(HSV_PURPLE, 11);
-    rgblight_sethsv_at(HSV_PURPLE, 10);
-    rgblight_sethsv_at(HSV_PURPLE, 9);
-    rgblight_sethsv_at(HSV_PURPLE, 7);
-    rgblight_sethsv_at(HSV_PURPLE, 8);
-    rgblight_sethsv_at(HSV_PURPLE, 6);
+    rgblight_sethsv_at(HSV_MAGENTA, 10);
   }
   if (!mods) {
     default_layer_state_set_user(layer_state);

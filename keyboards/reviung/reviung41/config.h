@@ -129,7 +129,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 1
 #define TAPPING_TERM 350
 #define COMBO_TERM 20
-#define COMBO_ONLY_FROM_LAYER 4
+#define COMBO_ONLY_FROM_LAYER 5
 #define PERMISSIVE_HOLD
 #define HOLD_ON_OTHER_KEY_PRESS
 #define ONESHOT_TAP_TOGGLE 2
