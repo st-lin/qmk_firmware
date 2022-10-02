@@ -30,6 +30,7 @@ enum layer_names {
 
 enum custom_keycodes {
   GUI_ALT = SAFE_RANGE,
+  MY_SCLN,
   STR_SL,
   STR_SM,
   STR_GM,
@@ -67,29 +68,29 @@ enum custom_keycodes {
 #define NAV TT(_NAV)
 #define SYM MO(_SYM)
  
-//#define TOP_LAYER_NAV_CLUSTER
+#define TOP_LAYER_NAV_CLUSTER
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifndef TOP_LAYER_NAV_CLUSTER
   [_BASE] = LAYOUT_reviung41(
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
-    L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     K_MINS,   R_MID,
-    L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   K_QUES,   R_BOT,
+    L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     MY_SCLN,  R_MID,
+    L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   K_MINS,   R_BOT,
                                             GUI_ALT,  SPC_SYM, TG(_SWE),  TT(_NUM), TT(_NAV)
   ),
 #else
   [_BASE] = LAYOUT_reviung41(
-    TAB_ESC,  KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
+    KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     KC_UP,    R_MID,
-    L_BOT,    Z_ALT,    KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_COMM,  KC_LEFT,  KC_DOWN,  KC_RGHT,
-                                            GUI_ALT,  SPC_NAV,  KC_SPC,   TT(_NUM), RCTL_T(KC_ENT)
+    L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_COMM,  KC_LEFT,  KC_DOWN,  KC_RGHT,
+                                            GUI_ALT,  SPC_SYM,  KC_ENT,   TT(_NUM), MO(_NAV)
   ),
 #endif
   [_SWE] = LAYOUT_reviung41(
-    KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     SW_AA,
-    OS_LSFT,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     SW_OE,    SW_AE,
-    L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   K_QUES,   KC_ENT,
+    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  SW_AA,
+    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  SW_OE,    SW_AE,
+    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  K_COMM,   K_DOT,    K_MINS,   KC_ENT,
                                             GUI_ALT,  KC_SPC, TG(_SWE),   KC_RSFT,  MO(_NAV)
   ),
 
@@ -101,18 +102,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_reviung41(
-    KC_0,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               ___N___,  ___N___,  ___N___,  ___N___,  KC_HOME,  _______,
-    _______,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,               ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
-    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_DEL,             ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,
-                                            _______,  KC_SPC,  TG(_NAV),  TG(_NAV), TG(_NAV)
+    KC_0,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    _______,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,               ___N___,  ___N___,  KC_PGUP,  ___N___,  KC_HOME,  _______,
+    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_DEL,             ___N___,  ___N___,  KC_PGDN,  C_LEFT,   KC_END,   C_RGHT,
+                                            _______,  KC_SPC,  TG(_NAV),  TG(_NAV), ___N___
   ),
 
 #ifdef TOP_LAYER_NAV_CLUSTER
   [_SYM] = LAYOUT_reviung41(
-    _______,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,            KC_LT,    KC_GT,    ___N___,  ___N___,  ___N___,  ___N___,
-    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_DEL,             KC_PIPE,  KC_AMPR,  KC_PGUP,  ___N___,  KC_SCLN,  R_MID,
-    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            KC_CIRC,  KC_TILD,  KC_COMM,  KC_DOT,   KC_MINS,  R_BOT,
-                                            _______,  KC_SPC,  TG(_SYM),  ___N___,  KC_RCTL
+    K_QUES,   K_EXLM,   K_AT,     K_HASH,   K_DLR,    K_PERC,             ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    _______,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               K_PIPE,  K_AMPR,    ___N___,  ___N___,  K_SCLN,   _______,
+    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            K_CIRC,  K_TILD,    K_COMM,   K_DOT,    K_MINS,   K_SCLN,
+                                            _______,  KC_SPC,  TG(_SYM),  ___N___,  ___N___
   ),
 #else
   [_SYM] = LAYOUT_reviung41(
@@ -170,9 +171,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             isMixDown = false;
         }
         break;
+    case MY_SCLN:
+        if (record->event.pressed){
+            if ((get_mods() & MOD_MASK_SHIFT) > 0)
+                tap_code16(K_COLN);
+            else
+                tap_code16(K_SCLN);
+        }
+        break;
     case STR_SL:
         if (record->event.pressed)
-            SEND_STRING("st-lin");
+            SEND_STRING("st/lin");
         return false;
     case STR_SM:
         if (record->event.pressed)
@@ -218,13 +227,16 @@ enum combos {
     QW_CO, WE_CO, ER_CO,    // " ' `
     TG_CO, YH_CO,           // | &
     BG_CO, NH_CO,           // fs bs
-    TY_CO, OP_CO, IO_CO,    // ~ = +
+    TY_CO,                  // ~
+    OP_CO, IO_CO, UI_CO,    // = + *
     RT_CO, YU_CO,           // < >
     FG_CO, HJ_CO,           // { }
     VB_CO, NM_CO,           // [ ]
     DF_CO, JK_CO,           // ( )
+    CV_CO, MC_CO,           // fs bs
     AA_CO, AE_CO, OE_CO,    // å ä ö
-    FS_CO, BS_CO, EX_CO,    // fs bs !
+    FS_CO, BS_CO,           // fs bs
+    EX_CO, SC_CO, SC2_CO,   // ! ; ;
     SL_CO, SM_CO, GM_CO,
     MKL_CO,
     COMBO_LENGTH
@@ -246,6 +258,7 @@ const uint16_t PROGMEM nh_co[] = {KC_N, KC_H, COMBO_END};
 const uint16_t PROGMEM ty_co[] = {KC_T, KC_Y, COMBO_END};
 const uint16_t PROGMEM op_co[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM io_co[] = {KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM ui_co[] = {KC_U, KC_I, COMBO_END};
 const uint16_t PROGMEM rt_co[] = {KC_R, KC_T, COMBO_END};
 const uint16_t PROGMEM yu_co[] = {KC_Y, KC_U, COMBO_END};
 const uint16_t PROGMEM fg_co[] = {KC_F, KC_G, COMBO_END};
@@ -254,17 +267,40 @@ const uint16_t PROGMEM vb_co[] = {KC_V, KC_B, COMBO_END};
 const uint16_t PROGMEM nm_co[] = {KC_N, KC_M, COMBO_END};
 const uint16_t PROGMEM df_co[] = {KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM jk_co[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM cv_co[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM mc_co[] = {KC_M, KC_COMM, COMBO_END};
+
 const uint16_t PROGMEM aa_co[] = {KC_P, KC_BSPC, COMBO_END};
 const uint16_t PROGMEM ae_co[] = {KC_SCLN, KC_RSFT, COMBO_END};
 const uint16_t PROGMEM oe_co[] = {KC_L, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM fs_co[] = {KC_MINS, KC_DOT, COMBO_END};
-const uint16_t PROGMEM bs_co[] = {KC_DOT, KC_COMM, COMBO_END};
+
+const uint16_t PROGMEM fs_co[] = {KC_DOT, KC_MINS, COMBO_END};
+const uint16_t PROGMEM bs_co[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM ex_co[] = {KC_SCLN, KC_MINS, COMBO_END};
+const uint16_t PROGMEM sc_co[] = {KC_SCLN, KC_DOT, COMBO_END};
+const uint16_t PROGMEM sc2_co[] = {KC_MINS, KC_RCTL, COMBO_END};
 const uint16_t PROGMEM sl_co[] = {KC_S, KC_L, COMBO_END};
 const uint16_t PROGMEM sm_co[] = {KC_S, KC_M, COMBO_END};
 const uint16_t PROGMEM gm_co[] = {KC_G, KC_M, COMBO_END};
 const uint16_t PROGMEM mkl_co[] = {KC_M, KC_K, KC_L, COMBO_END};
-
+/* 
+ * ,-----------------------------------------------------------------.
+ * T Esc Q  "  W  '  E  ´  R  <  T  ~  Y  >  U  *  I  +  O  =  P  Å  B
+ * |-----+-----+-----+-----+---- | --- & ----+-----+-----+-----+-----+
+ * S     A     S     D  (  F  {  G     H  }  J  )  K     L  Ö  ;  Ä  S
+ * |-----+-----+-----+-----+---- / --- \ ----+-----+-----+---- ! ----+
+ * C     Z     X     C  /  V  [  B     N  ]  M  \  ,  \  .  /  -  ;  C
+ * `-----------------------------------------------------------------'
+ */
+/* 
+ * ,-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----.
+ * | Esc    "     '     ´     <     ~     >     *     +     =     Å  | 
+ * +                             |     &                             +
+ * |                    (     {           }     )           Ö     Ä  |
+ * +                             /     \                      ; !    +
+ * |                    /     [           ]     \     \     /     ;  |
+ * `-----------------------------------------------------------------'
+ */
 combo_t key_combos[] = {
     [AB_CO] = COMBO(ab_co, KC_C),
     [TQ_CO] = COMBO(tq_co, KC_ESC),
@@ -274,13 +310,16 @@ combo_t key_combos[] = {
     [QW_CO] = COMBO(qw_co, K_DQUO),
     [WE_CO] = COMBO(we_co, K_QUOT),
     [ER_CO] = COMBO(er_co, K_GRAVE),
+
     [TG_CO] = COMBO(tg_co, K_PIPE),
     [YH_CO] = COMBO(yh_co, K_AMPR),
     [BG_CO] = COMBO(bg_co, K_SLASH),
     [NH_CO] = COMBO(nh_co, K_BACKSLASH),
+
     [TY_CO] = COMBO(ty_co, K_TILDE),
     [OP_CO] = COMBO(op_co, K_EQUAL),
     [IO_CO] = COMBO(io_co, K_PLUS),
+    [IO_CO] = COMBO(ui_co, K_ASTR),
     [RT_CO] = COMBO(rt_co, K_LT),
     [YU_CO] = COMBO(yu_co, K_GT),
     [FG_CO] = COMBO(fg_co, K_LEFT_CURLY_BRACE),
@@ -289,12 +328,18 @@ combo_t key_combos[] = {
     [NM_CO] = COMBO(nm_co, K_RIGHT_BRACKET),
     [DF_CO] = COMBO(df_co, K_LEFT_PAREN),
     [JK_CO] = COMBO(jk_co, K_RIGHT_PAREN),
+    [CV_CO] = COMBO(cv_co, K_SLASH),
+    [MC_CO] = COMBO(mc_co, K_BACKSLASH),
+
     [AA_CO] = COMBO(aa_co, SW_AA),
     [AE_CO] = COMBO(ae_co, SW_AE),
     [OE_CO] = COMBO(oe_co, SW_OE),
-    [FS_CO] = COMBO(fs_co, K_SLASH),
+
+    [FS_CO] = COMBO(fs_co, C(KC_LEFT)),
     [BS_CO] = COMBO(bs_co, K_BACKSLASH),
     [EX_CO] = COMBO(ex_co, K_EXCLAIM),
+    [SC_CO] = COMBO(sc_co, K_SCLN),
+    [SC2_CO] = COMBO(sc2_co, KC_ENT),
     [SL_CO] = COMBO(sl_co, STR_SL),
     [SM_CO] = COMBO(sm_co, STR_SM),
     [GM_CO] = COMBO(gm_co, STR_GM),
