@@ -42,12 +42,6 @@ enum custom_keycodes {
 // };
 // #define TAB_ESC TD(TD_TAB_ESC)
 
-// #define MY_HALF ALGR(KC_7)
-// #define MY_QART ALGR(KC_6)
-// #define MY_POW1 ALGR(S(KC_1))
-// #define MY_POW2 ALGR(KC_2)
-// #define MY_POW3 ALGR(KC_3)
-
 #define C_LEFT  C(KC_LEFT)
 #define C_RGHT  C(KC_RGHT)
 #define C_Z   C(KC_Z)
@@ -64,6 +58,7 @@ enum custom_keycodes {
 #define R_BOT LALT_T(KC_ENT) // ENT or ALT
 
 #define SPC_SYM LT(_SYM, KC_SPC)
+#define ENT_NUM LT(_NUM, KC_ENT)
 #define NUM TT(_NUM)
 #define NAV TT(_NAV)
 #define SYM MO(_SYM)
@@ -84,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     KC_UP,    R_MID,
     L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     ___N___,  KC_LEFT,  KC_DOWN,  KC_RGHT,
-                                            GUI_ALT,  SPC_SYM, TG(_SWE),  TT(_NUM), MO(_NAV)
+                                            GUI_ALT,  SPC_SYM, TG(_SWE),  ENT_NUM,  MO(_NAV)
   ),
 #endif
   [_SWE] = LAYOUT_reviung41(
