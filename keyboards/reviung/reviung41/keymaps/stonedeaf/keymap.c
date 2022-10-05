@@ -53,8 +53,8 @@ enum custom_keycodes {
 #define OS_RSFT OSM(MOD_RSFT)
 
 #define L_MID OS_LSFT//KC_LSPO   //  (  or SHIFT
-#define R_MID RSFT_T(KC_ENT) // OS_RSFT//KC_RSPC   //  )  or SHIFT
-#define L_BOT KC_LCPO   // DEL or CTL
+#define R_MID OS_RSFT//KC_RSPC   //  )  or SHIFT
+#define L_BOT LCTL_T(KC_DEL) // KC_LCPO   // DEL or CTL
 #define R_BOT LALT_T(KC_ENT) // ENT or ALT
 
 #define NUM_SPC LT(_NUM, KC_SPC)
@@ -95,17 +95,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_reviung41(
-    KC_0,     KC_F1,    KC_F2,    KC_F3,    KC_F4,  S(KC_F12),            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
-    _______,  KC_F5,    KC_F6,    KC_F7,    KC_F8,  C(KC_F12),            ___N___,  ___N___,  KC_PGUP,  ___N___,  KC_HOME,  _______,
-    _______,  KC_F9,    KC_F10,   KC_F11,   KC_F12, A(KC_HOME),           ___N___,  ___N___,  KC_PGDN,  C_LEFT,   KC_END,   C_RGHT,
-                                            _______,  KC_SPC,   ___N___,  KC_ENT,   ___N___
+    KC_TAB,   KC_F1,    KC_F2,    KC_F3,    KC_F4,  S(KC_F12),            KC_F5,    KC_F6,    KC_F10,   KC_F11,   KC_F12,   _______,
+    KC_LSFT,  KC_F5,    KC_F6,    KC_F7,    KC_F8,  C(KC_F12),            ___N___,  ___N___,  KC_PGUP,  ___N___,  KC_HOME,  _______,
+    KC_LCTL,  KC_F9,    KC_F10,   KC_F11,   KC_F12, A(KC_F12),            ___N___,  ___N___,  KC_PGDN,  C_LEFT,   KC_END,   C_RGHT,
+                                            KC_LALT,  KC_SPC,   ___N___,  KC_ENT,   ___N___
   ),
 
 #ifdef TOP_LAYER_NAV_CLUSTER
   [_SYM] = LAYOUT_reviung41(
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  MY_SCLN,  _______,
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  K_COMM,   K_DOT,    K_MINS,   KC_ENT,
+    _______,  ___N___,  ___N___,  ___N___,  ___N___,  KC_F5,              KC_F10,   ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_F6,              KC_F11,   ___N___,  ___N___,  ___N___,  MY_SCLN,  _______,
+    _______,  ___N___,  ___N___,  ___N___,  ___N___,  KC_F7,              KC_F12,   ___N___,  K_COMM,   K_DOT,    K_MINS,   KC_ENT,
                                             _______,  KC_SPC,   ___N___,  KC_ENT,   ___N___
   ),
 #else
