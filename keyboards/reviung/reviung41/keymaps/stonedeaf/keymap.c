@@ -55,13 +55,13 @@ enum custom_keycodes {
 #define L_MID OS_LSFT//KC_LSPO   //  (  or SHIFT
 #define R_MID OS_RSFT//KC_RSPC   //  )  or SHIFT
 #define L_BOT LCTL_T(KC_DEL) // KC_LCPO   // DEL or CTL
-#define R_BOT LALT_T(KC_ENT) // ENT or ALT
+#define R_BOT RCTL_T(KC_RGHT) // ENT or ALT
 
 #define NUM_SPC LT(_NUM, KC_SPC)
 #define SYM_ENT LT(_SYM, KC_ENT)
 #define NAV MO(_NAV)
  
-#define TOP_LAYER_NAV_CLUSTER
+//#define TOP_LAYER_NAV_CLUSTER
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     MY_SCLN,  R_MID,
     L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   K_MINS,   R_BOT,
-                                            GUI_ALT,  SPC_SYM, TG(_SWE),  TT(_NUM), TT(_NAV)
+                                            GUI_ALT,  NUM_SPC, TG(_SWE),  SYM_ENT,  NAV
   ),
 #else
   [_BASE] = LAYOUT_reviung41(
@@ -91,29 +91,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     K_QUES,   K_EXLM,   K_AT,     K_HASH,   K_DLR,    K_PERC,             KC_P7,    KC_P8,    KC_P9,    ___N___,  ___N___,  _______,
     KC_0,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_P4,    KC_P5,    KC_P6,    ___N___,  ___N___,  _______,
     _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            KC_P1,    KC_P2,    KC_P3,    ___N___,  ___N___,  KC_ENT,
-                                            _______,  KC_SPC,   ___N___,  KC_0,     KC_PDOT
-  ),
-
-  [_NAV] = LAYOUT_reviung41(
-    KC_TAB,   KC_F1,    KC_F2,    KC_F3,    KC_F4,  S(KC_F12),            KC_F5,    KC_F6,    KC_F10,   KC_F11,   KC_F12,   _______,
-    KC_LSFT,  KC_F5,    KC_F6,    KC_F7,    KC_F8,  C(KC_F12),            ___N___,  ___N___,  KC_PGUP,  ___N___,  KC_HOME,  _______,
-    KC_LCTL,  KC_F9,    KC_F10,   KC_F11,   KC_F12, A(KC_F12),            ___N___,  ___N___,  KC_PGDN,  C_LEFT,   KC_END,   C_RGHT,
-                                            KC_LALT,  KC_SPC,   ___N___,  KC_ENT,   ___N___
+                                            ___N___,  ___N___,  ___N___,  KC_0,     KC_PDOT
   ),
 
 #ifdef TOP_LAYER_NAV_CLUSTER
+  [_NAV] = LAYOUT_reviung41(
+    _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    ___N___,            KC_F5,    KC_F6,    KC_F10,   KC_F11,   KC_F12,   _______,
+    _______,  KC_F5,    KC_F6,    KC_F7,    KC_F8,    ___N___,            ___N___,  ___N___,  KC_PGUP,  ___N___,  KC_HOME,  _______,
+    _______,  KC_F9,    KC_F10,   KC_F11,   KC_F12,   ___N___,            ___N___,  ___N___,  KC_PGDN,  C_LEFT,   KC_END,   C_RGHT,
+                                            KC_LALT,  KC_SPC,   ___N___,  KC_ENT,   ___N___
+  ),
+#else
+  [_NAV] = LAYOUT_reviung41(
+    _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,              KC_F5,    KC_F6,    KC_F10,   KC_F11,   KC_F12,   _______,
+    _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,             ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
+    _______,  KC_Z,     KC_X,     KC_C,     KC_V,     ___N___,            ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,
+                                            KC_LALT,  KC_SPC,   ___N___,  KC_ENT,   ___N___
+  ),
+#endif
+
+#ifdef TOP_LAYER_NAV_CLUSTER
   [_SYM] = LAYOUT_reviung41(
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  KC_F5,              KC_F10,   ___N___,  ___N___,  ___N___,  ___N___,  _______,
-    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_F6,              KC_F11,   ___N___,  ___N___,  ___N___,  MY_SCLN,  _______,
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  KC_F7,              KC_F12,   ___N___,  K_COMM,   K_DOT,    K_MINS,   KC_ENT,
+    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  MY_SCLN,  _______,
+    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  K_COMM,   K_DOT,    K_MINS,   ___N___,
                                             _______,  KC_SPC,   ___N___,  KC_ENT,   ___N___
   ),
 #else
   [_SYM] = LAYOUT_reviung41(
-    _______,  K_EXLM,   K_AT,     K_HASH,   K_DLR,    K_PERC,             KC_PSCR,  ___N___,  KC_PAUSE, ___N___,  KC_P,     SW_AA,
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  SW_OE,    SW_AE,
-    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,  _______,
-                                            _______,  KC_SPC,  TG(_SYM),  ___N___,  RGB_MOD
+    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
+    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  KC_HOME,  ___N___,
+    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  C_LEFT,   KC_END,   C_RGHT,
+                                            _______,  KC_SPC,   ___N___,   KC_ENT,  ___N___
   ),
 #endif
 
@@ -200,10 +209,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  */
 const key_override_t shift_backspace_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 const key_override_t gui_w_override = ko_make_basic(MOD_MASK_GUI, KC_W, LGUI(KC_2));
+const key_override_t ctrl_up_override = ko_make_basic(MOD_MASK_CTRL, KC_UP, KC_HOME);
+const key_override_t ctrl_down_override = ko_make_basic(MOD_MASK_CTRL, KC_DOWN, KC_END);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
     &shift_backspace_override,
     &gui_w_override,
+    &ctrl_up_override,
+    &ctrl_down_override,
     NULL // Null terminate the array of overrides!
 };
 
@@ -274,8 +287,8 @@ const uint16_t PROGMEM co_mkl[] = {KC_M, KC_K, KC_L, COMBO_END};
  * 1 Esc Q  "  W  '  E  ´  R  <  T  ~  Y  >  U  *  I  +  O  =  P  Å  B
  * |-----+-----+-----+-----+---- | --- & ----+-----+-----+-----+-----+
  * S     A     S     D  (  F  {  G     H  }  J  )  K     L  Ö  ;  Ä  S
- * |-----+-----+-----+-----+---- / --- \ ----+-----+-----+---- ! ----+
- * C     Z     X     C  /  V  [  B     N  ]  M  \  ,  \  .  /  -  ;  C
+ * |-----+-----+-----+-----+---- / --- \ ----+-----+-----+-----+-----+
+ * C     Z     X     C  /  V  [  B     N  ]  M  \  ,     .     -  E  C
  * `-----------------------------------------------------------------'
  */
 /* 
@@ -284,7 +297,7 @@ const uint16_t PROGMEM co_mkl[] = {KC_M, KC_K, KC_L, COMBO_END};
  * +                             |     &                             +
  * |                    (     {           }     )           Ö     Ä  |
  * +                             /     \                             +
- * |                    /     [           ]     \     .     /     E  |
+ * |                    /     [           ]     \                 E  |
  * `-----------------------------------------------------------------'
  */
 combo_t key_combos[] = {
@@ -300,7 +313,7 @@ combo_t key_combos[] = {
     [CO_TY] = COMBO(co_ty, K_TILDE),
     [CO_OP] = COMBO(co_op, K_EQUAL),
     [CO_IO] = COMBO(co_io, K_PLUS),
-    [CO_IO] = COMBO(co_ui, K_ASTR),
+    [CO_UI] = COMBO(co_ui, K_ASTR),
     [CO_RT] = COMBO(co_rt, K_LT),
     [CO_YU] = COMBO(co_yu, K_GT),
     [CO_FG] = COMBO(co_fg, K_LEFT_CURLY_BRACE),
