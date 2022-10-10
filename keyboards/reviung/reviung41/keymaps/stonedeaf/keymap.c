@@ -51,13 +51,19 @@ enum custom_keycodes {
 #define C_C   C(KC_C)
 #define C_V   C(KC_V)
 
+#define OS_LGUI OSM(MOD_LGUI)
+#define OS_RGUI OSM(MOD_RGUI)
+#define OS_LALT OSM(MOD_LALT)
+#define OS_RALT OSM(MOD_LALT)
+#define OS_LCTL OSM(MOD_LCTL)
+#define OS_RCTL OSM(MOD_RCTL)
 #define OS_LSFT OSM(MOD_LSFT)
 #define OS_RSFT OSM(MOD_RSFT)
 
-#define L_MID OS_LSFT//KC_LSPO   //  (  or SHIFT
-#define R_MID OS_RSFT//KC_RSPC   //  )  or SHIFT
-#define L_BOT LCTL_T(KC_DEL) // KC_LCPO   // DEL or CTL
-#define R_BOT RCTL_T(KC_RGHT) // ENT or ALT
+#define L_MID OS_LSFT
+#define R_MID OS_RSFT
+#define L_BOT LCTL_T(KC_DEL)
+#define R_BOT RCTL_T(KC_ENT)
 
 #define NUM_SPC LT(_NUM, KC_SPC)
 #define SYM_ENT LT(_SYM, KC_ENT)
@@ -123,17 +129,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 #else
   [_SYM] = LAYOUT_reviung41(
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
-    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  KC_HOME,  ___N___,
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  C_LEFT,   KC_END,   C_RGHT,
-                                            _______,  KC_SPC,   ___N___,  ___N___,  ___N___
+    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,              KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,
+    ___N___,  OS_LGUI,  OS_LALT,  OS_LCTL,  OS_LSFT,  ___N___,            ___N___,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,  ___N___,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
+                                            ___N___,  KC_SPC,   ___N___,  ___N___,  ___N___
   ),
 #endif
 
   [_EXT] = LAYOUT_reviung41(
-    ALT_TAB,  _______,  G(KC_2),  G(KC_E),  _______,  _______,            _______,  _______,  _______,  _______,  KC_HOME,  KC_END,
-    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
-    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,
+    ALT_TAB,  ___N___,  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  KC_HOME,  KC_END,
+    _______,  OS_LGUI,  OS_LALT,  OS_LCTL,  OS_LSFT,  ___N___,            ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
+    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,
                                             ___N___,  KC_SPC,   ___N___,  KC_ENT,   KC_RCTL
   ),
 
@@ -230,12 +236,16 @@ const key_override_t shift_backspace_override = ko_make_basic(MOD_MASK_SHIFT, KC
 const key_override_t gui_w_override = ko_make_basic(MOD_MASK_GUI, KC_W, LGUI(KC_2));
 const key_override_t ctrl_up_override = ko_make_basic(MOD_MASK_CTRL, KC_UP, KC_HOME);
 const key_override_t ctrl_down_override = ko_make_basic(MOD_MASK_CTRL, KC_DOWN, KC_END);
+const key_override_t shift_dot_override = ko_make_basic(MOD_MASK_SHIFT, K_DOT, K_EXLM);
+const key_override_t shift_comm_override = ko_make_basic(MOD_MASK_SHIFT, K_COMM, K_QUES);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
     &shift_backspace_override,
     &gui_w_override,
     &ctrl_up_override,
     &ctrl_down_override,
+    &shift_dot_override,
+    &shift_comm_override,
     NULL // Null terminate the array of overrides!
 };
 
@@ -439,10 +449,38 @@ void oneshot_locked_mods_changed_user(uint8_t mods) {
     layer_state_set_user(layer_state);
   }
 }
-// void caps_word_set_user(bool active) {
-//     if (active) {
-//         // Do something when Caps Word activates.
-//     } else {
-//         // Do something when Caps Word deactivates.
-//     }
-// }
+void caps_word_set_user(bool active) {
+    if (active) {
+      rgblight_sethsv_at(HSV_RED, 10);
+    } else {
+      default_layer_state_set_user(layer_state);
+      layer_state_set_user(layer_state);
+    }
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LCTL_T(KC_DEL):
+            return 125;
+        default:
+            return TAPPING_TERM;
+    }
+}
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+        case KC_MINS:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
