@@ -23,6 +23,7 @@ enum layer_names {
     _NUM,
     _NAV,
     _SYM,
+    _EXT,
     _COM
 };
 
@@ -30,6 +31,7 @@ enum layer_names {
 
 enum custom_keycodes {
   GUI_ALT = SAFE_RANGE,
+  ALT_TAB,
   MY_SCLN,
   STR_SL,
   STR_SM,
@@ -60,8 +62,10 @@ enum custom_keycodes {
 #define NUM_SPC LT(_NUM, KC_SPC)
 #define SYM_ENT LT(_SYM, KC_ENT)
 #define NAV MO(_NAV)
+#define EXT MO(_EXT)
  
 //#define TOP_LAYER_NAV_CLUSTER
+#define LEFT_LAYER_NAV_CLUSTER
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -70,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     MY_SCLN,  R_MID,
     L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   K_MINS,   R_BOT,
-                                            GUI_ALT,  NUM_SPC, TG(_SWE),  SYM_ENT,  NAV
+                                            EXT,      NUM_SPC, TG(_SWE),  SYM_ENT,  NAV
   ),
 #else
   [_BASE] = LAYOUT_reviung41(
@@ -115,16 +119,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
     _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  MY_SCLN,  _______,
     _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  K_COMM,   K_DOT,    K_MINS,   ___N___,
-                                            _______,  KC_SPC,   ___N___,  KC_ENT,   ___N___
+                                            _______,  KC_SPC,   ___N___,  ___N___,   ___N___
   ),
 #else
   [_SYM] = LAYOUT_reviung41(
     _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
     _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  KC_HOME,  ___N___,
     _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  C_LEFT,   KC_END,   C_RGHT,
-                                            _______,  KC_SPC,   ___N___,   KC_ENT,  ___N___
+                                            _______,  KC_SPC,   ___N___,  ___N___,  ___N___
   ),
 #endif
+
+  [_EXT] = LAYOUT_reviung41(
+    ALT_TAB,  _______,  G(KC_2),  G(KC_E),  _______,  _______,            _______,  _______,  _______,  _______,  KC_HOME,  KC_END,
+    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
+    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,
+                                            ___N___,  KC_SPC,   ___N___,  KC_ENT,   KC_RCTL
+  ),
 
   [_COM] = LAYOUT_reviung41(
     KC_1,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_4,
@@ -173,6 +184,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             isMixDown = false;
         }
         break;
+    case ALT_TAB:
+        if (record->event.pressed) {
+            if (!isAltReg) {
+                register_code(KC_LALT);
+                isAltReg = true;
+            }
+            tap_code(KC_TAB);
+        }
     case MY_SCLN:
         if (record->event.pressed){
             if ((get_mods() & MOD_MASK_SHIFT) > 0)
@@ -368,13 +387,17 @@ const rgblight_segment_t PROGMEM rgb_nav[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t PROGMEM rgb_sym[] = RGBLIGHT_LAYER_SEGMENTS(
     {10, 1, HSV_GREEN}
 );
+const rgblight_segment_t PROGMEM rgb_ext[] = RGBLIGHT_LAYER_SEGMENTS(
+    {10, 1, HSV_ORANGE}
+);
 // Array of lighting layers
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_base,
     rgb_swe,
     rgb_num,
     rgb_nav,
-    rgb_sym
+    rgb_sym,
+    rgb_ext
 );
 // Funcs
 void keyboard_post_init_user(void) {
@@ -389,7 +412,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
     rgblight_set_layer_state(3, layer_state_cmp(state, _NAV));
     rgblight_set_layer_state(4, layer_state_cmp(state, _SYM));
-    return state;
+    rgblight_set_layer_state(5, layer_state_cmp(state, _EXT));
+    // Special handling for alt-tab
+    if (isAltReg && !IS_LAYER_ON_STATE(state, _EXT)) {
+        unregister_code(KC_LALT);
+        isAltReg = false;
+    }
+    return state;;
 }
 
 void oneshot_mods_changed_user(uint8_t mods) {
@@ -410,3 +439,10 @@ void oneshot_locked_mods_changed_user(uint8_t mods) {
     layer_state_set_user(layer_state);
   }
 }
+// void caps_word_set_user(bool active) {
+//     if (active) {
+//         // Do something when Caps Word activates.
+//     } else {
+//         // Do something when Caps Word deactivates.
+//     }
+// }
