@@ -212,9 +212,11 @@
 #define K_DQUO          SE_DQUO
 #define K_DQT           SE_DQUO
 // " 
+#define K_LEFT_ANGLE_BRACKET    SE_LABK
 #define K_LABK          SE_LABK
 #define K_LT            SE_LABK
 // < 
+#define K_RIGHT_ANGLE_BRACKET   SE_RABK
 #define K_RABK          SE_RABK
 #define K_GT            SE_RABK
 // > 
@@ -227,3 +229,12 @@
 #define SW_OE   KC_SCLN
 
 #endif
+
+#define K_LGUI  KC_LGUI
+#define K_RGUI  KC_RGUI
+#define K_LALT  KC_LALT
+#define K_RALT  KC_RALT
+#define K_LCTL  KC_LCTL
+#define K_RCTL  KC_RCTL
+#define K_LSFT  KC_LSFT
+#define K_RSFT  KC_RSFT
