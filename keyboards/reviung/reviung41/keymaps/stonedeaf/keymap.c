@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,              KC_F6,    KC_F7,    KC_VOLU,  KC_CALC,  KC_PSCR,  _______,
     _______,  KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,             KC_HOME,  ___N___,  KC_VOLD,  ___N___,  ___N___,  KC_RSFT,
     _______,  ___N___,  ___N___,  ___N___,  ___N___,  KC_DEL,             KC_END,   ___N___,  KC_MUTE,  ___N___,  KC_LALT,  KC_RCTL,
-                                            KC_WBAK,  ___N___, TT(_FUN),  ___N___,  KC_WFWD
+                                            KC_WBAK,  VS_BACK, TT(_FUN),  VS_FWD,  KC_WFWD
   ),
 
   [_NUM] = LAYOUT_reviung41(
