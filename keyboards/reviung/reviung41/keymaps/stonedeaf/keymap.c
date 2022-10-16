@@ -53,6 +53,9 @@ enum custom_keycodes {
 #define C_C   C(KC_C)
 #define C_V   C(KC_V)
 
+#define VS_BACK C(K_MINS)
+#define VS_FWD C(S(K_MINS))
+
 #define OS_LGUI OSM(MOD_LGUI)
 #define OS_RGUI OSM(MOD_RGUI)
 #define OS_LALT OSM(MOD_LALT)
@@ -92,17 +95,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FUN] = LAYOUT_reviung41(
-    _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,              KC_F6,    KC_F7,    ___N___,  ___N___,  ___N___,  _______,
-    _______,  KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,             KC_HOME,  ___N___,  ___N___,  ___N___,  ___N___,  KC_RSFT,
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  KC_DEL,             KC_END,   ___N___,  ___N___,  ___N___,  KC_RALT,  KC_RCTL,
-                                            ___N___,  ___N___, TT(_FUN),  ___N___,  ___N___
+    _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,              KC_F6,    KC_F7,    KC_VOLU,  KC_CALC,  KC_PSCR,  _______,
+    _______,  KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,             KC_HOME,  ___N___,  KC_VOLD,  ___N___,  ___N___,  KC_RSFT,
+    _______,  ___N___,  ___N___,  ___N___,  ___N___,  KC_DEL,             KC_END,   ___N___,  KC_MUTE,  ___N___,  KC_LALT,  KC_RCTL,
+                                            KC_WBAK,  ___N___, TT(_FUN),  ___N___,  KC_WFWD
   ),
 
   [_NUM] = LAYOUT_reviung41(
-    _______,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_P7,    KC_P8,    KC_P9,    KC_PMNS,  KC_PSCR,  SW_AA,
-    _______,  K_EXLM,   K_AT,     K_HASH,   K_DLR,    K_PERC,             KC_P4,    KC_P5,    KC_P6,    KC_PPLS,  SW_OE,    SW_AE,
-    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            KC_P1,    KC_P2,    KC_P3,    _______,  _______,  _______,
-                                            ___N___,  __XXX__,  ___N___,  KC_0,     KC_PDOT
+    _______,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     SW_AA,
+    _______,  K_EXLM,   K_AT,     K_HASH,   K_DLR,    K_PERC,             ___N___,  ___N___,  ___N___,  ___N___,  SW_OE,    SW_AE,
+    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+                                            ___N___,  __XXX__,  ___N___,  ___N___,  ___N___
   ),
 
   [_NAV] = LAYOUT_reviung41(
