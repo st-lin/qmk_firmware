@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_EXT] = LAYOUT_reviung41(
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    _______,  ___N___,  KC_2,     KC_E,     ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
     _______,  K_LGUI,   K_LALT,   K_LCTL,   K_LSFT,   ___N___,            ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
     _______,  KC_Z,     KC_X,     KC_C,     KC_V,     ___N___,            ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,
                                             KC_LALT,  KC_SPC,   ___N___,  KC_ENT,   __XXX__
