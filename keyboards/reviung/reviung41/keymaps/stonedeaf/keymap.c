@@ -38,7 +38,8 @@ enum custom_keycodes {
   STR_SL,
   STR_SM,
   STR_GM,
-  STR_PW
+  STR_PW,
+  STR_EP
 };
 
 // enum tap_dances {
@@ -102,8 +103,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NUM] = LAYOUT_reviung41(
-    _______,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     SW_AA,
-    _______,  K_EXLM,   K_AT,     K_HASH,   K_DLR,    K_PERC,             ___N___,  ___N___,  ___N___,  ___N___,  SW_OE,    SW_AE,
+    KC_0,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     SW_AA,
+    K_TILD,   K_EXLM,   K_AT,     K_HASH,   K_DLR,    K_PERC,             ___N___,  ___N___,  ___N___,  ___N___,  SW_OE,    SW_AE,
     _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
                                             ___N___,  __XXX__,  ___N___,  ___N___,  ___N___
   ),
@@ -116,9 +117,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_SYM] = LAYOUT_reviung41(
-    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            K_LT,     K_GT,     KC_P7,    KC_P8,    KC_P9,    KC_PMNS,
-    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            K_LBRC,   K_RBRC,   KC_P4,    KC_P5,    KC_P6,    KC_PPLS,
-    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            K_LBRC,   K_RBRC,   KC_P1,    KC_P2,    KC_P3,    KC_P0,
+    _______,  ___N___,  ___N___,  ___N___,  K_PIPE,   K_LBRC,             K_RBRC,   K_AMPR,   KC_P7,    KC_P8,    KC_P9,    KC_PMNS,
+    _______,  ___N___,  ___N___,  ___N___,  K_LPRN,   K_LCBR,             K_RCBR,   K_RPRN,   KC_P4,    KC_P5,    KC_P6,    KC_PPLS,
+    _______,  ___N___,  ___N___,  ___N___,  K_SLSH,   K_LT,               K_GT,     K_BSLS,   KC_P1,    KC_P2,    KC_P3,    KC_P0,
                                             ___N___,  KC_SPC,   ___N___,  __XXX__,  ___N___
   ),
 
@@ -207,6 +208,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case STR_PW:
         if (record->event.pressed)
             SEND_STRING("probi.!#!.natos");
+        return false;
+    case STR_EP:
+        if (record->event.pressed)
+            SEND_STRING("=)");
         return false;
     }
 
