@@ -198,6 +198,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             tap_code(KC_TAB);
         }
+        break;
     case MY_SCLN:
         if (record->event.pressed){
             if ((get_mods() & MOD_MASK_SHIFT) > 0)
@@ -213,6 +214,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_LSFT);
             tap_code(KC_DEL);
         }
+        return false;
     case STR_SL:
         if (record->event.pressed)
             SEND_STRING("st/lin");
