@@ -70,7 +70,7 @@ enum custom_keycodes {
 #define L_MID OS_LSFT
 #define R_MID OS_RSFT
 #define L_BOT LCTL_T(KC_DEL)
-#define R_BOT RCTL_T(KC_ENT)
+#define R_BOT RCTL_T(KC_ESC)
 
 #define FUN_SPC LT(_FUN, KC_SPC)
 #define NUM MO(_NUM)
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     MY_SCLN,  R_MID,
     L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     K_COMM,   K_DOT,    K_MINS,   R_BOT,
-                                            NAV_GUI,  NUM,     KC_SPC,    SYM_BSP,  TT(_FUN)
+                                            NAV_GUI,  NUM,     KC_SPC,    SYM_ENT,  TT(_FUN)
   ),
 
   [_SWE] = LAYOUT_reviung41(
@@ -119,13 +119,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  SW_AA,
     _______,  K_LGUI,   K_LALT,   K_LCTL,   K_LSFT,   ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  SW_OE,    SW_AE,
     _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  C_LEFT,   ___N___,  C_RGHT,   ___N___,  _______,
-                                            ___N___,  __XXX__,  KC_SPC,   KC_BSPC,  MY_DEOL
+                                            MY_DEOL,  __XXX__,  KC_SPC,   KC_BSPC,  KC_DEL
   ),
 
   [_NAV] = LAYOUT_reviung41(
-    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  C(KC_T),            ___N___,  ___N___,  KC_VOLU,  KC_CALC,  KC_PSCR,  _______,
+    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  KC_VOLU,  KC_CALC,  KC_PSCR,  _______,
     _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  KC_VOLD,  ___N___,  ___N___,  _______,
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  KC_MPLY,  ___N___,  ___N___,  _______,
+    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  KC_MPLY, G(KC_DOT), ___N___,  _______,
                                             __XXX__,  ___N___,  ___N___,  ___N___,  ___N___    
   ),
 
