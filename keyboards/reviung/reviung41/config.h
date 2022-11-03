@@ -126,7 +126,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LCPO_KEYS KC_LCTL, KC_TRNS, KC_DEL
 #define RCPC_KEYS KC_LALT, KC_TRNS, KC_ENT
 
-#define TAPPING_TOGGLE 1
+#define TAPPING_TOGGLE 2
 #define TAPPING_TERM 250
 #define TAPPING_TERM_PER_KEY
 #define COMBO_TERM 20

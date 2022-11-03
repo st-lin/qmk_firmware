@@ -28,14 +28,12 @@ enum layer_names {
     _COM
 };
 
-#define ___N___ KC_NO
-#define __XXX__ KC_NO
-
 enum custom_keycodes {
   GUI_ALT = SAFE_RANGE,
   ALT_TAB,
   MY_SCLN,
   MY_DEOL,
+  EXT_NO,
   STR_SL,
   STR_SM,
   STR_GM,
@@ -43,10 +41,9 @@ enum custom_keycodes {
   STR_EP
 };
 
-// enum tap_dances {
-//     TD_TAB_ESC
-// };
-// #define TAB_ESC TD(TD_TAB_ESC)
+#define ___N___ KC_NO
+#define __XXX__ KC_NO
+#define __XXT__ EXT_NO
 
 #define C_LEFT  C(KC_LEFT)
 #define C_RGHT  C(KC_RGHT)
@@ -82,8 +79,7 @@ enum custom_keycodes {
 #define NAV MO(_NAV)
 #define NAV_GUI LT(_NAV, KC_LGUI)
 #define EXT MO(_EXT)
-
-#define LEFT_LAYER_NAV_CLUSTER
+#define EXT_TT TT(_EXT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -91,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     MY_SCLN,  R_MID,
     L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     K_COMM,   K_DOT,    K_MINS,   R_BOT,
-                                            NAV_GUI,  NUM,     KC_SPC,    SYM_ENT,  TT(_FUN)
+                                            NAV_GUI,  NUM,     KC_SPC,    SYM_ENT,  EXT_TT
   ),
 
   [_SWE] = LAYOUT_reviung41(
@@ -101,18 +97,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______,  _______, TG(_SWE),  _______,  _______
   ),
 
-//   [_FUN] = LAYOUT_reviung41(
-//     _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,              KC_F6,    KC_F7,    KC_VOLU,  KC_CALC,  KC_PSCR,  _______,
-//     KC_LSFT,  KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,             KC_HOME,  ___N___,  KC_VOLD,  ___N___,  KC_UP,    _______,
-//     KC_LCTL,  ___N___,  ___N___,  ___N___,  ___N___,  KC_DEL,             KC_END,   ___N___,  KC_MPLY,  KC_LEFT,  KC_DOWN,  KC_RGHT,
-//                                             KC_LALT,  VS_BACK,  KC_SPC,   VS_FWD,  TT(_FUN)
-//   ),
-
   [_FUN] = LAYOUT_reviung41(
-    _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,   KC_F5,               KC_F6,    KC_F7,    KC_F10,   KC_F11,   KC_F12,   KC_DEL,
-    KC_LSFT,  KC_F5,    KC_F6,    KC_F7,    KC_F8,   ___N___,             ___N___,  ___N___,  ___N___,  KC_HOME,  KC_UP,    KC_END,
-    KC_LCTL,  KC_F9,    KC_F10,   KC_F11,   KC_F12,  ___N___,             ___N___,  ___N___,  ___N___,  KC_LEFT,  KC_DOWN,  KC_RGHT,
-                                            KC_LALT,  VS_BACK,  KC_F12,   VS_FWD,   TT(_FUN)
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
+                                            ___N___,  ___N___,  ___N___,  ___N___,  ___N___
   ),
 
   [_NUM] = LAYOUT_reviung41(
@@ -124,8 +113,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT_reviung41(
     ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  KC_VOLU,  KC_CALC,  KC_PSCR,  _______,
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  KC_VOLD,  ___N___,  ___N___,  _______,
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  KC_MPLY, G(KC_DOT), ___N___,  _______,
+    K_LSFT,   VS_BACK,  VS_FWD,   ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  KC_VOLD,  ___N___,  ___N___,  _______,
+    K_LCTL,   K_LALT,   KC_F12,   KC_HOME,  ___N___,  ___N___,            ___N___,  ___N___,  KC_MPLY, G(KC_DOT), ___N___,  _______,
                                             __XXX__,  ___N___,  ___N___,  ___N___,  ___N___    
   ),
 
@@ -133,20 +122,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  KC_PSLS,  KC_P7,    KC_P8,    KC_P9,    KC_PMNS,            K_EXLM,   K_AT,     K_HASH,   K_DLR,    K_PERC,   _______,
     _______,  KC_PAST,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,            ___N___,  K_RSFT,   K_RCTL,   K_LALT,   K_RGUI,   _______,
     _______,  ___N___,  KC_P1,    KC_P2,    KC_P3,    ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
-                                            K_DOT,    KC_P0,     KC_SPC,  __XXX__,  K_DOT
+                                            K_DOT,    KC_P0,    KC_SPC,   __XXX__,  ___N___
   ),
 
   [_EXT] = LAYOUT_reviung41(
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  C(KC_T),            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
-    _______,  K_LGUI,   K_LALT,   K_LCTL,   K_LSFT,   ___N___,            ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
-    _______,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,
-                                            ___N___,  ___N___,  ___N___,  ___N___,  __XXX__
+    ___N___,  ___N___,  KC_F7,    KC_F8,    KC_F9,    KC_F10,             ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
+    K_LSFT,   ___N___,  KC_F4,    KC_F5,    KC_F6,    KC_F11,             ___N___,  ___N___,  ___N___,  C_LEFT,   KC_UP,    C_RGHT,
+    K_LCTL,   K_LALT,   KC_F1,    KC_F2,    KC_F3,    KC_F12,             ___N___,  ___N___,  ___N___,  KC_LEFT,  KC_DOWN,  KC_RGHT,
+                                            ___N___,  ___N___,  ___N___,  ___N___,  __XXT__
   ),
 
   [_COM] = LAYOUT_reviung41(
     KC_1,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_4,
-    KC_2,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_5,
-    KC_3,     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_MINS,  KC_6,
+    KC_2,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     KC_0,     KC_5,
+    KC_3,     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_7,     KC_8,     KC_9,     KC_6,
                                             KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5
   ),
   
@@ -215,6 +204,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_DEL);
         }
         return false;
+    case EXT_NO:
+        if (record->event.pressed) {
+            if (IS_LAYER_ON(_EXT))
+                layer_off(_EXT);
+        }
+        return false;
     case STR_SL:
         if (record->event.pressed)
             SEND_STRING("st/lin");
@@ -281,9 +276,9 @@ enum combos {
     CO_FG, CO_HJ,           // { }
     CO_VB, CO_NM,           // [ ]
     CO_DF, CO_JK,           // ( )
-    CO_CV, CO_MC,           // fs bs
+    CO_CV, CO_M7,           // fs bs
     CO_AA, CO_AE, CO_OE,    // å ä ö
-    CO_FS, CO_BS,           // fs bs
+    CO_78, CO_89,           // fs bs
     CO_96,                  // Enter
     CO_SL, CO_SM, CO_GM,
     CO_MKL,
@@ -314,13 +309,13 @@ const uint16_t PROGMEM co_nm[] = {KC_N, KC_M, COMBO_END};
 const uint16_t PROGMEM co_df[] = {KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM co_jk[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM co_cv[] = {KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM co_mc[] = {KC_M, KC_COMM, COMBO_END};
+const uint16_t PROGMEM co_m7[] = {KC_M, KC_7, COMBO_END};
 const uint16_t PROGMEM co_aa[] = {KC_P, KC_4, COMBO_END};
-const uint16_t PROGMEM co_ae[] = {KC_SCLN, KC_5, COMBO_END};
-const uint16_t PROGMEM co_oe[] = {KC_L, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM co_fs[] = {KC_DOT, KC_MINS, COMBO_END};
-const uint16_t PROGMEM co_bs[] = {KC_COMM, KC_DOT, COMBO_END};
-const uint16_t PROGMEM co_96[] = {KC_MINS, KC_6, COMBO_END};
+const uint16_t PROGMEM co_ae[] = {KC_0, KC_5, COMBO_END};
+const uint16_t PROGMEM co_oe[] = {KC_L, KC_0, COMBO_END};
+const uint16_t PROGMEM co_78[] = {KC_7, KC_8, COMBO_END};
+const uint16_t PROGMEM co_89[] = {KC_8, KC_9, COMBO_END};
+const uint16_t PROGMEM co_96[] = {KC_9, KC_6, COMBO_END};
 const uint16_t PROGMEM co_sl[] = {KC_S, KC_L, COMBO_END};
 const uint16_t PROGMEM co_sm[] = {KC_S, KC_M, COMBO_END};
 const uint16_t PROGMEM co_gm[] = {KC_G, KC_M, COMBO_END};
@@ -330,11 +325,11 @@ const uint16_t PROGMEM co_f1e[] = {KC_F1, KC_E, COMBO_END};
 const uint16_t PROGMEM co_f1l[] = {KC_F1, KC_L, COMBO_END};
 /* 
  * ,-----------------------------------------------------------------.
- * 1 Esc Q  "  W  '  E  ´  R  <  T  ~  Y  >  U  *  I  +  O  =  P  Å  B
+ * 1 Esc Q  "  W  '  E  ´  R  [  T  ~  Y  ]  U  *  I  +  O  =  P  Å  B
  * |-----+-----+-----+-----+---- | --- & ----+-----+-----+-----+-----+
  * S     A     S     D  (  F  {  G     H  }  J  )  K     L  Ö  ;  Ä  S
  * |-----+-----+-----+-----+---- / --- \ ----+-----+-----+-----+-----+
- * C     Z     X     C  /  V  [  B     N  ]  M  \  ,     .     -  E  C
+ * C     Z     X     C  /  V  <  B     N  >  M  \  ,     .     - Ent C
  * `-----------------------------------------------------------------'
  */
 /* 
@@ -343,7 +338,7 @@ const uint16_t PROGMEM co_f1l[] = {KC_F1, KC_L, COMBO_END};
  * +                             |     &                             +
  * |                    (     {           }     )           Ö     Ä  |
  * +                             /     \                             +
- * |                    /     <           >     \                 E  |
+ * |                    /     <           >     \                Ent |
  * `-----------------------------------------------------------------'
  */
 combo_t key_combos[] = {
@@ -369,16 +364,16 @@ combo_t key_combos[] = {
     [CO_DF] = COMBO(co_df, K_LEFT_PAREN),
     [CO_JK] = COMBO(co_jk, K_RIGHT_PAREN),
     [CO_CV] = COMBO(co_cv, K_SLASH),
-    [CO_MC] = COMBO(co_mc, K_BACKSLASH),
+    [CO_M7] = COMBO(co_m7, K_BACKSLASH),
     [CO_AA] = COMBO(co_aa, SW_AA),
     [CO_AE] = COMBO(co_ae, SW_AE),
     [CO_OE] = COMBO(co_oe, SW_OE),
-    [CO_FS] = COMBO(co_fs, ___N___),
-    [CO_BS] = COMBO(co_bs, ___N___),
+    [CO_78] = COMBO(co_78, ___N___),
+    [CO_89] = COMBO(co_89, ___N___),
+    [CO_96] = COMBO(co_96, KC_ENT),
     [CO_SL] = COMBO(co_sl, STR_SL),
     [CO_SM] = COMBO(co_sm, STR_SM),
     [CO_GM] = COMBO(co_gm, STR_GM),
-    [CO_96] = COMBO(co_96, KC_ENT),
     [CO_MKL] = COMBO(co_mkl, STR_PW),
     [CO_F1W] = COMBO(co_f1w, G(KC_2)),
     [CO_F1E] = COMBO(co_f1e, G(KC_E)),
@@ -389,26 +384,15 @@ combo_t key_combos[] = {
 
 
 
-// /* 
-//  * Tap dances
-//  */
-// qk_tap_dance_action_t tap_dance_actions[] = {
-//     // Tap once for Escape, twice for Caps Lock
-//     [TD_TAB_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_ESC)
-// };
-
-
-
-
 
 // Lighting layers
 const rgblight_segment_t PROGMEM rgb_base[] = RGBLIGHT_LAYER_SEGMENTS({0, 10, HSV_BLACK});
 const rgblight_segment_t PROGMEM rgb_swe[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_YELLOW});
 const rgblight_segment_t PROGMEM rgb_fun[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_GREEN});
-const rgblight_segment_t PROGMEM rgb_num[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_BLUE});
-const rgblight_segment_t PROGMEM rgb_nav[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_CYAN});
+const rgblight_segment_t PROGMEM rgb_num[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_CYAN});
+const rgblight_segment_t PROGMEM rgb_nav[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_BLUE});
 const rgblight_segment_t PROGMEM rgb_sym[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_GREEN});
-const rgblight_segment_t PROGMEM rgb_ext[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_MAGENTA});
+const rgblight_segment_t PROGMEM rgb_ext[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_BLUE});
 // Array of lighting layers
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_base,
@@ -473,28 +457,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case L_BOT:
             return 125;
-        // case NUM_SPC:
-        //     return 150;
         default:
             return TAPPING_TERM;
     }
 }
-// bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
-//     switch (keycode) {
-//         case NUM_SPC:
-//             return false;
-//         default:
-//             return true;
-//     }
-// }
-// bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-//     switch (keycode) {
-//         case NUM_SPC:
-//             return false;
-//         default:
-//             return true;
-//     }
-// }
 
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
