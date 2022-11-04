@@ -81,24 +81,50 @@ enum custom_keycodes {
 #define EXT MO(_EXT)
 #define TT_EXT TT(_EXT)
 #define OS_FUN OSL(_FUN)
+#define TT_EXT TT(_EXT)
 
-// // Tap Dance declarations
-// enum {
-//     TD_COM,
-// };
 
-// // Tap Dance definitions
-// qk_tap_dance_action_t tap_dance_actions[] = {
-//     // Tap once for Escape, twice for Caps Lock
-//     [TD_COM] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_2),
-// };
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_TAP,
+    TD_DOUBLE_HOLD,
+    TD_DOUBLE_SINGLE_TAP, // Send two single taps
+    TD_TRIPLE_TAP,
+    TD_TRIPLE_HOLD
+} td_state_t;
+
+typedef struct {
+    bool is_press_action;
+    td_state_t state;
+} td_tap_t;
+
+// Tap dance enums
+enum {
+    TD_COM,
+    TD_DOT,
+    TD_MIN,
+};
+#define MY_COM TD(TD_COM)
+#define MY_DOT TD(TD_DOT)
+#define MY_MIN TD(TD_MIN)
+
+td_state_t cur_dance(qk_tap_dance_state_t *state);
+
+// For the x tap dance. Put it here so it can be used in any keymap
+void x_finished(qk_tap_dance_state_t *state, void *user_data);
+void x_reset(qk_tap_dance_state_t *state, void *user_data);
+
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT_reviung41(
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     OS_FUN,   R_MID,
-    L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     K_COMM,   K_DOT,    K_MINS,   R_BOT,
+    L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     MY_COM,   MY_DOT,   MY_MIN,   R_BOT,
                                             NAV_GUI,  NUM,     KC_SPC,    SYM_ENT,  TT_EXT
   ),
 
@@ -112,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FUN] = LAYOUT_reviung41(
     ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  SW_AA,
     ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  SW_OE,    SW_AE,
-    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  K_QUES,   K_EXLM,   ___N___,  ___N___,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  K_QUES,   K_EXLM,   ___N___,  __XXT__,
                                             ___N___,  ___N___,  ___N___,  ___N___,  ___N___
   ),
 
@@ -255,7 +281,7 @@ enum combos {
     CO_DF, CO_JK,           // ( )
     //CO_KL, CO_L0,           // ! ? ; :
     CO_CV, CO_M7,           // fs bs
-    //CO_AA, CO_AE, CO_OE,    // å ä ö
+    CO_AA, CO_AE, CO_OE,    // å ä ö
     CO_78, CO_89,           // fs bs
     CO_96,                  // Enter
     CO_SL, CO_SM, CO_GM,
@@ -291,9 +317,9 @@ const uint16_t PROGMEM co_jk[] = {KC_J, KC_K, COMBO_END};
 //const uint16_t PROGMEM co_l0[] = {KC_L, KC_0, COMBO_END};
 const uint16_t PROGMEM co_cv[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM co_m7[] = {KC_M, KC_7, COMBO_END};
-//const uint16_t PROGMEM co_aa[] = {KC_P, KC_4, COMBO_END};
-//const uint16_t PROGMEM co_ae[] = {KC_0, KC_5, COMBO_END};
-//const uint16_t PROGMEM co_oe[] = {KC_L, KC_0, COMBO_END};
+const uint16_t PROGMEM co_aa[] = {KC_P, KC_4, COMBO_END};
+const uint16_t PROGMEM co_ae[] = {KC_0, KC_5, COMBO_END};
+const uint16_t PROGMEM co_oe[] = {KC_L, KC_0, COMBO_END};
 const uint16_t PROGMEM co_78[] = {KC_7, KC_8, COMBO_END};
 const uint16_t PROGMEM co_89[] = {KC_8, KC_9, COMBO_END};
 const uint16_t PROGMEM co_96[] = {KC_9, KC_6, COMBO_END};
@@ -349,9 +375,9 @@ combo_t key_combos[] = {
     //[CO_L0] = COMBO(co_l0, K_COLN),
     [CO_CV] = COMBO(co_cv, K_SLASH),
     [CO_M7] = COMBO(co_m7, K_BACKSLASH),
-    //[CO_AA] = COMBO(co_aa, SW_AA),
-    //[CO_AE] = COMBO(co_ae, SW_AE),
-    //[CO_OE] = COMBO(co_oe, SW_OE),
+    [CO_AA] = COMBO(co_aa, SW_AA),
+    [CO_AE] = COMBO(co_ae, SW_AE),
+    [CO_OE] = COMBO(co_oe, SW_OE),
     [CO_78] = COMBO(co_78, K_QUES),
     [CO_89] = COMBO(co_89, K_EXLM),
     [CO_96] = COMBO(co_96, KC_ENT),
@@ -503,3 +529,104 @@ void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record)
             unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
     }
 }
+
+
+
+
+
+/* Return an integer that corresponds to what kind of tap dance should be executed.
+ *
+ * How to figure out tap dance state: interrupted and pressed.
+ *
+ * Interrupted: If the state of a dance is "interrupted", that means that another key has been hit
+ *  under the tapping term. This is typically indicitive that you are trying to "tap" the key.
+ *
+ * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
+ *  has ended, but the key is still being pressed down. This generally means the key is being "held".
+ *
+ * One thing that is currenlty not possible with qmk software in regards to tap dance is to mimic the "permissive hold"
+ *  feature. In general, advanced tap dances do not work well if they are used with commonly typed letters.
+ *  For example "A". Tap dances are best used on non-letter keys that are not hit while typing letters.
+ *
+ * Good places to put an advanced tap dance:
+ *  z,q,x,j,k,v,b, any function key, home/end, comma, semi-colon
+ *
+ * Criteria for "good placement" of a tap dance key:
+ *  Not a key that is hit frequently in a sentence
+ *  Not a key that is used frequently to double tap, for example 'tab' is often double tapped in a terminal, or
+ *    in a web form. So 'tab' would be a poor choice for a tap dance.
+ *  Letters used in common words as a double. For example 'p' in 'pepper'. If a tap dance function existed on the
+ *    letter 'p', the word 'pepper' would be quite frustating to type.
+ *
+ * For the third point, there does exist the 'TD_DOUBLE_SINGLE_TAP', however this is not fully tested
+ *
+ */
+td_state_t cur_dance(qk_tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
+        else return TD_SINGLE_HOLD;
+    }
+    if (state->count == 2) {
+        return TD_DOUBLE_TAP;
+        // if (state->interrupted || !state->pressed) return TD_DOUBLE_TAP;
+        // else return TD_DOUBLE_HOLD;
+    }
+    return TD_UNKNOWN;
+}
+
+// Create an instance of 'td_tap_t' for the 'x' tap dance.
+static td_tap_t com_tap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+static td_tap_t dot_tap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+static td_tap_t min_tap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+
+void com_finished(qk_tap_dance_state_t *state, void *user_data) {
+    com_tap_state.state = cur_dance(state);
+    switch (com_tap_state.state) {
+        case TD_SINGLE_TAP:  tap_code16(K_COMM); break;
+        case TD_SINGLE_HOLD: tap_code16(SW_AA); break;
+        case TD_DOUBLE_TAP:  tap_code16(K_SCLN); break;
+        default: break;
+    }
+}
+void dot_finished(qk_tap_dance_state_t *state, void *user_data) {
+    dot_tap_state.state = cur_dance(state);
+    switch (dot_tap_state.state) {
+        case TD_SINGLE_TAP:  tap_code16(K_DOT); break;
+        case TD_SINGLE_HOLD: tap_code16(SW_AE); break;
+        case TD_DOUBLE_TAP:  tap_code16(K_COLN); break;
+        default: break;
+    }
+}
+void min_finished(qk_tap_dance_state_t *state, void *user_data) {
+    min_tap_state.state = cur_dance(state);
+    switch (min_tap_state.state) {
+        case TD_SINGLE_TAP:  tap_code16(K_MINS); break;
+        case TD_SINGLE_HOLD: tap_code16(SW_OE); break;
+        case TD_DOUBLE_TAP:  tap_code16(K_UNDS); break;
+        default: break;
+    }
+}
+
+void x_reset(qk_tap_dance_state_t *state, void *user_data) {
+    // switch (xtap_state.state) {
+    //     default: break;
+    // }
+    com_tap_state.state = TD_NONE;
+    dot_tap_state.state = TD_NONE;
+    min_tap_state.state = TD_NONE;
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_COM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, com_finished, x_reset),
+    [TD_DOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dot_finished, x_reset),
+    [TD_MIN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, min_finished, x_reset),
+};
