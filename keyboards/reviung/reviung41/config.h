@@ -127,7 +127,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RCPC_KEYS KC_LALT, KC_TRNS, KC_ENT
 
 #define TAPPING_TOGGLE 2
-#define TAPPING_TERM 150
+#define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
 #define COMBO_TERM 20
 #define COMBO_ONLY_FROM_LAYER 7
@@ -137,6 +137,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 #define ONESHOT_TAP_TOGGLE 3
 #define ONESHOT_TIMEOUT 1500
-#define AUTO_SHIFT_TIMEOUT 150
+#define AUTO_SHIFT_TIMEOUT 175
 #define NO_AUTO_SHIFT_SPECIAL
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
