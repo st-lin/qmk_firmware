@@ -121,13 +121,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef MY_SE_LAYOUT
 	#define LSPO_KEYS KC_LSFT, KC_LSFT, KC_8
-	#define RSPC_KEYS KC_RSFT, KC_RSFT, KC_9
+	#define RSPC_KEYS KC_RSFT, KC_TRNS, KC_QUOT
 #endif 
 #define LCPO_KEYS KC_LCTL, KC_TRNS, KC_DEL
 #define RCPC_KEYS KC_LALT, KC_TRNS, KC_ENT
 
 #define TAPPING_TOGGLE 2
-#define TAPPING_TERM 250
+#define TAPPING_TERM 150
 #define TAPPING_TERM_PER_KEY
 #define COMBO_TERM 20
 #define COMBO_ONLY_FROM_LAYER 7
@@ -137,4 +137,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 #define ONESHOT_TAP_TOGGLE 3
 #define ONESHOT_TIMEOUT 1500
+#define AUTO_SHIFT_TIMEOUT 150
+#define NO_AUTO_SHIFT_SPECIAL
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
