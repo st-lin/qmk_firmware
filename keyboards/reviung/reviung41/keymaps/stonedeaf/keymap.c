@@ -33,7 +33,7 @@ enum custom_keycodes {
   ALT_TAB,
   MY_SCLN,
   MY_DEOL,
-  EXT_NO,
+  TT_OFF,
   STR_SL,
   STR_SM,
   STR_GM,
@@ -43,7 +43,7 @@ enum custom_keycodes {
 
 #define ___N___ KC_NO
 #define __XXX__ KC_NO
-#define __XXT__ EXT_NO
+#define __XXT__ TT_OFF
 
 #define C_LEFT  C(KC_LEFT)
 #define C_RGHT  C(KC_RGHT)
@@ -79,15 +79,27 @@ enum custom_keycodes {
 #define NAV MO(_NAV)
 #define NAV_GUI LT(_NAV, KC_LGUI)
 #define EXT MO(_EXT)
-#define EXT_TT TT(_EXT)
+#define TT_EXT TT(_EXT)
+#define OS_FUN OSL(_FUN)
+
+// // Tap Dance declarations
+// enum {
+//     TD_COM,
+// };
+
+// // Tap Dance definitions
+// qk_tap_dance_action_t tap_dance_actions[] = {
+//     // Tap once for Escape, twice for Caps Lock
+//     [TD_COM] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_2),
+// };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT_reviung41(
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
-    L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     MY_SCLN,  R_MID,
+    L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     OS_FUN,   R_MID,
     L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     K_COMM,   K_DOT,    K_MINS,   R_BOT,
-                                            NAV_GUI,  NUM,     KC_SPC,    SYM_ENT,  EXT_TT
+                                            NAV_GUI,  NUM,     KC_SPC,    SYM_ENT,  TT_EXT
   ),
 
   [_SWE] = LAYOUT_reviung41(
@@ -98,17 +110,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FUN] = LAYOUT_reviung41(
-    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
-    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
-    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  SW_AA,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  SW_OE,    SW_AE,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  K_QUES,   K_EXLM,   ___N___,  ___N___,
                                             ___N___,  ___N___,  ___N___,  ___N___,  ___N___
   ),
 
   [_NUM] = LAYOUT_reviung41(
-    _______,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  SW_AA,
-    _______,  K_LGUI,   K_LALT,   K_LCTL,   K_LSFT,   ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  SW_OE,    SW_AE,
-    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  C_LEFT,   ___N___,  C_RGHT,   ___N___,  _______,
-                                            MY_DEOL,  __XXX__,  KC_SPC,   KC_BSPC,  KC_DEL
+    _______,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  _______,
+    _______,  K_LGUI,   K_LALT,   K_LCTL,   K_LSFT,   ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  ___N___,  _______,
+    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  KC_BSPC,  KC_DEL,   ___N___,  ___N___,  _______,
+                                            MY_DEOL,  __XXX__,  KC_SPC,   KC_ENT,   ___N___
   ),
 
   [_NAV] = LAYOUT_reviung41(
@@ -119,15 +131,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_SYM] = LAYOUT_reviung41(
-    _______,  KC_PSLS,  KC_P7,    KC_P8,    KC_P9,    KC_PMNS,            K_EXLM,   K_AT,     K_HASH,   K_DLR,    K_PERC,   _______,
-    _______,  KC_PAST,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,            ___N___,  K_RSFT,   K_RCTL,   K_LALT,   K_RGUI,   _______,
+    _______,  KC_PSLS,  KC_P7,    KC_P8,    KC_P9,    KC_PMNS,            KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     SW_AA,
+    _______,  KC_PAST,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,            ___N___,  K_RSFT,   K_RCTL,   K_LALT,   SW_OE,    SW_AE,
     _______,  ___N___,  KC_P1,    KC_P2,    KC_P3,    ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
                                             K_DOT,    KC_P0,    KC_SPC,   __XXX__,  ___N___
   ),
 
   [_EXT] = LAYOUT_reviung41(
     ___N___,  ___N___,  KC_F7,    KC_F8,    KC_F9,    KC_F10,             ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
-    K_LSFT,   ___N___,  KC_F4,    KC_F5,    KC_F6,    KC_F11,             ___N___,  ___N___,  ___N___,  C_LEFT,   KC_UP,    C_RGHT,
+    K_LSFT,   K_AT,     KC_F4,    KC_F5,    KC_F6,    KC_F11,             ___N___,  ___N___,  ___N___,  C_LEFT,   KC_UP,    C_RGHT,
     K_LCTL,   K_LALT,   KC_F1,    KC_F2,    KC_F3,    KC_F12,             ___N___,  ___N___,  ___N___,  KC_LEFT,  KC_DOWN,  KC_RGHT,
                                             ___N___,  ___N___,  ___N___,  ___N___,  __XXT__
   ),
@@ -142,43 +154,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-// States for GUI_ALT
-bool isMixDown = false;
-bool isGuiReg = false;
+
 bool isAltReg = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    
-    // Special GUI_ALT code
-    if (isMixDown && record->event.pressed && !isGuiReg && !isAltReg) {
-        if (keycode == KC_TAB) {
-            register_code(KC_LALT);
-            isAltReg = true;
-        } else {
-            register_code(KC_LGUI);
-            isGuiReg = true;
-        }
-    }
 
     switch (keycode) {
-    case GUI_ALT:
-        // Delay or decide GUI or ALT
-        if (record->event.pressed) {
-            isMixDown = true;
-        } else {
-            if (!isAltReg && !isGuiReg)
-                tap_code(KC_LGUI);
-            if (isGuiReg)
-                unregister_code(KC_LGUI);
-            if (isAltReg)
-                unregister_code(KC_LALT);
-            if (isGuiReg)
-                unregister_code(KC_LGUI);
-            isAltReg = false;
-            isGuiReg = false;
-            isMixDown = false;
-        }
-        break;
     case ALT_TAB:
         if (record->event.pressed) {
             if (!isAltReg) {
@@ -186,14 +167,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 isAltReg = true;
             }
             tap_code(KC_TAB);
-        }
-        break;
-    case MY_SCLN:
-        if (record->event.pressed){
-            if ((get_mods() & MOD_MASK_SHIFT) > 0)
-                tap_code16(K_COLN);
-            else
-                tap_code16(K_SCLN);
         }
         break;
     case MY_DEOL:
@@ -204,10 +177,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_DEL);
         }
         return false;
-    case EXT_NO:
+    case TT_OFF:
         if (record->event.pressed) {
-            if (IS_LAYER_ON(_EXT))
-                layer_off(_EXT);
+            layer_clear();
         }
         return false;
     case STR_SL:
@@ -228,7 +200,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     case STR_EP:
         if (record->event.pressed)
-            SEND_STRING("=)");
+            SEND_STRING("Leo is the best!");
         return false;
     }
 
@@ -238,24 +210,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 /*
- * Replacements
+ * Overrides
  */
-const key_override_t shift_backspace_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
-const key_override_t gui_w_override = ko_make_basic(MOD_MASK_GUI, KC_W, LGUI(KC_2));
-const key_override_t ctrl_up_override = ko_make_basic(MOD_MASK_CTRL, KC_UP, KC_HOME);
-const key_override_t ctrl_down_override = ko_make_basic(MOD_MASK_CTRL, KC_DOWN, KC_END);
-const key_override_t shift_dot_override = ko_make_basic(MOD_MASK_SHIFT, K_DOT, K_EXLM);
-const key_override_t shift_comm_override = ko_make_basic(MOD_MASK_SHIFT, K_COMM, K_QUES);
+// //const key_override_t shift_backspace_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+// //const key_override_t gui_w_override = ko_make_basic(MOD_MASK_GUI, KC_W, LGUI(KC_2));
+// //const key_override_t ctrl_up_override = ko_make_basic(MOD_MASK_CTRL, KC_UP, KC_HOME);
+// //const key_override_t ctrl_down_override = ko_make_basic(MOD_MASK_CTRL, KC_DOWN, KC_END);
+// //const key_override_t shift_dot_override = ko_make_basic(MOD_MASK_SHIFT, K_DOT, K_EXLM);
+// //const key_override_t shift_comm_override = ko_make_basic(MOD_MASK_SHIFT, K_COMM, K_QUES);
+// //const key_override_t ctrl_dot_override = ko_make_basic(MOD_MASK_CTRL, K_DOT, SW_AA);
+// //const key_override_t ctrl_comm_override = ko_make_basic(MOD_MASK_CTRL, K_COMM, K_QUES);
 
-const key_override_t **key_overrides = (const key_override_t *[]){
-    &shift_backspace_override,
-    &gui_w_override,
-    &ctrl_up_override,
-    &ctrl_down_override,
-    &shift_dot_override,
-    &shift_comm_override,
-    NULL // Null terminate the array of overrides!
-};
+// const key_override_t **key_overrides = (const key_override_t *[]){
+// //    &shift_backspace_override,
+// //    &gui_w_override,
+// //    &ctrl_up_override,
+// //    &ctrl_down_override,
+// //    &shift_dot_override,
+// //    &shift_comm_override,
+// //    &ctrl_dot_override,
+// //    &ctrl_comm_override,
+//     NULL // Null terminate the array of overrides!
+// };
 
 
 
@@ -266,6 +242,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 enum combos {
     CO_AB, // Debug
     CO_1Q,                  // Esc
+    CO_AS,                  // 
     // CO_PB,                  // Bspc
     CO_QW, CO_WE, CO_ER,    // " ' `
     CO_TG, CO_YH,           // | &
@@ -276,8 +253,9 @@ enum combos {
     CO_FG, CO_HJ,           // { }
     CO_VB, CO_NM,           // [ ]
     CO_DF, CO_JK,           // ( )
+    //CO_KL, CO_L0,           // ! ? ; :
     CO_CV, CO_M7,           // fs bs
-    CO_AA, CO_AE, CO_OE,    // å ä ö
+    //CO_AA, CO_AE, CO_OE,    // å ä ö
     CO_78, CO_89,           // fs bs
     CO_96,                  // Enter
     CO_SL, CO_SM, CO_GM,
@@ -289,6 +267,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM co_ab[] = {KC_A, KC_B, COMBO_END};
 const uint16_t PROGMEM co_1q[] = {KC_1, KC_Q, COMBO_END};
+const uint16_t PROGMEM co_as[] = {KC_A, KC_S, COMBO_END};
 const uint16_t PROGMEM co_qw[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM co_we[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM co_er[] = {KC_E, KC_R, COMBO_END};
@@ -308,11 +287,13 @@ const uint16_t PROGMEM co_vb[] = {KC_V, KC_B, COMBO_END};
 const uint16_t PROGMEM co_nm[] = {KC_N, KC_M, COMBO_END};
 const uint16_t PROGMEM co_df[] = {KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM co_jk[] = {KC_J, KC_K, COMBO_END};
+//const uint16_t PROGMEM co_kl[] = {KC_K, KC_L, COMBO_END};
+//const uint16_t PROGMEM co_l0[] = {KC_L, KC_0, COMBO_END};
 const uint16_t PROGMEM co_cv[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM co_m7[] = {KC_M, KC_7, COMBO_END};
-const uint16_t PROGMEM co_aa[] = {KC_P, KC_4, COMBO_END};
-const uint16_t PROGMEM co_ae[] = {KC_0, KC_5, COMBO_END};
-const uint16_t PROGMEM co_oe[] = {KC_L, KC_0, COMBO_END};
+//const uint16_t PROGMEM co_aa[] = {KC_P, KC_4, COMBO_END};
+//const uint16_t PROGMEM co_ae[] = {KC_0, KC_5, COMBO_END};
+//const uint16_t PROGMEM co_oe[] = {KC_L, KC_0, COMBO_END};
 const uint16_t PROGMEM co_78[] = {KC_7, KC_8, COMBO_END};
 const uint16_t PROGMEM co_89[] = {KC_8, KC_9, COMBO_END};
 const uint16_t PROGMEM co_96[] = {KC_9, KC_6, COMBO_END};
@@ -344,6 +325,7 @@ const uint16_t PROGMEM co_f1l[] = {KC_F1, KC_L, COMBO_END};
 combo_t key_combos[] = {
     [CO_AB] = COMBO(co_ab, KC_C),
     [CO_1Q] = COMBO(co_1q, KC_ESC),
+    [CO_AS] = COMBO(co_as, K_AT),
     [CO_QW] = COMBO(co_qw, K_DQUO),
     [CO_WE] = COMBO(co_we, K_QUOT),
     [CO_ER] = COMBO(co_er, K_GRAVE),
@@ -363,13 +345,15 @@ combo_t key_combos[] = {
     [CO_NM] = COMBO(co_nm, K_RIGHT_ANGLE_BRACKET),
     [CO_DF] = COMBO(co_df, K_LEFT_PAREN),
     [CO_JK] = COMBO(co_jk, K_RIGHT_PAREN),
+    //[CO_KL] = COMBO(co_kl, K_SCLN),
+    //[CO_L0] = COMBO(co_l0, K_COLN),
     [CO_CV] = COMBO(co_cv, K_SLASH),
     [CO_M7] = COMBO(co_m7, K_BACKSLASH),
-    [CO_AA] = COMBO(co_aa, SW_AA),
-    [CO_AE] = COMBO(co_ae, SW_AE),
-    [CO_OE] = COMBO(co_oe, SW_OE),
-    [CO_78] = COMBO(co_78, ___N___),
-    [CO_89] = COMBO(co_89, ___N___),
+    //[CO_AA] = COMBO(co_aa, SW_AA),
+    //[CO_AE] = COMBO(co_ae, SW_AE),
+    //[CO_OE] = COMBO(co_oe, SW_OE),
+    [CO_78] = COMBO(co_78, K_QUES),
+    [CO_89] = COMBO(co_89, K_EXLM),
     [CO_96] = COMBO(co_96, KC_ENT),
     [CO_SL] = COMBO(co_sl, STR_SL),
     [CO_SM] = COMBO(co_sm, STR_SM),
@@ -388,7 +372,7 @@ combo_t key_combos[] = {
 // Lighting layers
 const rgblight_segment_t PROGMEM rgb_base[] = RGBLIGHT_LAYER_SEGMENTS({0, 10, HSV_BLACK});
 const rgblight_segment_t PROGMEM rgb_swe[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_YELLOW});
-const rgblight_segment_t PROGMEM rgb_fun[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_GREEN});
+const rgblight_segment_t PROGMEM rgb_fun[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_YELLOW});
 const rgblight_segment_t PROGMEM rgb_num[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_CYAN});
 const rgblight_segment_t PROGMEM rgb_nav[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_BLUE});
 const rgblight_segment_t PROGMEM rgb_sym[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_GREEN});
@@ -478,5 +462,44 @@ bool caps_word_press_user(uint16_t keycode) {
         // Deactivate Caps Word.
         default:
             return false;
+    }
+}
+
+bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case K_DOT:
+        case K_COMM:
+        case K_MINS:
+            return true;
+        default:
+            return false;
+    }
+}
+
+void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
+    switch(keycode) {
+        case KC_2:
+            register_code16((!shifted) ? KC_2 : K_QUES);
+            break;
+        case KC_4:
+            register_code16((!shifted) ? KC_4 : K_DOLLAR);
+            break;
+        default:
+            if (shifted)
+                add_weak_mods(MOD_BIT(KC_LSFT));
+            register_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
+    }
+}
+
+void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
+    switch(keycode) {
+        case KC_2:
+            unregister_code16((!shifted) ? KC_2 : K_QUES);
+            break;
+        case KC_4:
+            unregister_code16((!shifted) ? KC_4 : K_DOLLAR);
+            break;
+        default:
+            unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
     }
 }
