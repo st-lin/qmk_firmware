@@ -32,7 +32,10 @@ enum custom_keycodes {
   GUI_ALT = SAFE_RANGE,
   ALT_TAB,
   MY_SCLN,
-  MY_DEOL,
+  DEL_EOL,
+  DEL_BOL,
+  SEL_WRD,
+  SEL_LNE,
   TT_OFF,
   STR_SL,
   STR_SM,
@@ -123,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT_reviung41(
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
-    L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     OS_FUN,   R_MID,
+    L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     KC_LEAD,  R_MID,
     L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     MY_COM,   MY_DOT,   MY_MIN,   R_BOT,
                                             NAV_GUI,  NUM,     KC_SPC,    SYM_ENT,  TT_EXT
   ),
@@ -136,17 +139,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FUN] = LAYOUT_reviung41(
-    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  SW_AA,
-    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  SW_OE,    SW_AE,
-    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  K_QUES,   K_EXLM,   ___N___,  __XXT__,
-                                            ___N___,  ___N___,  ___N___,  ___N___,  ___N___
+    ___N___,  ___N___,  SEL_WRD,  DEL_EOL,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  SW_AA,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  SEL_LNE,  K_SCLN,   SW_AE,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  DEL_BOL,            ___N___,  ___N___,  K_QUES,   K_EXLM,   ___N___,  SW_OE,
+                                            ___N___,  ___N___,  ___N___,  ___N___,  __XXT__
   ),
 
   [_NUM] = LAYOUT_reviung41(
     _______,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  _______,
     _______,  K_LGUI,   K_LALT,   K_LCTL,   K_LSFT,   ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  ___N___,  _______,
     _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  KC_BSPC,  KC_DEL,   ___N___,  ___N___,  _______,
-                                            MY_DEOL,  __XXX__,  KC_SPC,   KC_ENT,   ___N___
+                                            SEL_LNE,  __XXX__,  KC_SPC,   KC_ENT,   ___N___
   ),
 
   [_NAV] = LAYOUT_reviung41(
@@ -195,12 +198,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_TAB);
         }
         break;
-    case MY_DEOL:
+    case DEL_EOL:
         if (record->event.pressed) {
             register_code(KC_LSFT);
             tap_code(KC_END);
             unregister_code(KC_LSFT);
             tap_code(KC_DEL);
+        }
+        return false;
+    case DEL_BOL:
+        if (record->event.pressed) {
+            register_code(KC_LSFT);
+            tap_code(KC_HOME);
+            unregister_code(KC_LSFT);
+            tap_code(KC_BSPC);
+        }
+        return false;
+    case SEL_WRD:
+        if (record->event.pressed) {
+            register_code(KC_LCTL);
+            tap_code(KC_LEFT);
+            register_code(KC_LSFT);
+            tap_code(KC_RGHT);
+            unregister_code(KC_LSFT);
+            unregister_code(KC_LCTL);
+        }
+        return false;
+    case SEL_LNE:
+        if (record->event.pressed) {
+            tap_code(KC_HOME);
+            register_code(KC_LSFT);
+            tap_code(KC_DOWN);
+            unregister_code(KC_LSFT);
         }
         return false;
     case TT_OFF:
@@ -477,6 +506,7 @@ bool caps_word_press_user(uint16_t keycode) {
         // Keycodes that continue Caps Word, with shift applied.
         case KC_A ... KC_Z:
         case K_MINS:
+        case MY_MIN:
             add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
             return true;
         // Keycodes that continue Caps Word, without shifting.
@@ -531,6 +561,41 @@ void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record)
 }
 
 
+
+LEADER_EXTERNS();
+
+void matrix_scan_user(void) {
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    // Delete to EOL
+    SEQ_ONE_KEY(KC_A) {
+        tap_code16(K_AT);
+    }
+    // Delete to EOL
+    SEQ_TWO_KEYS(KC_D, KC_E) {
+        register_code(KC_LSFT);
+        tap_code(KC_END);
+        unregister_code(KC_LSFT);
+        tap_code(KC_DEL);
+    }
+    // Delete to BOL
+    SEQ_TWO_KEYS(KC_D, KC_H) {
+        register_code(KC_LSFT);
+        tap_code(KC_HOME);
+        unregister_code(KC_LSFT);
+        tap_code(KC_BSPC);
+    }
+    // Select Line
+    SEQ_TWO_KEYS(KC_S, KC_L) {
+        tap_code(KC_HOME);
+        register_code(KC_LSFT);
+        tap_code(KC_DOWN);
+        unregister_code(KC_LSFT);
+    }
+  }
+}
 
 
 
@@ -592,8 +657,8 @@ void com_finished(qk_tap_dance_state_t *state, void *user_data) {
     com_tap_state.state = cur_dance(state);
     switch (com_tap_state.state) {
         case TD_SINGLE_TAP:  tap_code16(K_COMM); break;
-        case TD_SINGLE_HOLD: tap_code16(SW_AA); break;
-        case TD_DOUBLE_TAP:  tap_code16(K_SCLN); break;
+        case TD_SINGLE_HOLD: tap_code16(K_SCLN); break;
+        case TD_DOUBLE_TAP:  tap_code16(SW_AA); break;
         default: break;
     }
 }
@@ -601,8 +666,8 @@ void dot_finished(qk_tap_dance_state_t *state, void *user_data) {
     dot_tap_state.state = cur_dance(state);
     switch (dot_tap_state.state) {
         case TD_SINGLE_TAP:  tap_code16(K_DOT); break;
-        case TD_SINGLE_HOLD: tap_code16(SW_AE); break;
-        case TD_DOUBLE_TAP:  tap_code16(K_COLN); break;
+        case TD_SINGLE_HOLD: tap_code16(K_COLN); break;
+        case TD_DOUBLE_TAP:  tap_code16(SW_AE); break;
         default: break;
     }
 }
@@ -610,8 +675,8 @@ void min_finished(qk_tap_dance_state_t *state, void *user_data) {
     min_tap_state.state = cur_dance(state);
     switch (min_tap_state.state) {
         case TD_SINGLE_TAP:  tap_code16(K_MINS); break;
-        case TD_SINGLE_HOLD: tap_code16(SW_OE); break;
-        case TD_DOUBLE_TAP:  tap_code16(K_UNDS); break;
+        case TD_SINGLE_HOLD: tap_code16(K_UNDS); break;
+        case TD_DOUBLE_TAP:  tap_code16(SW_OE); break;
         default: break;
     }
 }
