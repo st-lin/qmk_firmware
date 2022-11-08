@@ -85,7 +85,8 @@ enum custom_keycodes {
 #define TT_EXT TT(_EXT)
 #define OS_FUN OSL(_FUN)
 #define TT_EXT TT(_EXT)
-
+#define ALT_Z  LALT_T(KC_Z)
+#define ALT_F9 LALT_T(KC_F9)
 
 typedef enum {
     TD_NONE,
@@ -127,21 +128,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_reviung41(
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     KC_LEAD,  R_MID,
-    L_BOT,    KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     MY_COM,   MY_DOT,   MY_MIN,   R_BOT,
+    L_BOT,    ALT_Z,    KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     MY_COM,   MY_DOT,   MY_MIN,   R_BOT,
                                             NAV_GUI,  NUM,     KC_SPC,    SYM_ENT,  TT_EXT
   ),
 
   [_SWE] = LAYOUT_reviung41(
-    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  SW_AA,
-    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  SW_OE,    SW_AE,
+    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______,
                                             _______,  _______, TG(_SWE),  _______,  _______
   ),
 
   [_FUN] = LAYOUT_reviung41(
-    ___N___,  ___N___,  SEL_WRD,  DEL_EOL,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  SW_AA,
-    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  SEL_LNE,  K_SCLN,   SW_AE,
-    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  DEL_BOL,            ___N___,  ___N___,  K_QUES,   K_EXLM,   ___N___,  SW_OE,
+    ___N___,  ___N___,  SEL_WRD,  DEL_EOL,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  SEL_LNE,  K_SCLN,   _______,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  DEL_BOL,            ___N___,  ___N___,  K_QUES,   K_EXLM,   ___N___,  _______,
                                             ___N___,  ___N___,  ___N___,  ___N___,  __XXT__
   ),
 
@@ -153,9 +154,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_reviung41(
-    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  KC_F5,              KC_F10,   ___N___,  KC_VOLU,  KC_CALC,  KC_PSCR,  _______,
-    K_LSFT,   VS_BACK,  VS_FWD,   ___N___,  ___N___,  KC_F6,              KC_F11,   ___N___,  KC_VOLD,  ___N___,  ___N___,  _______,
-    K_LCTL,   K_LALT,   KC_F12,   KC_HOME,  ___N___,  KC_F7,              KC_F12,   ___N___,  KC_MPLY, G(KC_DOT), ___N___,  _______,
+    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  KC_F5,              KC_VOLU,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    K_LSFT,   VS_BACK,  VS_FWD,   ___N___,  ___N___,  KC_F6,              KC_VOLD,  ___N___,  ___N___,  KC_HOME,  KC_UP,    KC_END, 
+    K_LCTL,   K_LALT,   KC_F12,   KC_HOME,  ___N___,  KC_F7,              KC_MPLY,  ___N___,  ___N___,  KC_LEFT,  KC_DOWN,  KC_RGHT,
                                             __XXX__,  ___N___,  ___N___,  ___N___,  ___N___    
   ),
 
@@ -167,10 +168,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_EXT] = LAYOUT_reviung41(
-    ___N___,  ___N___,  KC_F7,    KC_F8,    KC_F9,    KC_F10,             ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
-    K_LSFT,   K_AT,     KC_F4,    KC_F5,    KC_F6,    KC_F11,             ___N___,  ___N___,  ___N___,  C_LEFT,   KC_UP,    C_RGHT,
-    K_LCTL,   K_LALT,   KC_F1,    KC_F2,    KC_F3,    KC_F12,             ___N___,  ___N___,  ___N___,  KC_LEFT,  KC_DOWN,  KC_RGHT,
-                                            ___N___,  ___N___,  ___N___,  ___N___,  __XXT__
+    ___N___,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    ___N___,             ___N___,  ___N___,  ___N___,  KC_CALC,  KC_PSCR,  ___N___,
+    K_LSFT,   KC_F5,    KC_F6,    KC_F7,    KC_F8,    ___N___,             ___N___,  ___N___,  ___N___,  C_LEFT,   KC_UP,    C_RGHT,
+    K_LCTL,   ALT_F9,   KC_F10,   KC_F11,   KC_F12,   ___N___,             ___N___,  ___N___,  ___N___,  KC_LEFT,  KC_DOWN,  KC_RGHT,
+                                            K_LALT,   ___N___,  ___N___,   ___N___,  __XXT__
   ),
 
   [_COM] = LAYOUT_reviung41(
