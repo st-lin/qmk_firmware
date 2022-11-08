@@ -153,9 +153,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_reviung41(
-    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  KC_VOLU,  KC_CALC,  KC_PSCR,  _______,
-    K_LSFT,   VS_BACK,  VS_FWD,   ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  KC_VOLD,  ___N___,  ___N___,  _______,
-    K_LCTL,   K_LALT,   KC_F12,   KC_HOME,  ___N___,  ___N___,            ___N___,  ___N___,  KC_MPLY, G(KC_DOT), ___N___,  _______,
+    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  KC_F5,              KC_F10,   ___N___,  KC_VOLU,  KC_CALC,  KC_PSCR,  _______,
+    K_LSFT,   VS_BACK,  VS_FWD,   ___N___,  ___N___,  KC_F6,              KC_F11,   ___N___,  KC_VOLD,  ___N___,  ___N___,  _______,
+    K_LCTL,   K_LALT,   KC_F12,   KC_HOME,  ___N___,  KC_F7,              KC_F12,   ___N___,  KC_MPLY, G(KC_DOT), ___N___,  _______,
                                             __XXX__,  ___N___,  ___N___,  ___N___,  ___N___    
   ),
 
@@ -569,9 +569,21 @@ void matrix_scan_user(void) {
     leading = false;
     leader_end();
 
-    // Delete to EOL
+    // @
     SEQ_ONE_KEY(KC_A) {
         tap_code16(K_AT);
+    }
+    // Å
+    SEQ_ONE_KEY(KC_BSPC) {
+        tap_code16(SW_AA);
+    }
+    // Ä
+    SEQ_ONE_KEY(KC_LSFT) {
+        tap_code16(SW_AE);
+    }
+    // Ö
+    SEQ_ONE_KEY(KC_ESC) {
+        tap_code16(SW_OE);
     }
     // Delete to EOL
     SEQ_TWO_KEYS(KC_D, KC_E) {
@@ -593,6 +605,16 @@ void matrix_scan_user(void) {
         register_code(KC_LSFT);
         tap_code(KC_DOWN);
         unregister_code(KC_LSFT);
+    }
+    // Cut Line
+    SEQ_TWO_KEYS(KC_S, KC_L) {
+        tap_code(KC_HOME);
+        register_code(KC_LSFT);
+        tap_code(KC_DOWN);
+        unregister_code(KC_LSFT);
+        register_code(KC_LCTL);
+        tap_code(KC_X);
+        unregister_code(KC_LCTL);
     }
   }
 }
