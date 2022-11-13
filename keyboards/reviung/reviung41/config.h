@@ -135,7 +135,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PERMISSIVE_HOLD_PER_KEY
 #define HOLD_ON_OTHER_KEY_PRESS
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-#define ONESHOT_TAP_TOGGLE 3
+#define ONESHOT_TAP_TOGGLE 2
 #define ONESHOT_TIMEOUT 1500
 #define AUTO_SHIFT_TIMEOUT 175
 #define NO_AUTO_SHIFT_SPECIAL

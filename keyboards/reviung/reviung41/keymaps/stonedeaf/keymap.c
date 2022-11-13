@@ -58,6 +58,7 @@ enum custom_keycodes {
 #define A_F12 A(KC_F12)
 #define C_F12 C(KC_F12)
 #define S_F12 S(KC_F12)
+#define A_HOME A(KC_HOME)
 
 #define VS_BACK C(K_MINS)
 #define VS_FWD C(S(K_MINS))
@@ -144,9 +145,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FUN] = LAYOUT_reviung41(
-    K_TILD,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
-    S_F12,    KC_6,     KC_7,     KC_8,     KC_9,     KC_0,               ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
-    C_F12,    A_F12,    ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    K_TILD,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_VOLU,  ___N___,  KC_INS,   KC_CALC,  KC_PSCR,  _______,
+    S_F12,    KC_6,     KC_7,     KC_8,     KC_9,     KC_0,               KC_VOLD,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    C_F12,    A_F12,    KC_F12,   A_HOME,   VS_BACK,  VS_FWD,             KC_MPLY,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
                                             ___N___,  ___N___,  __XTX__,  ___N___,  ___N___
   ),
 
@@ -154,20 +155,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  _______,
     K_LSFT,   VS_BACK,  VS_FWD,   K_LCTL,   K_LSFT,   ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  ___N___,  _______,
     K_LCTL,   K_LALT,   C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
-                                            KC_LGUI,  __XXX__,  ___N___,  ___N___,  ___N___
+                                            KC_LGUI,  __XXX__,  ___N___,  KC_ENT,   ___N___
   ),
 
   [_SYM] = LAYOUT_reviung41(
-    _______,  ___N___,  ___N___,  K_LBRC,   K_RBRC,   K_PIPE,             KC_PSLS,  KC_PMNS,  KC_P7,    KC_P8,    KC_P9,    _______,
-    K_LPRN,   MY_PRN,   K_SLASH,  K_LCBR,   K_RCBR,   K_EQL,              KC_PAST,  KC_PPLS,  KC_P4,    KC_P5,    KC_P6,    K_RPRN,
-    _______,  ___N___,  ___N___,  K_LT,     K_GT,     K_AMPR,             ___N___,  ___N___,  KC_P1,    KC_P2,    KC_P3,    K_DOT,
-                                            K_DOT,    KC_P0,    KC_SPC,   __XXX__,  KC_P0
+    _______,  K_GRV,    K_DQUO,   K_LBRC,   K_RBRC,   K_PIPE,             KC_PSLS,  KC_PMNS,  KC_P7,    KC_P8,    KC_P9,    _______,
+    MY_PRN,   K_SLSH,   K_LPRN,   K_LCBR,   K_RCBR,   K_EQL,              KC_PAST,  KC_PPLS,  KC_P4,    KC_P5,    KC_P6,    KC_PENT,
+    _______,  K_BSLS,   K_RPRN,   K_LT,     K_GT,     K_AMPR,             KC_ESC,   KC_PDOT,  KC_P1,    KC_P2,    KC_P3,    K_DOT,
+                                            ___N___,  KC_SPC,   ___N___,  __XXX__,  KC_P0
   ),
 
   [_NAV] = LAYOUT_reviung41(
-    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            KC_VOLU,  ___N___,  ___N___,  ___N___,  KC_HOME,  _______,
-    K_LSFT,   VS_BACK,  VS_FWD,   KC_F12,   ___N___,  ___N___,            KC_VOLD,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END, 
-    K_LCTL,   K_LALT,   C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            KC_MPLY,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,
+    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  KC_HOME,  _______,
+    K_LSFT,   VS_BACK,  VS_FWD,   KC_F12,   ___N___,  ___N___,            ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END, 
+    K_LCTL,   K_LALT,   C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,
                                             __XTX__,  KC_SPC,   ___T___,  KC_ENT,   K_RCTL    
   ),
 
@@ -191,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool isAltReg = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
+    
     switch (keycode) {
     case ALT_TAB:
         if (record->event.pressed) {
@@ -543,9 +544,9 @@ bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 
 void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
-        case KC_2:
-            register_code16((!shifted) ? KC_2 : K_QUES);
-            break;
+        // case KC_2:
+        //     register_code16((!shifted) ? KC_2 : K_QUES);
+        //     break;
         case KC_4:
             register_code16((!shifted) ? KC_4 : K_DOLLAR);
             break;
@@ -558,9 +559,9 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
 
 void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
-        case KC_2:
-            unregister_code16((!shifted) ? KC_2 : K_QUES);
-            break;
+        // case KC_2:
+        //     unregister_code16((!shifted) ? KC_2 : K_QUES);
+        //     break;
         case KC_4:
             unregister_code16((!shifted) ? KC_4 : K_DOLLAR);
             break;
