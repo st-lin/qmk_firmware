@@ -18,6 +18,8 @@
 #include "utils/keymap_us-se.h"
 
 //#define USE_TAP_DANCE
+//#define USE_LEADER_KEY
+#define USE_KAY_OVERRIDES
 
 enum layer_names {
     _BASE,
@@ -34,7 +36,12 @@ enum custom_keycodes {
   GUI_ALT = SAFE_RANGE,
   ALT_TAB,
   MY_SCLN,
-  MY_PRN,
+  MY_DSPC,
+  MY_DPRN,
+  MY_DCBR,
+  MY_DBRC,
+  MY_DABK,
+  MY_DSLS,
   TT_OFF,
   STR_SL,
   STR_SM,
@@ -62,6 +69,8 @@ enum custom_keycodes {
 
 #define VS_BACK C(K_MINS)
 #define VS_FWD C(S(K_MINS))
+#define VS_PREV MEH(KC_N)
+#define VS_NEXT MEH(KC_M)
 
 #define OS_LGUI OSM(MOD_LGUI)
 #define OS_RGUI OSM(MOD_RGUI)
@@ -132,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT_reviung41(
     KC_ESC,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
-    L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     KC_LEAD,  R_MID,
+    L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     MY_SCLN,  R_MID,
     L_BOT,    ALT_Z,    GUI_X,    KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     K_COMM,   K_DOT,    K_MINS,   R_BOT,
                                             TT_NAV,   NUM_SPC,  OS_FUN,   SYM_ENT,  TT_EXT
   ),
@@ -148,21 +157,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     K_TILD,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_VOLU,  ___N___,  KC_INS,   KC_CALC,  KC_PSCR,  _______,
     S_F12,    KC_6,     KC_7,     KC_8,     KC_9,     KC_0,               KC_VOLD,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
     C_F12,    A_F12,    KC_F12,   A_HOME,   VS_BACK,  VS_FWD,             KC_MPLY,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
-                                            ___N___,  ___N___,  __XTX__,  ___N___,  ___N___
+                                            VS_PREV,  VS_NEXT,  __XTX__,  ___N___,  ___N___
   ),
 
   [_NUM] = LAYOUT_reviung41(
     ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  _______,
-    K_LSFT,   VS_BACK,  VS_FWD,   K_LCTL,   K_LSFT,   ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  ___N___,  _______,
-    K_LCTL,   K_LALT,   C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    _______,  C(KC_Z),  KC_TAB,   K_LCTL,   K_LSFT,   ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  ___N___,  _______,
+    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            _______,  _______,  ___N___,  ___N___,  ___N___,  _______,
                                             KC_LGUI,  __XXX__,  ___N___,  KC_ENT,   ___N___
   ),
 
   [_SYM] = LAYOUT_reviung41(
-    _______,  K_GRV,    K_DQUO,   K_LBRC,   K_RBRC,   K_PIPE,             KC_PSLS,  KC_PMNS,  KC_P7,    KC_P8,    KC_P9,    _______,
-    MY_PRN,   K_SLSH,   K_LPRN,   K_LCBR,   K_RCBR,   K_EQL,              KC_PAST,  KC_PPLS,  KC_P4,    KC_P5,    KC_P6,    KC_PENT,
-    _______,  K_BSLS,   K_RPRN,   K_LT,     K_GT,     K_AMPR,             KC_ESC,   KC_PDOT,  KC_P1,    KC_P2,    KC_P3,    K_DOT,
-                                            ___N___,  KC_SPC,   ___N___,  __XXX__,  KC_P0
+    _______,  K_GRV,    K_DQUO,   MY_DBRC,  K_RBRC,   K_PIPE,             KC_PSLS,  KC_PMNS,  KC_P7,    KC_P8,    KC_P9,    _______,
+    MY_DPRN,  K_LPRN,   MY_DSLS,  MY_DCBR,  K_RCBR,   K_EQL,              KC_PAST,  KC_PPLS,  KC_P4,    KC_P5,    KC_P6,    KC_PENT,
+    _______,  K_RPRN,   K_SLSH,   MY_DABK,  K_GT,     K_AMPR,             KC_ESC,   KC_PDOT,  KC_P1,    KC_P2,    KC_P3,    K_DOT,
+                                            ___N___,  KC_RGHT,  MY_DSPC,  __XXX__,  KC_P0
   ),
 
   [_NAV] = LAYOUT_reviung41(
@@ -208,13 +217,67 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_clear();
         }
         return false;
-    case MY_PRN:
+    case MY_DSPC:
+        if (record->event.pressed) {
+            tap_code16(KC_RGHT);
+            tap_code16(KC_SPC);
+        }
+        return false;
+    case MY_DPRN:
         if (record->event.pressed) {
             tap_code16(K_LPRN);
             tap_code16(K_RPRN);
             tap_code16(KC_LEFT);
         }
         return false;
+    case MY_DCBR:
+        if (record->event.pressed) {
+            tap_code16(K_LCBR);
+            tap_code16(K_RCBR);
+            tap_code16(KC_LEFT);
+        }
+        return false;
+    case MY_DBRC:
+        if (record->event.pressed) {
+            tap_code16(K_LBRC);
+            tap_code16(K_RBRC);
+            tap_code16(KC_LEFT);
+        }
+        return false;
+    case MY_DABK:
+        if (record->event.pressed) {
+            tap_code16(K_LABK);
+            tap_code16(K_RABK);
+            tap_code16(KC_LEFT);
+        }
+        return false;
+    case MY_DSLS:
+        if (record->event.pressed) {
+            tap_code16(K_SLASH);
+            tap_code16(K_SLASH);
+            tap_code16(KC_SPC);
+        }
+        return false;
+    case MY_SCLN:
+        if (record->event.pressed) {
+            if (get_mods() & MOD_MASK_SHIFT) {
+                tap_code16(K_COLN);
+                return false;
+            }
+        }
+        break;
+    //     // if (record->event.pressed) {
+    //     //     if (get_mods() & MOD_MASK_SHIFT)
+    //     //         register_code16(K_COLN);
+    //     //     else
+    //     //         register_code16(K_SCLN);
+    //     // } else {
+    //     //     if (get_mods() & MOD_MASK_SHIFT)
+    //     //         unregister_code16(K_COLN);
+    //     //     else
+    //     //         unsregister_code16(K_SCLN);
+    //     // }
+    //     //return false;
     case STR_SL:
         if (record->event.pressed)
             SEND_STRING("st/lin");
@@ -245,26 +308,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /*
  * Overrides
  */
-// //const key_override_t shift_backspace_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
-// //const key_override_t gui_w_override = ko_make_basic(MOD_MASK_GUI, KC_W, LGUI(KC_2));
-// //const key_override_t ctrl_up_override = ko_make_basic(MOD_MASK_CTRL, KC_UP, KC_HOME);
-// //const key_override_t ctrl_down_override = ko_make_basic(MOD_MASK_CTRL, KC_DOWN, KC_END);
-// //const key_override_t shift_dot_override = ko_make_basic(MOD_MASK_SHIFT, K_DOT, K_EXLM);
-// //const key_override_t shift_comm_override = ko_make_basic(MOD_MASK_SHIFT, K_COMM, K_QUES);
-// //const key_override_t ctrl_dot_override = ko_make_basic(MOD_MASK_CTRL, K_DOT, SW_AA);
-// //const key_override_t ctrl_comm_override = ko_make_basic(MOD_MASK_CTRL, K_COMM, K_QUES);
+//const key_override_t shift_backspace_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+const key_override_t gui_w_override = ko_make_basic(MOD_MASK_GUI, KC_W, LGUI(KC_2));
+const key_override_t shift_dot_override = ko_make_basic(MOD_MASK_SHIFT, K_DOT, K_EXLM);
+const key_override_t shift_comm_override = ko_make_basic(MOD_MASK_SHIFT, K_COMM, K_QUES);
+//const key_override_t ctrl_dot_override = ko_make_basic(MOD_MASK_CTRL, K_DOT, SW_AA);
+//const key_override_t ctrl_comm_override = ko_make_basic(MOD_MASK_CTRL, K_COMM, K_QUES);
+//const key_override_t ctrl_up_override = ko_make_basic(MOD_MASK_CTRL, KC_UP, KC_HOME);
+//const key_override_t ctrl_down_override = ko_make_basic(MOD_MASK_CTRL, KC_DOWN, KC_END);
+const key_override_t shift_cbr_override = ko_make_basic(MOD_MASK_SHIFT, K_LCBR, K_RCBR);
 
-// const key_override_t **key_overrides = (const key_override_t *[]){
-// //    &shift_backspace_override,
-// //    &gui_w_override,
-// //    &ctrl_up_override,
-// //    &ctrl_down_override,
-// //    &shift_dot_override,
-// //    &shift_comm_override,
-// //    &ctrl_dot_override,
-// //    &ctrl_comm_override,
-//     NULL // Null terminate the array of overrides!
-// };
+const key_override_t **key_overrides = (const key_override_t *[]){
+//    &shift_backspace_override,
+    &gui_w_override,
+    &shift_dot_override,
+    &shift_comm_override,
+//    &ctrl_dot_override,
+//    &ctrl_comm_override,
+//    &ctrl_up_override,
+//    &ctrl_down_override,
+    &shift_cbr_override,
+    NULL // Null terminate the array of overrides!
+};
 
 
 
@@ -536,6 +601,8 @@ bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
         case K_DOT:
         case K_COMM:
         case K_MINS:
+        //case K_SCLN:
+        case MY_SCLN:
             return true;
         default:
             return false;
@@ -544,12 +611,22 @@ bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
 
 void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
-        // case KC_2:
-        //     register_code16((!shifted) ? KC_2 : K_QUES);
-        //     break;
+        case KC_2:
+            register_code16((!shifted) ? KC_2 : K_AT);
+            break;
         case KC_4:
             register_code16((!shifted) ? KC_4 : K_DOLLAR);
             break;
+        // case K_SCLN:
+        //     register_code16((!shifted) ? K_SCLN : K_COLN);
+        //     break;
+        case MY_SCLN:
+            register_code16((!shifted) ? K_SCLN : K_COLN);
+            break;
+        // case MY_SCLN:
+        //     if (shifted)
+        //         register_code16(K_COLN);
+        //     break;
         default:
             if (shifted)
                 add_weak_mods(MOD_BIT(KC_LSFT));
@@ -559,19 +636,29 @@ void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
 
 void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
     switch(keycode) {
-        // case KC_2:
-        //     unregister_code16((!shifted) ? KC_2 : K_QUES);
-        //     break;
+        case KC_2:
+            unregister_code16((!shifted) ? KC_2 : K_AT);
+            break;
         case KC_4:
             unregister_code16((!shifted) ? KC_4 : K_DOLLAR);
             break;
+        // case K_SCLN:
+        //     unregister_code16((!shifted) ? K_SCLN : K_COLN);
+        //     break;
+        case MY_SCLN:
+            unregister_code16((!shifted) ? K_SCLN : K_COLN);
+            break;
+        // case MY_SCLN:
+        //     if (shifted)
+        //         unregister_code16(K_COLN);
+        //     break;
         default:
             unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
     }
 }
 
 
-
+#ifdef USE_LEADER_KEY
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
@@ -618,7 +705,7 @@ void matrix_scan_user(void) {
     }
   }
 }
-
+#endif
 
 #ifdef USE_TAP_DANCE
 /* Return an integer that corresponds to what kind of tap dance should be executed.

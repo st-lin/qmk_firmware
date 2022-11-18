@@ -17,12 +17,12 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-KEY_OVERRIDE_ENABLE = no
+KEY_OVERRIDE_ENABLE = yes
 COMBO_ENABLE = yes
 TAP_DANCE_ENABLE = no
 SEND_STRING_ENABLE = yes
 CAPS_WORD_ENABLE = yes
 AUTO_SHIFT_ENABLE = yes
-LEADER_ENABLE = yes
+LEADER_ENABLE = no
 
 EXTRAFLAGS += -flto

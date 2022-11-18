@@ -138,6 +138,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ONESHOT_TAP_TOGGLE 2
 #define ONESHOT_TIMEOUT 1500
 #define AUTO_SHIFT_TIMEOUT 175
+//#define NO_AUTO_SHIFT_ALPHA
 #define NO_AUTO_SHIFT_SPECIAL
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
-#define LEADER_TIMEOUT 250
+//#define LEADER_TIMEOUT 250
