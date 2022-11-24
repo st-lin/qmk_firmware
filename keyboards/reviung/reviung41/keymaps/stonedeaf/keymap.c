@@ -40,7 +40,8 @@ enum custom_keycodes {
   MY_DSLS,
   TT_OFF,
   STR_PW,
-  STR_EP
+  STR_EP,
+  VS_CALL
 };
 
 #define ___N___ KC_NO
@@ -162,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT_reviung41(
     ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  KC_HOME,  _______,
-    S_F12,    VS_BACK,  VS_FWD,   KC_F12,   ___N___,  ___N___,            ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END, 
+    S_F12,    VS_BACK,  VS_FWD,   KC_F12,   VS_CALL,  ___N___,            ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END, 
     C_F12,    A_F12,    C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT,
                                             __XXX__,  KC_SPC,   ___T___,  KC_ENT,   K_RCTL    
   ),
@@ -231,6 +232,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
         break;
+    case VS_CALL:
+        if (record->event.pressed) {
+            register_code(KC_LCTL);
+            tap_code(KC_K);
+            tap_code(KC_T);
+            unregister_code(KC_LCTL);
+        }
+        return false;
     case STR_PW:
         if (record->event.pressed)
             SEND_STRING("probi.!#!.natos");
@@ -458,7 +467,8 @@ void caps_word_set_user(bool active) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case L_BOT:
-            return 125;
+        case L_MID:
+            return 100;
         default:
             return TAPPING_TERM;
     }
