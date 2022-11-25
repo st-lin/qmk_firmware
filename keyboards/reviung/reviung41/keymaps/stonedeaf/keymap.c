@@ -432,31 +432,25 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;;
 }
 
+void my_choose_rgb(void) {
+    bool oss = get_oneshot_mods() & MOD_MASK_SHIFT;
+    bool cwd = is_caps_word_on();
+    if (oss || cwd) {
+        rgblight_sethsv_at(HSV_RED, 10);
+    } else {
+        default_layer_state_set_user(layer_state);
+        layer_state_set_user(layer_state);
+    }
+}
+
 void oneshot_mods_changed_user(uint8_t mods) {
-  if (mods & MOD_MASK_SHIFT) {
-    rgblight_sethsv_at(HSV_RED, 10);
-  }
-  if (!mods) {
-    default_layer_state_set_user(layer_state);
-    layer_state_set_user(layer_state);
-  }
+    my_choose_rgb();
 }
 void oneshot_locked_mods_changed_user(uint8_t mods) {
-  if (mods & MOD_MASK_SHIFT) {
-    rgblight_sethsv_at(HSV_RED, 10);
-  }
-  if (!mods) {
-    default_layer_state_set_user(layer_state);
-    layer_state_set_user(layer_state);
-  }
+    my_choose_rgb();
 }
 void caps_word_set_user(bool active) {
-    if (active) {
-      rgblight_sethsv_at(HSV_RED, 10);
-    } else {
-      default_layer_state_set_user(layer_state);
-      layer_state_set_user(layer_state);
-    }
+    my_choose_rgb();
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -510,9 +504,9 @@ bool caps_word_press_user(uint16_t keycode) {
             return true;
         // Keycodes that continue Caps Word, without shifting.
         case KC_1 ... KC_0:
+        case KC_P1 ... KC_P0:
         case KC_BSPC:
         case KC_DEL:
-        case K_UNDS:
             return true;
         // Deactivate Caps Word.
         default:
