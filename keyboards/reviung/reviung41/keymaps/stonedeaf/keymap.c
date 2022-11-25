@@ -40,8 +40,7 @@ enum custom_keycodes {
   MY_DSLS,
   TT_OFF,
   STR_PW,
-  STR_EP,
-  VS_CALL
+  STR_EP
 };
 
 #define ___N___ KC_NO
@@ -61,10 +60,14 @@ enum custom_keycodes {
 #define S_F12 S(KC_F12)
 #define A_HOME A(KC_HOME)
 
-#define VS_BACK C(K_MINS)
-#define VS_FWD C(S(K_MINS))
+#define VS_BACK A(KC_LEFT)
+#define VS_FWD  A(KC_RIGHT)
 #define VS_PREV MEH(KC_N)
 #define VS_NEXT MEH(KC_M)
+#define VS_CALL LSA(KC_H)
+#define VS_CON  LSA(KC_LEFT)
+#define VS_EXP  LSA(KC_RIGHT)
+#define VS_BLD  RCS(KC_B)
 
 #define OS_LGUI OSM(MOD_LGUI)
 #define OS_RGUI OSM(MOD_RGUI)
@@ -150,14 +153,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUM] = LAYOUT_reviung41(
     _______,  K_GRV,    K_DQUO,   K_HASH,   ___N___,  ___N___,            KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  _______,
     _______,  K_LCTL,   K_LSFT,   K_LCTL,   K_LSFT,   ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT, ___N___,  _______,
-    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            _______,  _______,  ___N___,  ___N___,  ___N___,  _______,
+    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            _______,  VS_CON,   ___N___,  VS_EXP,   ___N___,  _______,
                                             KC_LGUI,  __XXX__,  KC_SPC,   SYM_ENT,  ___N___
   ),
   
   [_SYM] = LAYOUT_reviung41(
-    _______,  K_GRV,    K_DQUO,   K_HASH,   K_LBRC,   K_PIPE,             KC_PSLS,  KC_PMNS,  KC_P7,    KC_P8,    KC_P9,    _______,
-    _______,  KC_TAB,   K_SLSH,   K_LPRN,   K_LCBR,   K_EQL,              KC_PAST,  KC_PPLS,  KC_P4,    KC_P5,    KC_P6,    _______,
-    _______,  C(KC_Z),  MY_DSLS,  MY_DPRN,  K_LT,     K_AMPR,             KC_PENT,  KC_PDOT,  KC_P1,    KC_P2,    KC_P3,    K_DOT,
+    _______,  K_QUOT,   K_DQUO,   K_HASH,   K_LBRC,   K_PIPE,             KC_PSLS,  KC_PMNS,  KC_P7,    KC_P8,    KC_P9,    _______,
+    _______,  ___N___,  K_SLSH,   K_LPRN,   K_LCBR,   K_EQL,              KC_PAST,  KC_PPLS,  KC_P4,    KC_P5,    KC_P6,    _______,
+    _______,  K_LALT,   MY_DSLS,  MY_DPRN,  K_LT,     K_AMPR,             KC_PENT,  KC_PDOT,  KC_P1,    KC_P2,    KC_P3,    K_DOT,
                                             ___N___,  MY_DSPC,  ___N___,  __XXX__,  KC_P0
   ),
 
@@ -171,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_EXT] = LAYOUT_reviung41(
     ___N___,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,               KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_HOME,  _______,
     K_LSFT,   KC_F10,   KC_F11,   KC_F12,   ___N___,  ___N___,             ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
-    K_LCTL,   K_LALT,   C(KC_X),  C(KC_C),  C(KC_V),  ___N___,             ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT,
+    K_LCTL,   K_LALT,   C(KC_X),  C(KC_C),  C(KC_V),  VS_BLD,              ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT,
                                             ___N___,  KC_SPC,   ___T___,   KC_ENT,   __XTX__
   ),
 
@@ -232,14 +235,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
         break;
-    case VS_CALL:
-        if (record->event.pressed) {
-            register_code(KC_LCTL);
-            tap_code(KC_K);
-            tap_code(KC_T);
-            unregister_code(KC_LCTL);
-        }
-        return false;
     case STR_PW:
         if (record->event.pressed)
             SEND_STRING("probi.!#!.natos");
