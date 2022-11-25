@@ -392,8 +392,6 @@ combo_t key_combos[] = {
 
 
 
-
-
 // Lighting layers
 const rgblight_segment_t PROGMEM rgb_base[] = RGBLIGHT_LAYER_SEGMENTS({0, 10, HSV_BLACK});
 const rgblight_segment_t PROGMEM rgb_fun[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_YELLOW});
@@ -414,43 +412,46 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 void keyboard_post_init_user(void) {
     rgblight_layers = rgb_layers;
 }
-layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _BASE));
-    return state;
-}
-layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(1, layer_state_cmp(state, _FUN));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _SYM));
-    rgblight_set_layer_state(4, layer_state_cmp(state, _NAV));
-    rgblight_set_layer_state(5, layer_state_cmp(state, _EXT));
-    // Special handling for alt-tab
-    if (isAltReg && !IS_LAYER_ON_STATE(state, _NAV)) {
-        unregister_code(KC_LALT);
-        isAltReg = false;
-    }
-    return state;;
-}
 
-void my_choose_rgb(void) {
+void my_choose_rgb(layer_state_t state) {
     bool oss = get_oneshot_mods() & MOD_MASK_SHIFT;
     bool cwd = is_caps_word_on();
     if (oss || cwd) {
         rgblight_sethsv_at(HSV_RED, 10);
     } else {
-        default_layer_state_set_user(layer_state);
-        layer_state_set_user(layer_state);
+        // default_layer_state_set_user(layer_state);
+        // layer_state_set_user(layer_state);
+        rgblight_set_layer_state(0, layer_state_cmp(state, _BASE));
+        rgblight_set_layer_state(1, layer_state_cmp(state, _FUN));
+        rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
+        rgblight_set_layer_state(3, layer_state_cmp(state, _SYM));
+        rgblight_set_layer_state(4, layer_state_cmp(state, _NAV));
+        rgblight_set_layer_state(5, layer_state_cmp(state, _EXT));
     }
 }
 
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    my_choose_rgb(state);
+    return state;
+}
+layer_state_t layer_state_set_user(layer_state_t state) {
+    my_choose_rgb(state);
+    // Special handling for alt-tab
+    if (isAltReg && !IS_LAYER_ON_STATE(state, _NAV)) {
+        unregister_code(KC_LALT);
+        isAltReg = false;
+    }
+    return state;
+}
+
 void oneshot_mods_changed_user(uint8_t mods) {
-    my_choose_rgb();
+    my_choose_rgb(layer_state);
 }
 void oneshot_locked_mods_changed_user(uint8_t mods) {
-    my_choose_rgb();
+    my_choose_rgb(layer_state);
 }
 void caps_word_set_user(bool active) {
-    my_choose_rgb();
+    my_choose_rgb(layer_state);
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
