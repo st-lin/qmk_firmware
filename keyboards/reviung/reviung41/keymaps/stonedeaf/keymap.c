@@ -145,9 +145,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FUN] = LAYOUT_reviung41(
     K_TILD,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_VOLU,  ___N___,  KC_INS,   KC_CALC,  KC_PSCR,  _______,
-    K_LSFT,   KC_6,     KC_7,     KC_8,     KC_9,     KC_0,               KC_VOLD,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
-    K_LCTL,   K_LALT,   KC_F12,   A_HOME,   VS_BACK,  VS_FWD,             KC_MPLY,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
-                                            VS_PREV,  VS_NEXT,  __XTX__,  ___N___,  ___N___
+    K_LSFT,   KC_6,     KC_7,     KC_8,     KC_9,     KC_0,               KC_VOLD,  ___N___,  ___N___,  KC_NUM,   ___N___,  _______,
+    K_LCTL,   K_LALT,   KC_F12,   A_HOME,   ___N___,  ___N___,            KC_MPLY,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+                                            ___N___,  ___N___,  __XTX__,  ___N___,  ___N___
   ),
 
   [_NUM] = LAYOUT_reviung41(
@@ -165,10 +165,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_reviung41(
-    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  KC_HOME,  _______,
-    S_F12,    VS_BACK,  VS_FWD,   KC_F12,   VS_CALL,  ___N___,            ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END, 
-    C_F12,    A_F12,    C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT,
-                                            __XXX__,  KC_SPC,   ___T___,  KC_ENT,   K_RCTL    
+    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  VS_NEXT,  ___N___,  ___N___,  _______,
+    S_F12,    VS_BACK,  VS_FWD,   KC_F12,   VS_CALL,  ___N___,            ___N___,  VS_CON,   VS_PREV,  VS_EXP,   ___N___,  _______, 
+    C_F12,    A_F12,    C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+                                            __XXX__,  KC_SPC,   ___T___,  KC_ENT,   ___N___    
   ),
 
   [_EXT] = LAYOUT_reviung41(
@@ -340,7 +340,7 @@ const uint16_t PROGMEM co_f1l[] = {KC_F1, KC_L, COMBO_END};
  * |-----+-----+-----+-----+---- | --- & ----+-----+-----+-----+-----+
  * S     A     S     D  (  F  {  G     H  }  J  )  K     L  Ö  ;  Ä  S
  * |-----+-----+-----+-----+---- / --- \ ----+-----+-----+-----+-----+
- * C     Z     X     C  /  V  <  B     N  >  M  \  ,     .     - Ent C
+ * C     Z     X     C  /  V  <  B     N  >  M  \  ,  ?  .  !  -  Ö  C
  * `-----------------------------------------------------------------'
  */
 /* 
@@ -349,7 +349,7 @@ const uint16_t PROGMEM co_f1l[] = {KC_F1, KC_L, COMBO_END};
  * +                             |     &                             +
  * |                    (     {           }     )           Ö     Ä  |
  * +                             /     \                             +
- * |                    /     <           >     \                Ent |
+ * |                    /     <           >     \     ?     !     Ö  |
  * `-----------------------------------------------------------------'
  */
 combo_t key_combos[] = {
