@@ -68,6 +68,7 @@ enum custom_keycodes {
 #define VS_CON  LSA(KC_LEFT)
 #define VS_EXP  LSA(KC_RIGHT)
 #define VS_BLD  RCS(KC_B)
+#define VS_FULL LSA(KC_ENT)
 
 #define OS_LGUI OSM(MOD_LGUI)
 #define OS_RGUI OSM(MOD_RGUI)
@@ -139,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_reviung41(
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
     L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     MY_SCLN,  R_MID,
-    L_BOT,    ALT_Z,    GUI_X,    KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     K_COMM,   K_DOT,    K_MINS,   R_BOT,
+    L_BOT,    ALT_Z,    KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     K_COMM,   K_DOT,    K_MINS,   R_BOT,
                                             NAV_GUI,  NUM_SPC,  OS_FUN,   SYM_ENT,  TT_EXT
   ),
 
@@ -152,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUM] = LAYOUT_reviung41(
     _______,  K_GRV,    K_DQUO,   K_HASH,   ___N___,  ___N___,            KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  _______,
-    _______,  K_LCTL,   K_LSFT,   K_LCTL,   K_LSFT,   ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT, ___N___,  _______,
+    _______,  K_LCTL,   K_LSFT,   K_LALT,   ___N___,  ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT, ___N___,  _______,
     _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            _______,  VS_CON,   ___N___,  VS_EXP,   ___N___,  _______,
                                             KC_LGUI,  __XXX__,  KC_SPC,   SYM_ENT,  ___N___
   ),
@@ -165,15 +166,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_reviung41(
-    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  VS_NEXT,  ___N___,  ___N___,  _______,
-    S_F12,    VS_BACK,  VS_FWD,   KC_F12,   VS_CALL,  ___N___,            ___N___,  VS_CON,   VS_PREV,  VS_EXP,   ___N___,  _______, 
-    C_F12,    A_F12,    C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  VS_PREV,  ___N___,  ___N___,  _______,
+    S_F12,    VS_BACK,  VS_FWD,   KC_F12,   VS_CALL,  ___N___,            ___N___,  VS_CON,   VS_NEXT,  VS_EXP,   ___N___,  _______, 
+    C_F12,    A_F12,    A_HOME,   ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___, G(KC_DOT), ___N___,  _______,
                                             __XXX__,  KC_SPC,   ___T___,  KC_ENT,   ___N___    
   ),
 
   [_EXT] = LAYOUT_reviung41(
     ___N___,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,               KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_HOME,  _______,
-    K_LSFT,   KC_F10,   KC_F11,   KC_F12,   ___N___,  ___N___,             ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
+    K_LSFT,   KC_F10,   KC_F11,   KC_F12,   VS_FULL,  ___N___,             ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
     K_LCTL,   K_LALT,   C(KC_X),  C(KC_C),  C(KC_V),  VS_BLD,              ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT,
                                             ___N___,  KC_SPC,   ___T___,   KC_ENT,   __XTX__
   ),
