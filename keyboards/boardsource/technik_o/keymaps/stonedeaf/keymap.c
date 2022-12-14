@@ -17,123 +17,188 @@
 
 #include "utils/keymap_us-se.h"
 
+//#define USE_TAP_DANCE
+//#define USE_LEADER_KEY
+#define USE_KEY_OVERRIDES
+
 enum layer_names {
     _BASE,
-    _SWE,
+    _FUN,
     _NUM,
-    _NAV,
     _SYM,
+    _NAV,
+    _EXT,
     _COM
 };
 
-#define ___N___ KC_NO
-
 enum custom_keycodes {
   GUI_ALT = SAFE_RANGE,
+  ALT_TAB,
   MY_SCLN,
-  STR_SL,
-  STR_SM,
-  STR_GM,
-  STR_PW
+  MY_DSPC,
+  MY_DPRN,
+  MY_DSLS,
+  TT_OFF,
+  STR_PW,
+  STR_EP
 };
 
+#define ___N___ KC_NO
+#define __XXX__ KC_NO
+#define ___T___ TT_OFF
+#define __XTX__ TT_OFF
+
+#define C_BSPC  C(KC_BSPC)
 #define C_LEFT  C(KC_LEFT)
-#define C_RGHT  C(KC_RGHT)
+#define C_RGHT  C(KC_RIGHT)
 #define C_Z   C(KC_Z)
 #define C_X   C(KC_X)
 #define C_C   C(KC_C)
 #define C_V   C(KC_V)
 
+#define A_F12 A(KC_F12)
+#define C_F12 C(KC_F12)
+#define S_F12 S(KC_F12)
+#define A_HOME A(KC_HOME)
+
+#define VS_BACK A(KC_LEFT)
+#define VS_FWD  A(KC_RIGHT)
+#define VS_PREV MEH(KC_N)
+#define VS_NEXT MEH(KC_M)
+#define VS_CALL LSA(KC_H)
+#define VS_CON  LSA(KC_LEFT)
+#define VS_EXP  LSA(KC_RIGHT)
+#define VS_BLD  RCS(KC_B)
+#define VS_FULL LSA(KC_ENT)
+
+#define OS_LGUI OSM(MOD_LGUI)
+#define OS_RGUI OSM(MOD_RGUI)
+#define OS_LALT OSM(MOD_LALT)
+#define OS_RALT OSM(MOD_LALT)
+#define OS_LCTL OSM(MOD_LCTL)
+#define OS_RCTL OSM(MOD_RCTL)
 #define OS_LSFT OSM(MOD_LSFT)
 #define OS_RSFT OSM(MOD_RSFT)
 
-#define L_MID OS_LSFT
-#define L_BOT KC_LSFT
-#define R_MID OS_RSFT
-#define R_BOT KC_RSFT
-
-#define DEL_CTL KC_LCPO
-
-#define SPC_SYM LT(_SYM, KC_SPC)
 #define NUM MO(_NUM)
 #define NAV MO(_NAV)
+#define EXT MO(_EXT)
 #define SYM MO(_SYM)
+#define GUI_Z  LGUI_T(KC_Z)
+#define GUI_X  LGUI_T(KC_X)
+#define ALT_Z  LALT_T(KC_Z)
+#define ALT_X  LALT_T(KC_X)
+
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT_ortho_4x12(
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
-    KC_LSFT,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     K_MINS,   OS_RSFT,
-    KC_LCTL,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     K_COMM,   K_DOT,    KC_UP,    KC_ENT,
-    KC_DEL,   KC_ESC,   KC_LGUI,  KC_LALT,  SYM,      KC_SPC,             KC_ENT,   NUM,      NAV,      KC_LEFT,  KC_DOWN,  KC_RGHT
+    OS_LSFT,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     MY_SCLN,  OS_RSFT,
+    KC_LCTL,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     K_COMM,   K_DOT,    KC_UP,    K_MINS,
+    KC_ESC,   KC_LALT,  KC_LGUI,  NAV,      NUM,      KC_SPC,             KC_ENT,   SYM,      EXT,      KC_LEFT,  KC_DOWN,  KC_RIGHT
   ),
 
-  [_SWE] = LAYOUT_ortho_4x12(
-    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  SW_AA,
-    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  SW_OE,    SW_AE,
-    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______,
-    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______
+  [_FUN] = LAYOUT_ortho_4x12(
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
+    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___
   ),
 
   [_NUM] = LAYOUT_ortho_4x12(
-    _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,  S(KC_F12),            KC_PSLS,  KC_P7,    KC_P8,    KC_P9,    KC_PMNS,  _______,
-    _______,  KC_F5,    KC_F6,    KC_F7,    KC_F8,  C(KC_F12),            KC_PAST,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,  _______,
-    _______,  KC_F9,    KC_F10,   KC_F11,   KC_F12, A(KC_HOME),           KC_KP_0,  KC_P1,    KC_P2,    KC_P3,    KC_PDOT,  _______,
-    _______,  _______,  _______,  _______,  _______,  _______,            _______,  ___N___,  _______,  _______,  _______,  _______
-  ),
-
-  [_NAV] = LAYOUT_ortho_4x12(
-    KC_0,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  SW_AA,
-    _______,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,               ___N___,  ___N___,  KC_PGUP,  ___N___,  SW_OE,    SW_AE,
-    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  KC_DEL,             ___N___,  ___N___,  KC_PGDN,  ___N___,  KC_HOME,  _______,
-    _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  ___N___,  C_LEFT,   KC_END,   C_RGHT
+    _______,  K_GRV,    K_DQUO,   K_HASH,   ___N___,  ___N___,            KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  _______,
+    _______,  K_LCTL,   K_LSFT,   K_LALT,   ___N___,  ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT, ___N___,  _______,
+    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  VS_CON,   ___N___,  VS_EXP,   _______,  _______,
+    _______,  _______,  _______,  ___N___,  __XXX__,  _______,            _______,  ___N___,  ___N___,  _______,  _______,  _______
   ),
 
   [_SYM] = LAYOUT_ortho_4x12(
-    K_QUES,   K_EXLM,   K_AT,     K_HASH,   K_DLR,    K_PERC,             KC_PSCR,  ___N___,  KC_PAUSE, ___N___,  KC_P,     SW_AA,
-    KC_0,     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_6,     KC_7,     KC_8,     KC_9,     SW_OE,    SW_AE,
-    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            ___N___,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI,  _______,
-    RGB_MOD,  RGB_TOG,  _______,  _______,  ___N___,  _______,            _______,  _______,  _______,  _______,  _______,  _______
+    _______,  K_QUOT,   K_DQUO,   K_HASH,   K_LBRC,   K_PIPE,             KC_PSLS,  KC_PMNS,  KC_P7,    KC_P8,    KC_P9,    _______,
+    _______,  ___N___,  K_SLSH,   K_LPRN,   K_LCBR,   K_EQL,              KC_PAST,  KC_PPLS,  KC_P4,    KC_P5,    KC_P6,    _______,
+    _______,  K_LALT,   MY_DSLS,  MY_DPRN,  K_LT,     K_AMPR,             KC_PENT,  KC_PDOT,  KC_P1,    KC_P2,    KC_P3,    K_DOT,
+    _______,  _______,  _______,  ___N___,  ___N___,  _______,            _______,  __XXX__,  KC_P0,    ___N___,  ___N___,  ___N___
+  ),
+
+  [_NAV] = LAYOUT_ortho_4x12(
+    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  VS_PREV,  ___N___,  ___N___,  _______,
+    S_F12,    VS_BACK,  VS_FWD,   KC_F12,   VS_CALL,  ___N___,            ___N___,  VS_CON,   VS_NEXT,  VS_EXP,   ___N___,  _______, 
+    C_F12,    A_F12,    A_HOME,   ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___, G(KC_DOT), _______,  _______,
+    _______,  _______,  _______,  __XXX__,  ___N___,  _______,            _______,  ___N___,  ___N___,  _______,  _______,  _______
+  ),
+
+  [_EXT] = LAYOUT_ortho_4x12(
+    ___N___,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,               KC_F6,    KC_F7,    KC_F8,    KC_F9,    _______,  C_BSPC,
+    K_LSFT,   KC_F10,   KC_F11,   KC_F12,   VS_FULL,  ___N___,             ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    K_LCTL,   K_LALT,   C(KC_X),  C(KC_C),  C(KC_V),  VS_BLD,              ___N___,  ___N___,  ___N___,  KC_HOME,  KC_PGUP,  KC_END,
+    _______,  _______,  _______,  ___N___,  ___N___,  _______,             _______,  ___N___,  __XXX__,  C_LEFT,   KC_PGDN,  C_RGHT
   ),
 
   [_COM] = LAYOUT_ortho_4x12(
-    KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
-    KC_LSFT,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_RSFT,
-    KC_LCTL,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_MINS,  KC_RCTL,
-    ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___
+    KC_1,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_4,
+    KC_2,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     KC_0,     KC_5,
+    KC_3,     KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     KC_7,     KC_8,     KC_9,     KC_6,
+    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,              KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12
   ),
-  
 };
 
-bool sentScln = false;
-bool sentColn = false;
+
+
+bool isAltReg = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     switch (keycode) {
-    case MY_SCLN:
-        if (record->event.pressed){
-            if ((get_mods() & MOD_MASK_SHIFT) > 0)
-                tap_code16(K_COLN);
-            else
-                tap_code16(K_SCLN);
+    case ALT_TAB:
+        if (record->event.pressed) {
+            if (!isAltReg) {
+                register_code(KC_LALT);
+                isAltReg = true;
+            }
+            tap_code(KC_TAB);
         }
         break;
-    case STR_SL:
-        if (record->event.pressed)
-            SEND_STRING("st-lin");
+    case TT_OFF:
+        if (record->event.pressed) {
+            layer_clear();
+        }
         return false;
-    case STR_SM:
-        if (record->event.pressed)
-            SEND_STRING("stefan.lindholm@sectra.com");
+    case MY_DSPC:
+        if (record->event.pressed) {
+            tap_code16(KC_RGHT);
+            tap_code16(KC_SPC);
+        }
         return false;
-    case STR_GM:
-        if (record->event.pressed)
-            SEND_STRING("steli268@gmail.com");
+    case MY_DPRN:
+        if (record->event.pressed) {
+            tap_code16(K_LPRN);
+            tap_code16(K_RPRN);
+            tap_code16(KC_LEFT);
+        }
         return false;
+    case MY_DSLS:
+        if (record->event.pressed) {
+            tap_code16(K_SLASH);
+            tap_code16(K_SLASH);
+            tap_code16(KC_SPC);
+        }
+        return false;
+    case MY_SCLN:
+        if (record->event.pressed) {
+            if (get_mods() & MOD_MASK_SHIFT) {
+                tap_code16(K_COLN);
+                return false;
+            }
+        }
+        break;
     case STR_PW:
         if (record->event.pressed)
             SEND_STRING("probi.!#!.natos");
+        return false;
+    case STR_EP:
+        if (record->event.pressed)
+            SEND_STRING("Leo is the best!");
         return false;
     }
 
@@ -142,21 +207,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 
+#ifdef USE_KEY_OVERRIDES
 /*
- * Replacements
+ * Overrides
  */
-const key_override_t shift_backspace_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 const key_override_t gui_w_override = ko_make_basic(MOD_MASK_GUI, KC_W, LGUI(KC_2));
-const key_override_t crtl_dot_override = ko_make_basic(MOD_MASK_CTRL, KC_DOT, KC_HOME);
-const key_override_t ctrl_ent_override = ko_make_basic(MOD_MASK_CTRL, KC_ENT, KC_END);
+const key_override_t shift_dot_override = ko_make_basic(MOD_MASK_SHIFT, K_DOT, K_EXLM); 
+const key_override_t shift_comm_override = ko_make_basic(MOD_MASK_SHIFT, K_COMM, K_QUES);
+const key_override_t shift_cbr_override = ko_make_basic(MOD_MASK_SHIFT, K_LCBR, K_RCBR);
+const key_override_t shift_brc_override = ko_make_basic(MOD_MASK_SHIFT, K_LBRC, K_RBRC);
+const key_override_t shift_prn_override = ko_make_basic(MOD_MASK_SHIFT, K_LPRN, K_RPRN);
+const key_override_t shift_lgt_override = ko_make_basic(MOD_MASK_SHIFT, K_LT, K_GT);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
-    &shift_backspace_override,
     &gui_w_override,
-    &crtl_dot_override,
-    &ctrl_ent_override,
+    &shift_dot_override,
+    &shift_comm_override,
+    &shift_cbr_override,
+    &shift_brc_override,
+    &shift_prn_override,
+    &shift_lgt_override,
     NULL // Null terminate the array of overrides!
 };
+#endif
 
 
 
@@ -165,122 +238,112 @@ const key_override_t **key_overrides = (const key_override_t *[]){
  */
 // COMBO_ENABLE = yes Goes in rules.mk
 enum combos {
-    AB_CO, // Debug
-    TQ_CO,                  // Tab + Q = Esc
-    // ZX_CO, XC_CO, CV_CO,    // Cut Copy Paste
-    QW_CO, WE_CO, ER_CO,    // " ' `
-    TG_CO, YH_CO,           // | &
-    BG_CO, NH_CO,           // fs bs
-    TY_CO,                  // ~
-    OP_CO, IO_CO, UI_CO,    // = + *
-    RT_CO, YU_CO,           // < >
-    FG_CO, HJ_CO,           // { }
-    VB_CO, NM_CO,           // [ ]
-    DF_CO, JK_CO,           // ( )
-    AA_CO, AE_CO, OE_CO,    // å ä ö
-    MC_CO,                  // *
-    FS_CO, BS_CO,           // fs bs
-    EX_CO, SC_CO, SC2_CO,   // ! ; ;
-    SL_CO, SM_CO, GM_CO,
-    MKL_CO,
+    CO_1Q,                  // Esc
+    CO_AS,                  // 
+    CO_QW, CO_WE, CO_ER,    // " ' `
+    CO_TG, CO_YH,           // | &
+    CO_BG, CO_NH,           // fs bs
+    CO_TY,                  // ~
+    CO_OP, CO_IO, CO_UI,    // = + *
+    CO_RT, CO_YU,           // < >
+    CO_FG, CO_HJ,           // { }
+    CO_VB, CO_NM,           // [ ]
+    CO_DF, CO_JK,           // ( )
+    CO_CV, CO_M7,           // fs bs
+    CO_AA, CO_AE, CO_OE,    // å ä ö
+    CO_78, CO_89,           // fs bs
+    CO_96, CO_3C,           // ö Gui
+    CO_MKL,
+    CO_F1W, CO_F1E, CO_F1L,
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM ab_co[] = {KC_A, KC_B, COMBO_END};
-const uint16_t PROGMEM tq_co[] = {KC_TAB, KC_Q, COMBO_END};
-// const uint16_t PROGMEM zx_co[] = {KC_Z, KC_X, COMBO_END};
-// const uint16_t PROGMEM xc_co[] = {KC_X, KC_C, COMBO_END};
-// const uint16_t PROGMEM cv_co[] = {KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM qw_co[] = {KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM we_co[] = {KC_W, KC_E, COMBO_END};
-const uint16_t PROGMEM er_co[] = {KC_E, KC_R, COMBO_END};
-const uint16_t PROGMEM tg_co[] = {KC_T, KC_G, COMBO_END};
-const uint16_t PROGMEM yh_co[] = {KC_Y, KC_H, COMBO_END};
-const uint16_t PROGMEM bg_co[] = {KC_B, KC_G, COMBO_END};
-const uint16_t PROGMEM nh_co[] = {KC_N, KC_H, COMBO_END};
-const uint16_t PROGMEM ty_co[] = {KC_T, KC_Y, COMBO_END};
-const uint16_t PROGMEM op_co[] = {KC_O, KC_P, COMBO_END};
-const uint16_t PROGMEM io_co[] = {KC_I, KC_O, COMBO_END};
-const uint16_t PROGMEM ui_co[] = {KC_U, KC_I, COMBO_END};
-const uint16_t PROGMEM rt_co[] = {KC_R, KC_T, COMBO_END};
-const uint16_t PROGMEM yu_co[] = {KC_Y, KC_U, COMBO_END};
-const uint16_t PROGMEM fg_co[] = {KC_F, KC_G, COMBO_END};
-const uint16_t PROGMEM hj_co[] = {KC_H, KC_J, COMBO_END};
-const uint16_t PROGMEM vb_co[] = {KC_V, KC_B, COMBO_END};
-const uint16_t PROGMEM nm_co[] = {KC_N, KC_M, COMBO_END};
-const uint16_t PROGMEM df_co[] = {KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM jk_co[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM aa_co[] = {KC_P, KC_BSPC, COMBO_END};
-const uint16_t PROGMEM ae_co[] = {KC_SCLN, KC_RSFT, COMBO_END};
-const uint16_t PROGMEM oe_co[] = {KC_L, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM mc_co[] = {KC_M, KC_COMM, COMBO_END};
-const uint16_t PROGMEM fs_co[] = {KC_DOT, KC_MINS, COMBO_END};
-const uint16_t PROGMEM bs_co[] = {KC_COMM, KC_DOT, COMBO_END};
-const uint16_t PROGMEM ex_co[] = {KC_SCLN, KC_MINS, COMBO_END};
-const uint16_t PROGMEM sc_co[] = {KC_SCLN, KC_DOT, COMBO_END};
-const uint16_t PROGMEM sc2_co[] = {KC_MINS, KC_ENT, COMBO_END};
-const uint16_t PROGMEM sl_co[] = {KC_S, KC_L, COMBO_END};
-const uint16_t PROGMEM sm_co[] = {KC_S, KC_M, COMBO_END};
-const uint16_t PROGMEM gm_co[] = {KC_G, KC_M, COMBO_END};
-const uint16_t PROGMEM mkl_co[] = {KC_M, KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM co_1q[] = {KC_1, KC_Q, COMBO_END};
+const uint16_t PROGMEM co_as[] = {KC_A, KC_S, COMBO_END};
+const uint16_t PROGMEM co_qw[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM co_we[] = {KC_W, KC_E, COMBO_END};
+const uint16_t PROGMEM co_er[] = {KC_E, KC_R, COMBO_END};
+const uint16_t PROGMEM co_tg[] = {KC_T, KC_G, COMBO_END};
+const uint16_t PROGMEM co_yh[] = {KC_Y, KC_H, COMBO_END};
+const uint16_t PROGMEM co_bg[] = {KC_B, KC_G, COMBO_END};
+const uint16_t PROGMEM co_nh[] = {KC_N, KC_H, COMBO_END};
+const uint16_t PROGMEM co_ty[] = {KC_T, KC_Y, COMBO_END};
+const uint16_t PROGMEM co_op[] = {KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM co_io[] = {KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM co_ui[] = {KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM co_rt[] = {KC_R, KC_T, COMBO_END};
+const uint16_t PROGMEM co_yu[] = {KC_Y, KC_U, COMBO_END};
+const uint16_t PROGMEM co_fg[] = {KC_F, KC_G, COMBO_END};
+const uint16_t PROGMEM co_hj[] = {KC_H, KC_J, COMBO_END};
+const uint16_t PROGMEM co_vb[] = {KC_V, KC_B, COMBO_END};
+const uint16_t PROGMEM co_nm[] = {KC_N, KC_M, COMBO_END};
+const uint16_t PROGMEM co_df[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM co_jk[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM co_cv[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM co_m7[] = {KC_M, KC_7, COMBO_END};
+const uint16_t PROGMEM co_aa[] = {KC_P, KC_4, COMBO_END};
+const uint16_t PROGMEM co_ae[] = {KC_0, KC_5, COMBO_END};
+const uint16_t PROGMEM co_oe[] = {KC_L, KC_0, COMBO_END};
+const uint16_t PROGMEM co_78[] = {KC_7, KC_8, COMBO_END};
+const uint16_t PROGMEM co_89[] = {KC_8, KC_9, COMBO_END};
+const uint16_t PROGMEM co_96[] = {KC_9, KC_6, COMBO_END};
+const uint16_t PROGMEM co_3C[] = {KC_3, KC_C, COMBO_END};
+const uint16_t PROGMEM co_mkl[] = {KC_M, KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM co_f1w[] = {KC_F1, KC_W, COMBO_END};
+const uint16_t PROGMEM co_f1e[] = {KC_F1, KC_E, COMBO_END};
+const uint16_t PROGMEM co_f1l[] = {KC_F1, KC_L, COMBO_END};
 /* 
  * ,-----------------------------------------------------------------.
- * T Esc Q  "  W  '  E  ´  R  <  T  ~  Y  >  U  *  I  +  O  =  P  Å  B
+ * 1 Esc Q  "  W  '  E  ´  R  [  T  ~  Y  ]  U  *  I  +  O  =  P  Å  B
  * |-----+-----+-----+-----+---- | --- & ----+-----+-----+-----+-----+
  * S     A     S     D  (  F  {  G     H  }  J  )  K     L  Ö  ;  Ä  S
- * |-----+-----+-----+-----+---- / --- \ ----+-----+-----+---- ! ----+
- * C     Z     X     C     V  [  B     N  ]  M  *  ,  \  .  /  -  ;  C
+ * |-----+-----+-----+-----+---- / --- \ ----+-----+-----+-----+-----+
+ * C     Z     X     C  /  V  <  B     N  >  M  \  ,  ?  .  !  -  Ö  C
  * `-----------------------------------------------------------------'
  */
 /* 
  * ,-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----.
- * | Esc    "     '     ´     <     ~     >     *     +     =     Å  | 
+ * | Esc    "     '     ´     [     ~     ]     *     +     =     Å  | 
  * +                             |     &                             +
  * |                    (     {           }     )           Ö     Ä  |
- * +                             /     \                      ; !    +
- * |                          [           ]     *     \     /     ;  |
+ * +                             /     \                             +
+ * |                    /     <           >     \     ?     !     Ö  |
  * `-----------------------------------------------------------------'
  */
 combo_t key_combos[] = {
-    [AB_CO] = COMBO(ab_co, KC_C),
-    [TQ_CO] = COMBO(tq_co, KC_ESC),
-    // [ZX_CO] = COMBO(zx_co, C(KC_X)),
-    // [XC_CO] = COMBO(xc_co, C(KC_C)),
-    // [CV_CO] = COMBO(cv_co, C(KC_V)),
-    [QW_CO] = COMBO(qw_co, K_DQUO),
-    [WE_CO] = COMBO(we_co, K_QUOT),
-    [ER_CO] = COMBO(er_co, K_GRAVE),
-
-    [TG_CO] = COMBO(tg_co, K_PIPE),
-    [YH_CO] = COMBO(yh_co, K_AMPR),
-    [BG_CO] = COMBO(bg_co, K_SLASH),
-    [NH_CO] = COMBO(nh_co, K_BACKSLASH),
-
-    [TY_CO] = COMBO(ty_co, K_TILDE),
-    [OP_CO] = COMBO(op_co, K_EQUAL),
-    [IO_CO] = COMBO(io_co, K_PLUS),
-    [IO_CO] = COMBO(ui_co, K_ASTR),
-    [RT_CO] = COMBO(rt_co, K_LT),
-    [YU_CO] = COMBO(yu_co, K_GT),
-    [FG_CO] = COMBO(fg_co, K_LEFT_CURLY_BRACE),
-    [HJ_CO] = COMBO(hj_co, K_RIGHT_CURLY_BRACE),
-    [VB_CO] = COMBO(vb_co, K_LEFT_BRACKET),
-    [NM_CO] = COMBO(nm_co, K_RIGHT_BRACKET),
-    [DF_CO] = COMBO(df_co, K_LEFT_PAREN),
-    [JK_CO] = COMBO(jk_co, K_RIGHT_PAREN),
-
-    [AA_CO] = COMBO(aa_co, SW_AA),
-    [AE_CO] = COMBO(ae_co, SW_AE),
-    [OE_CO] = COMBO(oe_co, SW_OE),
-    [MC_CO] = COMBO(mc_co, K_ASTR),
-    [FS_CO] = COMBO(fs_co, K_SLASH),
-    [BS_CO] = COMBO(bs_co, K_BACKSLASH),
-    [EX_CO] = COMBO(ex_co, K_EXCLAIM),
-    [SC_CO] = COMBO(sc_co, K_SCLN),
-    [SC2_CO] = COMBO(sc2_co, K_SCLN),
-    [SL_CO] = COMBO(sl_co, STR_SL),
-    [SM_CO] = COMBO(sm_co, STR_SM),
-    [GM_CO] = COMBO(gm_co, STR_GM),
-    [MKL_CO] = COMBO(mkl_co, STR_PW)
+    [CO_1Q] = COMBO(co_1q, KC_ESC),
+    [CO_AS] = COMBO(co_as, K_AT),
+    [CO_QW] = COMBO(co_qw, K_QUOT),
+    [CO_WE] = COMBO(co_we, K_DQUO),
+    [CO_ER] = COMBO(co_er, K_GRAVE),
+    [CO_TG] = COMBO(co_tg, K_PIPE),
+    [CO_YH] = COMBO(co_yh, K_AMPR),
+    [CO_BG] = COMBO(co_bg, K_SLASH),
+    [CO_NH] = COMBO(co_nh, K_BACKSLASH),
+    [CO_TY] = COMBO(co_ty, K_TILDE),
+    [CO_OP] = COMBO(co_op, K_EQUAL),
+    [CO_IO] = COMBO(co_io, K_PLUS),
+    [CO_UI] = COMBO(co_ui, K_ASTR),
+    [CO_RT] = COMBO(co_rt, K_LEFT_BRACKET),
+    [CO_YU] = COMBO(co_yu, K_RIGHT_BRACKET),
+    [CO_FG] = COMBO(co_fg, K_LEFT_CURLY_BRACE),
+    [CO_HJ] = COMBO(co_hj, K_RIGHT_CURLY_BRACE),
+    [CO_VB] = COMBO(co_vb, K_LEFT_ANGLE_BRACKET),
+    [CO_NM] = COMBO(co_nm, K_RIGHT_ANGLE_BRACKET),
+    [CO_DF] = COMBO(co_df, K_LEFT_PAREN),
+    [CO_JK] = COMBO(co_jk, K_RIGHT_PAREN),
+    [CO_CV] = COMBO(co_cv, K_SLASH),
+    [CO_M7] = COMBO(co_m7, K_BACKSLASH),
+    [CO_AA] = COMBO(co_aa, SW_AA),
+    [CO_AE] = COMBO(co_ae, SW_AE),
+    [CO_OE] = COMBO(co_oe, SW_OE),
+    [CO_78] = COMBO(co_78, K_QUES),
+    [CO_89] = COMBO(co_89, K_EXLM),
+    [CO_96] = COMBO(co_96, SW_OE),
+    [CO_3C] = COMBO(co_3C, KC_LGUI),
+    [CO_MKL] = COMBO(co_mkl, STR_PW),
+    [CO_F1W] = COMBO(co_f1w, G(KC_2)),
+    [CO_F1E] = COMBO(co_f1e, G(KC_E)),
+    [CO_F1L] = COMBO(co_f1l, G(KC_L))
 };
