@@ -54,18 +54,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MY_SE_LAYOUT
 
-#ifdef MY_SE_LAYOUT
-	#define LSPO_KEYS KC_LSFT, KC_LSFT, KC_8
-	#define RSPC_KEYS KC_RSFT, KC_RSFT, KC_9
-#endif 
-#define LCPO_KEYS KC_LCTL, KC_TRNS, KC_DEL
-#define RCPC_KEYS KC_LALT, KC_TRNS, KC_ENT
 
-#define TAPPING_TOGGLE 1
-#define TAPPING_TERM 350
+#define TAPPING_TOGGLE 2
+#define TAPPING_TERM 200
 #define COMBO_TERM 20
-#define COMBO_ONLY_FROM_LAYER 5
+#define COMBO_ONLY_FROM_LAYER 6
 #define PERMISSIVE_HOLD
 #define HOLD_ON_OTHER_KEY_PRESS
-#define ONESHOT_TAP_TOGGLE 2
-#define ONESHOT_TIMEOUT 2000
+#define ONESHOT_TAP_TOGGLE 3
+#define ONESHOT_TIMEOUT 1500
