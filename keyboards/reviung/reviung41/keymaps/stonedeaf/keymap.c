@@ -34,6 +34,7 @@ enum layer_names {
 enum custom_keycodes {
   GUI_ALT = SAFE_RANGE,
   ALT_TAB,
+  MY_GRV,
   MY_SCLN,
   MY_DSPC,
   MY_DPRN,
@@ -159,9 +160,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   
   [_SYM] = LAYOUT_reviung41(
-    _______,  K_QUOT,   K_DQUO,   K_HASH,   K_LBRC,   K_PIPE,             KC_PSLS,  KC_PMNS,  KC_P7,    KC_P8,    KC_P9,    _______,
-    _______,  ___N___,  K_SLSH,   K_LPRN,   K_LCBR,   K_EQL,              KC_PAST,  KC_PPLS,  KC_P4,    KC_P5,    KC_P6,    _______,
-    _______,  K_LALT,   MY_DSLS,  MY_DPRN,  K_LT,     K_AMPR,             KC_PENT,  KC_PDOT,  KC_P1,    KC_P2,    KC_P3,    K_DOT,
+    _______,  K_QUOT,   K_DQUO,   K_HASH,   K_LBRC,   K_AMPR,             KC_PSLS,  KC_PMNS,  KC_P7,    KC_P8,    KC_P9,    _______,
+    _______,  MY_GRV,   K_SLSH,   K_LPRN,   K_LCBR,   K_EQL,              KC_PAST,  KC_PPLS,  KC_P4,    KC_P5,    KC_P6,    _______,
+    _______,  K_LALT,   MY_DSLS,  MY_DPRN,  K_LT,     K_PIPE,             KC_PENT,  KC_PDOT,  KC_P1,    KC_P2,    KC_P3,    K_DOT,
                                             ___N___,  MY_DSPC,  ___N___,  __XXX__,  KC_P0
   ),
 
@@ -236,6 +237,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
         break;
+    case MY_GRV:
+        if (record->event.pressed) {
+            tap_code16(K_GRV);
+            tap_code(KC_SPC);
+            return false;
+        }
+        break;
     case STR_PW:
         if (record->event.pressed)
             SEND_STRING("probi.!#!.natos");
@@ -261,6 +269,7 @@ const key_override_t shift_cbr_override = ko_make_basic(MOD_MASK_SHIFT, K_LCBR, 
 const key_override_t shift_brc_override = ko_make_basic(MOD_MASK_SHIFT, K_LBRC, K_RBRC);
 const key_override_t shift_prn_override = ko_make_basic(MOD_MASK_SHIFT, K_LPRN, K_RPRN);
 const key_override_t shift_lgt_override = ko_make_basic(MOD_MASK_SHIFT, K_LT, K_GT);
+const key_override_t shift_quot_override = ko_make_basic(MOD_MASK_SHIFT, K_QUOT, K_GRV);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
     &gui_w_override,
@@ -270,6 +279,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &shift_brc_override,
     &shift_prn_override,
     &shift_lgt_override,
+    &shift_quot_override,
     NULL // Null terminate the array of overrides!
 };
 #endif
