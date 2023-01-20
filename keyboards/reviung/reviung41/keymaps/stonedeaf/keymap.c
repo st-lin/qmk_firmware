@@ -69,7 +69,11 @@ enum custom_keycodes {
 #define VS_CON  LSA(KC_LEFT)
 #define VS_EXP  LSA(KC_RIGHT)
 #define VS_BLD  RCS(KC_B)
+#define VS_BLS  MEH(KC_B)
+#define VS_ORIG RCS(KC_V)
 #define VS_FULL LSA(KC_ENT)
+#define VS_ICAL RCS(KC_I)
+#define VS_OCAL MEH(KC_O)
 
 #define OS_LGUI OSM(MOD_LGUI)
 #define OS_RGUI OSM(MOD_RGUI)
@@ -167,15 +171,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_reviung41(
-    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  VS_PREV,  ___N___,  ___N___,  _______,
-    S_F12,    VS_BACK,  VS_FWD,   KC_F12,   VS_CALL,  ___N___,            ___N___,  VS_CON,   VS_NEXT,  VS_EXP,   ___N___,  _______, 
-    C_F12,    A_F12,    A_HOME,   ___N___,  ___N___,  ___N___,            ___N___,  ___N___,  ___N___, G(KC_DOT), ___N___,  _______,
+    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  VS_ICAL,  VS_OCAL,  ___N___,  _______,
+    S_F12,    VS_BACK,  VS_FWD,   KC_F12,   ___N___,  ___N___,            VS_CALL,  ___N___,  ___N___,  ___N___,  ___N___,  _______, 
+    C_F12,    A_F12,    A_HOME,   ___N___,  VS_ORIG,  ___N___,            ___N___,  ___N___,  ___N___, G(KC_DOT), ___N___,  _______,
                                             __XXX__,  KC_SPC,   ___T___,  KC_ENT,   ___N___    
   ),
 
   [_EXT] = LAYOUT_reviung41(
     ___N___,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,               KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_HOME,  _______,
-    K_LSFT,   KC_F10,   KC_F11,   KC_F12,   VS_FULL,  ___N___,             ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
+    K_LSFT,   KC_F10,   KC_F11,   KC_F12,   VS_FULL,  VS_BLS,              ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
     K_LCTL,   K_LALT,   C(KC_X),  C(KC_C),  C(KC_V),  VS_BLD,              ___N___,  ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT,
                                             ___N___,  KC_SPC,   ___T___,   KC_ENT,   __XTX__
   ),
