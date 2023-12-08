@@ -19,6 +19,8 @@
 
 //#define USE_TAP_DANCE
 //#define USE_LEADER_KEY
+//#define USE_CAPS_WORD
+//#define USE_AUTO_SHIFT
 #define USE_KEY_OVERRIDES
 
 enum layer_names {
@@ -35,10 +37,16 @@ enum custom_keycodes {
   GUI_ALT = SAFE_RANGE,
   ALT_TAB,
   MY_GRV,
+  MY_TLD,
+  MY_CRK,
   MY_SCLN,
   MY_DSPC,
   MY_DPRN,
   MY_DSLS,
+  MY_TGRV,
+  VS_TOGC,
+  VS_KC,
+  VS_KU,
   TT_OFF,
   STR_PW,
   STR_EP
@@ -49,6 +57,7 @@ enum custom_keycodes {
 #define ___T___ TT_OFF
 #define __XTX__ TT_OFF
 
+#define C_BSPC  C(KC_BSPC)
 #define C_LEFT  C(KC_LEFT)
 #define C_RGHT  C(KC_RGHT)
 #define C_Z   C(KC_Z)
@@ -59,7 +68,9 @@ enum custom_keycodes {
 #define A_F12 A(KC_F12)
 #define C_F12 C(KC_F12)
 #define S_F12 S(KC_F12)
+#define SA_F12 LSA(KC_F12)
 #define A_HOME A(KC_HOME)
+#define A_PSCR A(KC_PSCR)
 
 #define VS_BACK A(KC_LEFT)
 #define VS_FWD  A(KC_RIGHT)
@@ -70,10 +81,11 @@ enum custom_keycodes {
 #define VS_EXP  LSA(KC_RIGHT)
 #define VS_BLD  RCS(KC_B)
 #define VS_BLS  MEH(KC_B)
-#define VS_ORIG RCS(KC_V)
 #define VS_FULL LSA(KC_ENT)
-#define VS_ICAL RCS(KC_I)
-#define VS_OCAL MEH(KC_O)
+#define VS_ICAL RCS(KC_I) // Show incoming calls:   Ctrl + Shift + I
+#define VS_OCAL LSA(KC_I) // Show outgoing calls:   Shift + Alt + I
+#define VS_IVAL RCS(KC_V) // Show value origin:     Ctrl + Shift + V
+#define VS_OVAL LSA(KC_V) // Show value dest:       Shift + Alt + V
 
 #define OS_LGUI OSM(MOD_LGUI)
 #define OS_RGUI OSM(MOD_RGUI)
@@ -89,23 +101,29 @@ enum custom_keycodes {
 #define L_BOT LCTL_T(KC_ESC)
 #define R_BOT RCTL_T(KC_DEL)
 
+#define SFT_L LSFT_T(KC_L)
+#define SFT_S LSFT_T(KC_S)
+//#define SFT_A LSFT_T(KC_A)
+//#define SFT_C LSFT_T(KC_C)
+
+#define FUN     MO(_FUN)
 #define FUN_SPC LT(_FUN, KC_SPC)
-#define NUM MO(_NUM)
+#define NUM     MO(_NUM)
 #define NUM_SPC LT(_NUM, KC_SPC)
 #define NUM_BSP LT(_NUM, KC_BSP)
 #define NUM_DEL LT(_NUM, KC_DEL)
 #define SYM_ENT LT(_SYM, KC_ENT)
 #define SYM_BSP LT(_SYM, KC_BSPC)
-#define NAV MO(_NAV)
+#define NAV     MO(_NAV)
 #define NAV_GUI LT(_NAV, KC_LGUI)
-#define TT_NAV TT(_NAV)
-#define EXT MO(_EXT)
-#define TT_EXT TT(_EXT)
-#define OS_FUN OSL(_FUN)
-#define GUI_Z  LGUI_T(KC_Z)
-#define GUI_X  LGUI_T(KC_X)
-#define ALT_Z  LALT_T(KC_Z)
-#define ALT_X  LALT_T(KC_X)
+#define TT_NAV  TT(_NAV)
+#define EXT     MO(_EXT)
+#define TT_EXT  TT(_EXT)
+#define OS_FUN  OSL(_FUN)
+#define GUI_Z   LGUI_T(KC_Z)
+#define GUI_X   LGUI_T(KC_X)
+#define ALT_Z   LALT_T(KC_Z)
+#define ALT_X   LALT_T(KC_X)
 
 
 #ifdef USE_TAP_DANCE
@@ -144,44 +162,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT_reviung41(
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,               KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
-    L_MID,    KC_A,     KC_S,     KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     KC_L,     MY_SCLN,  R_MID,
-    L_BOT,    ALT_Z,    KC_X,     KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     K_COMM,   K_DOT,    K_MINS,   R_BOT,
-                                            NAV_GUI,  NUM_SPC,  OS_FUN,   SYM_ENT,  TT_EXT
+    L_MID,    KC_A,     SFT_S,    KC_D,     KC_F,     KC_G,               KC_H,     KC_J,     KC_K,     SFT_L,    MY_SCLN,  R_MID,
+    L_BOT,    ALT_Z,    GUI_X,    KC_C,     KC_V,     KC_B,               KC_N,     KC_M,     K_COMM,   K_DOT,    K_MINS,   R_BOT,
+                                            NAV_GUI,  NUM_SPC,  FUN_SPC,  SYM_ENT,  TT_EXT
   ),
 
   [_FUN] = LAYOUT_reviung41(
-    K_TILD,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_VOLU,  ___N___,  KC_INS,   KC_CALC,  KC_PSCR,  _______,
-    K_LSFT,   KC_6,     KC_7,     KC_8,     KC_9,     KC_0,               KC_VOLD,  ___N___,  ___N___,  KC_NUM,   ___N___,  _______,
-    K_LCTL,   K_LALT,   KC_F12,   A_HOME,   ___N___,  ___N___,            KC_MPLY,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    MY_TLD,   SE_HALF,  K_AT,     K_HASH,   K_DLR,    K_PERC,             MY_CRK,   ___N___,  KC_INS,   ___N___,  ___N___,  ___N___,
+    KC_CAPS,  ___N___,  ___N___,  ___N___,  ___N___,  KC_VOLU,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
+    ___N___,  KC_RALT,  ___N___,  KC_CALC,  ___N___,  KC_VOLD,            KC_NUM,   ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
                                             ___N___,  ___N___,  __XTX__,  ___N___,  ___N___
   ),
 
   [_NUM] = LAYOUT_reviung41(
-    _______,  K_GRV,    K_DQUO,   K_HASH,   ___N___,  ___N___,            KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  _______,
-    _______,  K_LCTL,   K_LSFT,   K_LALT,   ___N___,  ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT, ___N___,  _______,
-    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            _______,  VS_CON,   ___N___,  VS_EXP,   ___N___,  _______,
-                                            KC_LGUI,  __XXX__,  KC_SPC,   SYM_ENT,  ___N___
+    MY_GRV,   K_QUOT,   K_DQUO,   SE_ACUT,  SE_GRV,   SE_DIAE,            KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  SW_AA,
+    KC_LSFT,  ___N___,  KC_LSFT,  KC_LCTL,  ___N___,  ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT, SW_OE,    SW_AE,
+    KC_LCTL,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            _______,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+                                            ___N___,  __XXX__,  KC_SPC,   C_BSPC,   ___N___
   ),
   
   [_SYM] = LAYOUT_reviung41(
-    _______,  K_QUOT,   K_DQUO,   K_HASH,   K_LBRC,   K_AMPR,             KC_PSLS,  KC_PMNS,  KC_P7,    KC_P8,    KC_P9,    _______,
-    _______,  MY_GRV,   K_SLSH,   K_LPRN,   K_LCBR,   K_EQL,              KC_PAST,  KC_PPLS,  KC_P4,    KC_P5,    KC_P6,    _______,
-    _______,  K_LALT,   MY_DSLS,  MY_DPRN,  K_LT,     K_PIPE,             KC_PENT,  KC_PDOT,  KC_P1,    KC_P2,    KC_P3,    K_DOT,
-                                            ___N___,  MY_DSPC,  ___N___,  __XXX__,  KC_P0
+    MY_TGRV,  ___N___,  ___N___,  K_HASH,   K_LBRC,   K_AMPR,             KC_DEL,   K_EQL,    KC_7,     KC_8,     KC_9,     _______,
+    KC_LSFT,  VS_TOGC,  K_SLSH,   K_LPRN,   K_LCBR,   K_EQL,              KC_PAST,  KC_PPLS,  KC_4,     KC_5,     KC_6,     KC_PDOT,
+    KC_LCTL,  K_LALT,   MY_DSLS,  MY_DPRN,  K_LT,     K_PIPE,             KC_PSLS,  KC_PMNS,  KC_1,     KC_2,     KC_3,     K_DOT,
+                                            ___N___,  KC_TAB,   ___N___,  __XXX__,  KC_0
   ),
 
   [_NAV] = LAYOUT_reviung41(
     ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  VS_ICAL,  VS_OCAL,  ___N___,  _______,
-    S_F12,    VS_BACK,  VS_FWD,   KC_F12,   ___N___,  ___N___,            VS_CALL,  ___N___,  ___N___,  ___N___,  ___N___,  _______, 
-    C_F12,    A_F12,    A_HOME,   ___N___,  VS_ORIG,  ___N___,            ___N___,  ___N___,  ___N___, G(KC_DOT), ___N___,  _______,
-                                            __XXX__,  KC_SPC,   ___T___,  KC_ENT,   ___N___    
+    S_F12,    VS_BACK,  VS_FWD,   KC_F12,   ___N___,  ___N___,            VS_CALL,  ___N___,  VS_IVAL,  VS_OVAL,  ___N___,  KC_RSFT, 
+    C_F12,    A_F12,    A_HOME,   VS_KC,    VS_KU,    ___N___,            ___N___,  ___N___,  ___N___, G(KC_DOT), ___N___,  KC_RCTL,
+                                            __XXX__,  A_F12,    SA_F12,  ___N___, ___N___    
   ),
 
   [_EXT] = LAYOUT_reviung41(
-    ___N___,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,               KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_HOME,  _______,
+    ___N___,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,               KC_F6,    KC_F7,    KC_F8,    KC_F9,    A_PSCR,   _______,
     K_LSFT,   KC_F10,   KC_F11,   KC_F12,   VS_FULL,  VS_BLS,              ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
     K_LCTL,   K_LALT,   C(KC_X),  C(KC_C),  C(KC_V),  VS_BLD,              KC_NUM,   ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT,
-                                            ___N___,  KC_SPC,   ___T___,   KC_ENT,   __XTX__
+                                            KC_LGUI,  ___N___,  ___T___,   ___N___,  __XTX__
   ),
 
   [_COM] = LAYOUT_reviung41(
@@ -238,6 +256,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (get_mods() & MOD_MASK_SHIFT) {
                 tap_code16(K_COLN);
                 return false;
+            } else {
+                tap_code16(K_SCLN);
+                return false;
             }
         }
         break;
@@ -248,9 +269,57 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
         break;
+    case MY_TLD:
+        if (record->event.pressed) {
+            tap_code16(SE_TILD);
+            tap_code(KC_SPC);
+            return false;
+        }
+        break;
+    case MY_CRK:
+        if (record->event.pressed) {
+            tap_code16(SE_CIRC);
+            tap_code(KC_SPC);
+            return false;
+        }
+        break;
+    case MY_TGRV:
+        if (record->event.pressed) {
+            tap_code16(K_GRV);
+            tap_code16(K_GRV);
+            tap_code16(K_GRV);
+            tap_code16(KC_SPC);
+        }
+        return false;
+    case VS_TOGC:
+        if (record->event.pressed) {
+            register_code(KC_LCTL);
+            tap_code(K_QUOT);
+            unregister_code(KC_LCTL);
+            return false;
+        }
+        break;
+    case VS_KC:
+        if (record->event.pressed) {
+            register_code(KC_LCTL);
+            tap_code(KC_K);
+            tap_code(KC_C);
+            unregister_code(KC_LCTL);
+            return false;
+        }
+        break;
+    case VS_KU:
+        if (record->event.pressed) {
+            register_code(KC_LCTL);
+            tap_code(KC_K);
+            tap_code(KC_U);
+            unregister_code(KC_LCTL);
+            return false;
+        }
+        break;
     case STR_PW:
         if (record->event.pressed)
-            SEND_STRING("probi.!#!.natos");
+            SEND_STRING("chopra.!#!.flugas");
         return false;
     case STR_EP:
         if (record->event.pressed)
@@ -267,6 +336,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * Overrides
  */
 const key_override_t gui_w_override = ko_make_basic(MOD_MASK_GUI, KC_W, LGUI(KC_2));
+const key_override_t ctrl_up = ko_make_basic(MOD_MASK_CTRL, KC_UP, KC_PGUP);
+const key_override_t ctrl_down = ko_make_basic(MOD_MASK_CTRL, KC_DOWN, KC_PGDN);
 const key_override_t shift_dot_override = ko_make_basic(MOD_MASK_SHIFT, K_DOT, K_EXLM); 
 const key_override_t shift_comm_override = ko_make_basic(MOD_MASK_SHIFT, K_COMM, K_QUES);
 const key_override_t shift_cbr_override = ko_make_basic(MOD_MASK_SHIFT, K_LCBR, K_RCBR);
@@ -274,9 +345,12 @@ const key_override_t shift_brc_override = ko_make_basic(MOD_MASK_SHIFT, K_LBRC, 
 const key_override_t shift_prn_override = ko_make_basic(MOD_MASK_SHIFT, K_LPRN, K_RPRN);
 const key_override_t shift_lgt_override = ko_make_basic(MOD_MASK_SHIFT, K_LT, K_GT);
 const key_override_t shift_quot_override = ko_make_basic(MOD_MASK_SHIFT, K_QUOT, K_GRV);
+const key_override_t shift_4_override = ko_make_basic(MOD_MASK_SHIFT, KC_4, K_DOLLAR);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
     &gui_w_override,
+    &ctrl_up,
+    &ctrl_down,
     &shift_dot_override,
     &shift_comm_override,
     &shift_cbr_override,
@@ -284,6 +358,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &shift_prn_override,
     &shift_lgt_override,
     &shift_quot_override,
+    &shift_4_override,
     NULL // Null terminate the array of overrides!
 };
 #endif
@@ -294,9 +369,9 @@ const key_override_t **key_overrides = (const key_override_t *[]){
  */
 // COMBO_ENABLE = yes Goes in rules.mk
 enum combos {
-    CO_1Q,                  // Esc
-    CO_AS,                  // 
-    CO_QW, CO_WE, CO_ER,    // " ' `
+    CO_1Q,                  // `
+    CO_AS,                  // @
+    CO_QW, CO_WE, CO_ER,    // ' " ´
     CO_TG, CO_YH,           // | &
     CO_BG, CO_NH,           // fs bs
     CO_TY,                  // ~
@@ -311,6 +386,7 @@ enum combos {
     CO_96, CO_3C,           // ö Gui
     CO_MKL,
     CO_F1W, CO_F1E, CO_F1L,
+    CO_F2D,
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
@@ -349,30 +425,31 @@ const uint16_t PROGMEM co_mkl[] = {KC_M, KC_K, KC_L, COMBO_END};
 const uint16_t PROGMEM co_f1w[] = {KC_F1, KC_W, COMBO_END};
 const uint16_t PROGMEM co_f1e[] = {KC_F1, KC_E, COMBO_END};
 const uint16_t PROGMEM co_f1l[] = {KC_F1, KC_L, COMBO_END};
+const uint16_t PROGMEM co_f2d[] = {KC_F2, KC_D, COMBO_END};
 /* 
  * ,-----------------------------------------------------------------.
- * 1 Esc Q  "  W  '  E  ´  R  [  T  ~  Y  ]  U  *  I  +  O  =  P  Å  B
+ * 1  `  Q  '  W  "  E  ´  R  [  T  ~  Y  ]  U  *  I  +  O  =  P  Å  B
  * |-----+-----+-----+-----+---- | --- & ----+-----+-----+-----+-----+
- * S     A     S     D  (  F  {  G     H  }  J  )  K     L  Ö  ;  Ä  S
+ * S     A  @  S     D  (  F  {  G     H  }  J  )  K     L  Ö  ;  Ä  S
  * |-----+-----+-----+-----+---- / --- \ ----+-----+-----+-----+-----+
  * C     Z     X     C  /  V  <  B     N  >  M  \  ,  ?  .  !  -  Ö  C
  * `-----------------------------------------------------------------'
  */
 /* 
  * ,-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----.
- * | Esc    "     '     ´     [     ~     ]     *     +     =     Å  | 
+ * |  `     '     "     ´     [     ~     ]     *     +     =     Å  | 
  * +                             |     &                             +
- * |                    (     {           }     )           Ö     Ä  |
+ * |        @           (     {           }     )           Ö     Ä  |
  * +                             /     \                             +
  * |                    /     <           >     \     ?     !     Ö  |
  * `-----------------------------------------------------------------'
  */
 combo_t key_combos[] = {
-    [CO_1Q] = COMBO(co_1q, KC_ESC),
+    [CO_1Q] = COMBO(co_1q, MY_GRV),
     [CO_AS] = COMBO(co_as, K_AT),
     [CO_QW] = COMBO(co_qw, K_QUOT),
     [CO_WE] = COMBO(co_we, K_DQUO),
-    [CO_ER] = COMBO(co_er, K_GRAVE),
+    [CO_ER] = COMBO(co_er, SE_ACUT),
     [CO_TG] = COMBO(co_tg, K_PIPE),
     [CO_YH] = COMBO(co_yh, K_AMPR),
     [CO_BG] = COMBO(co_bg, K_SLASH),
@@ -401,14 +478,16 @@ combo_t key_combos[] = {
     [CO_MKL] = COMBO(co_mkl, STR_PW),
     [CO_F1W] = COMBO(co_f1w, G(KC_2)),
     [CO_F1E] = COMBO(co_f1e, G(KC_E)),
-    [CO_F1L] = COMBO(co_f1l, G(KC_L))
+    [CO_F1L] = COMBO(co_f1l, G(KC_L)),
+    [CO_F2D] = COMBO(co_f2d, KC_LSFT)
 };
 
-
+// hej
+// ho
 
 
 // Lighting layers
-const rgblight_segment_t PROGMEM rgb_base[] = RGBLIGHT_LAYER_SEGMENTS({0, 10, HSV_BLACK});
+const rgblight_segment_t PROGMEM rgb_base[] = RGBLIGHT_LAYER_SEGMENTS({0, 10, HSV_BLUE});
 const rgblight_segment_t PROGMEM rgb_fun[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_YELLOW});
 const rgblight_segment_t PROGMEM rgb_num[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_CYAN});
 const rgblight_segment_t PROGMEM rgb_sym[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_GREEN});
@@ -430,7 +509,11 @@ void keyboard_post_init_user(void) {
 
 void my_choose_rgb(layer_state_t state) {
     bool oss = get_oneshot_mods() & MOD_MASK_SHIFT;
+    #ifdef USE_CAPS_WORD
     bool cwd = is_caps_word_on();
+    #else
+    bool cwd = false;
+    #endif
     if (oss || cwd) {
         rgblight_sethsv_at(HSV_RED, 10);
     } else {
@@ -474,6 +557,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case L_BOT:
         case L_MID:
             return 100;
+        case NUM_SPC:
+            return 200;
+        case SFT_S:
+        case SFT_L:
+            return 350;
         default:
             return TAPPING_TERM;
     }
@@ -483,10 +571,12 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         //case FUN_SPC:
         case NUM_SPC:
-        case ALT_X:
-        case ALT_Z:
-        case GUI_X:
-        case GUI_Z:
+        //case ALT_X:
+        //case ALT_Z:
+        //case GUI_X:
+        //case GUI_Z:
+        //case SFT_S:
+        //case SFT_L:
             // Immediately select the hold action when another key is tapped.
             return false;
         default:
@@ -499,10 +589,12 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         //case FUN_SPC:
         case NUM_SPC:
-        case ALT_X:
-        case ALT_Z:
-        case GUI_X:
-        case GUI_Z:
+        //case ALT_X:
+        //case ALT_Z:
+        //case GUI_X:
+        //case GUI_Z:
+        case SFT_S:
+        case SFT_L:
             // Immediately select the hold action when another key is pressed.
             return false;
         default:
@@ -511,6 +603,8 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+
+#ifdef USE_CAPS_WORD
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
         // Keycodes that continue Caps Word, with shift applied.
@@ -529,7 +623,11 @@ bool caps_word_press_user(uint16_t keycode) {
             return false;
     }
 }
+#endif
 
+
+
+#ifdef USE_AUTO_SHIFT
 bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
         case K_DOT:
@@ -580,6 +678,8 @@ void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record)
             unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
     }
 }
+#endif
+
 
 
 #ifdef USE_LEADER_KEY
