@@ -36,7 +36,7 @@
     },
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_reviung41": "LAYOUT"
     },
