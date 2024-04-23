@@ -44,10 +44,22 @@ enum custom_keycodes {
   MY_DPRN,
   MY_DSLS,
   MY_TGRV,
+  MY_TGR2,
+  MY_TGR3,
+  MY_SNIP,
   VS_TOGC,
   VS_KC,
   VS_KU,
   TT_OFF,
+//   WIN_1,
+//   WIN_2,
+//   WIN_3,
+//   WIN_4,
+//   WIN_5,
+//   WIN_6,
+//   WIN_7,
+//   WIN_8,
+//   WIN_9,
   STR_PW,
   STR_EP
 };
@@ -168,23 +180,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FUN] = LAYOUT_reviung41(
-    MY_TLD,   SE_HALF,  K_AT,     K_HASH,   K_DLR,    K_PERC,             MY_CRK,   ___N___,  KC_INS,   ___N___,  ___N___,  ___N___,
-    KC_CAPS,  ___N___,  ___N___,  ___N___,  ___N___,  KC_VOLU,            ___N___,  ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
-    ___N___,  KC_RALT,  ___N___,  KC_CALC,  ___N___,  KC_VOLD,            KC_NUM,   ___N___,  ___N___,  ___N___,  ___N___,  ___N___,
+    MY_TLD,   SE_HALF,  K_AT,     K_HASH,   K_DLR,    K_PERC,             MY_CRK,   ___N___,  KC_P7,  KC_P8,  KC_P9,  ___N___,
+    KC_CAPS,  ___N___,  ___N___,  ___N___,  ___N___,  KC_VOLU,            ___N___,  ___N___,  KC_P4,  KC_P5,  KC_P6,  ___N___,
+    ___N___,  KC_RALT,  ___N___,  KC_CALC,  ___N___,  KC_VOLD,            KC_NUM,   ___N___,  KC_P1,  KC_P2,  KC_P3,  ___N___,
                                             ___N___,  ___N___,  __XTX__,  ___N___,  ___N___
   ),
 
   [_NUM] = LAYOUT_reviung41(
-    MY_GRV,   K_QUOT,   K_DQUO,   SE_ACUT,  SE_GRV,   SE_DIAE,            KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  SW_AA,
-    KC_LSFT,  ___N___,  KC_LSFT,  KC_LCTL,  ___N___,  ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT, SW_OE,    SW_AE,
-    KC_LCTL,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            _______,  ___N___,  ___N___,  ___N___,  ___N___,  _______,
+    ALT_TAB,  K_QUOT,   K_DQUO,   SE_ACUT,  SE_GRV,   SE_DIAE,            KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  SW_AA,
+    ___N___,  KC_LALT,  KC_LGUI,  KC_LSFT,  KC_LCTL,  ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT, SW_OE,    SW_AE,
+    ___N___,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            _______,  KC_BSPC,  ___N___,  KC_DEL,   ___N___,  _______,
                                             ___N___,  __XXX__,  KC_SPC,   C_BSPC,   ___N___
   ),
   
   [_SYM] = LAYOUT_reviung41(
-    MY_TGRV,  ___N___,  ___N___,  K_HASH,   K_LBRC,   K_AMPR,             KC_DEL,   K_EQL,    KC_7,     KC_8,     KC_9,     _______,
+    MY_TGRV,  MY_TGR2,  MY_TGR3,  K_HASH,   K_LBRC,   K_AMPR,             KC_DEL,   K_EQL,    KC_7,     KC_8,     KC_9,     _______,
     KC_LSFT,  VS_TOGC,  K_SLSH,   K_LPRN,   K_LCBR,   K_EQL,              KC_PAST,  KC_PPLS,  KC_4,     KC_5,     KC_6,     KC_PDOT,
-    KC_LCTL,  K_LALT,   MY_DSLS,  MY_DPRN,  K_LT,     K_PIPE,             KC_PSLS,  KC_PMNS,  KC_1,     KC_2,     KC_3,     K_DOT,
+    KC_LCTL,  KC_LALT,  MY_DSLS,  MY_DPRN,  K_LT,     K_PIPE,             KC_PSLS,  KC_PMNS,  KC_1,     KC_2,     KC_3,     K_DOT,
                                             ___N___,  KC_TAB,   ___N___,  __XXX__,  KC_0
   ),
 
@@ -192,14 +204,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  VS_ICAL,  VS_OCAL,  ___N___,  _______,
     S_F12,    VS_BACK,  VS_FWD,   KC_F12,   ___N___,  ___N___,            VS_CALL,  ___N___,  VS_IVAL,  VS_OVAL,  ___N___,  KC_RSFT, 
     C_F12,    A_F12,    A_HOME,   VS_KC,    VS_KU,    ___N___,            ___N___,  ___N___,  ___N___, G(KC_DOT), ___N___,  KC_RCTL,
-                                            __XXX__,  A_F12,    SA_F12,  ___N___, ___N___    
+                                            __XXX__,  A_F12,     SA_F12,  ___N___,  ___N___    
   ),
 
   [_EXT] = LAYOUT_reviung41(
-    ___N___,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,               KC_F6,    KC_F7,    KC_F8,    KC_F9,    A_PSCR,   _______,
-    K_LSFT,   KC_F10,   KC_F11,   KC_F12,   VS_FULL,  VS_BLS,              ___N___,  ___N___,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,
-    K_LCTL,   K_LALT,   C(KC_X),  C(KC_C),  C(KC_V),  VS_BLD,              KC_NUM,   ___N___,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT,
-                                            KC_LGUI,  ___N___,  ___T___,   ___N___,  __XTX__
+    ___N___,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    VS_FULL,            ___N___,  ___N___,  ___N___,    MY_SNIP,  A_PSCR,   _______,
+    K_LSFT,   KC_F5,    KC_F6,    KC_F7,    KC_F8,    VS_BLS,             ___N___,  ___N___,  ___N___,    KC_HOME,  KC_UP,    KC_END,
+    K_LCTL,   KC_F9,    KC_F10,   KC_F11,   KC_F12,   VS_BLD,             ___N___,  ___N___,  ___N___,    KC_LEFT,  KC_DOWN,  KC_RIGHT,
+                                            KC_LGUI,  KC_LALT,  ___N___,  ___N___,  __XTX__
   ),
 
   [_COM] = LAYOUT_reviung41(
@@ -288,7 +300,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(K_GRV);
             tap_code16(K_GRV);
             tap_code16(K_GRV);
-            tap_code16(KC_SPC);
+            tap_code(KC_SPC);
+        }
+        return false;
+    case MY_TGR2:
+        if (record->event.pressed) {
+            tap_code16(K_GRV);
+            tap_code16(K_GRV);
+            tap_code16(K_GRV);
+            tap_code16(K_GRV);
+            tap_code16(K_GRV);
+            tap_code16(K_GRV);
+            tap_code(KC_LEFT);
+            tap_code(KC_LEFT);
+            tap_code(KC_LEFT);
+        }
+        return false;
+    case MY_TGR3:
+        if (record->event.pressed) {
+            register_code(KC_LSFT);
+            tap_code(KC_ENT);
+            unregister_code(KC_LSFT);
+            tap_code16(K_GRV);
+            tap_code16(K_GRV);
+            tap_code16(K_GRV);
+            tap_code(KC_SPC);
+            register_code(KC_LSFT);
+            tap_code(KC_ENT);
+            tap_code(KC_ENT);
+            unregister_code(KC_LSFT);
+            tap_code16(K_GRV);
+            tap_code16(K_GRV);
+            tap_code16(K_GRV);
+            tap_code(KC_SPC);
+            tap_code(KC_UP);
+        }
+        return false;
+    case MY_SNIP:
+        if (record->event.pressed) {
+            register_code(KC_LGUI);
+            register_code(KC_LSFT);
+            tap_code(KC_S);
+            unregister_code(KC_LSFT);
+            unregister_code(KC_LGUI);
         }
         return false;
     case VS_TOGC:
@@ -317,9 +371,118 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
         break;
+    // case WIN_1:
+    //     if (record->event.pressed) {
+    //         register_code(KC_LGUI);
+    //         tap_code(KC_Z);
+    //         unregister_code(KC_LGUI);
+    //         tap_code(KC_6);
+    //         tap_code(KC_1);
+    //         //tap_code(KC_ESC);
+    //         return false;
+    //     }
+    //     break;
+    // case WIN_2:
+    //     if (record->event.pressed) {
+    //         register_code(KC_LGUI);
+    //         tap_code(KC_Z);
+    //         unregister_code(KC_LGUI);
+    //         tap_code(KC_6);
+    //         tap_code(KC_2);
+    //         //tap_code(KC_ESC);
+    //         return false;
+    //     }
+    //     break;
+    // case WIN_3:
+    //     if (record->event.pressed) {
+    //         register_code(KC_LGUI);
+    //         tap_code(KC_Z);
+    //         unregister_code(KC_LGUI);
+    //         tap_code(KC_6);
+    //         tap_code(KC_3);
+    //         //tap_code(KC_ESC);
+    //         return false;
+    //     }
+    //     break;
+    // case WIN_4:
+    //     if (record->event.pressed) {
+    //         register_code(KC_LGUI);
+    //         tap_code(KC_Z);
+    //         unregister_code(KC_LGUI);
+    //         tap_code(KC_1);
+    //         tap_code(KC_1);
+    //         tap_code(KC_ESC);
+    //         return false;
+    //     }
+    //     break;
+    // case WIN_5:
+    //     if (record->event.pressed) {
+    //         register_code(KC_LGUI);
+    //         tap_code(KC_Z);
+    //         unregister_code(KC_LGUI);
+    //         tap_code(KC_6);
+    //         tap_code(KC_2);
+    //         tap_code(KC_ESC);
+    //         return false;
+    //     }
+    //     break;
+    // case WIN_6:
+    //     if (record->event.pressed) {
+    //         register_code(KC_LGUI);
+    //         tap_code(KC_Z);
+    //         unregister_code(KC_LGUI);
+    //         tap_code(KC_1);
+    //         tap_code(KC_2);
+    //         tap_code(KC_ESC);
+    //         return false;
+    //     }
+    //     break;
+    // case WIN_7:
+    //     if (record->event.pressed) {
+    //         // register_code(KC_LGUI);
+    //         // tap_code(KC_Z);
+    //         // unregister_code(KC_LGUI);
+    //         // tap_code(KC_1);
+    //         // tap_code(KC_1);
+    //         // tap_code(KC_ESC);
+    //         register_code(KC_LGUI);
+    //         register_code(KC_LSFT);
+    //         tap_code(KC_LEFT);
+    //         unregister_code(KC_LSFT);
+    //         unregister_code(KC_LGUI);
+    //         return false;
+    //     }
+    //     break;
+    // case WIN_8:
+    //     if (record->event.pressed) {
+    //         register_code(KC_LGUI);
+    //         tap_code(KC_Z);
+    //         unregister_code(KC_LGUI);
+    //         tap_code(KC_1);
+    //         tap_code(KC_1);
+    //         tap_code(KC_ESC);
+    //         return false;
+    //     }
+    //     break;
+    // case WIN_9:
+    //     if (record->event.pressed) {
+    //         // register_code(KC_LGUI);
+    //         // tap_code(KC_Z);
+    //         // unregister_code(KC_LGUI);
+    //         // tap_code(KC_1);
+    //         // tap_code(KC_2);
+    //         // tap_code(KC_ESC);
+    //         register_code(KC_LGUI);
+    //         register_code(KC_LSFT);
+    //         tap_code(KC_RIGHT);
+    //         unregister_code(KC_LSFT);
+    //         unregister_code(KC_LGUI);
+    //         return false;
+    //     }
+    //     break;
     case STR_PW:
         if (record->event.pressed)
-            SEND_STRING("chopra.!#!.flugas");
+            SEND_STRING("corpsi.!#!.falcos");
         return false;
     case STR_EP:
         if (record->event.pressed)
@@ -482,8 +645,27 @@ combo_t key_combos[] = {
     [CO_F2D] = COMBO(co_f2d, KC_LSFT)
 };
 
-// hej
-// ho
+
+// RGB_OFF          HSV_OFF
+// RGB_AZURE	    HSV_AZURE
+// RGB_BLACK        HSV_BLACK
+// RGB_BLUE	        HSV_BLUE
+// RGB_CHARTREUSE	HSV_CHARTREUSE
+// RGB_CORAL	    HSV_CORAL
+// RGB_CYAN         HSV_CYAN
+// RGB_GOLD         HSV_GOLD
+// RGB_GOLDENROD	HSV_GOLDENROD
+// RGB_GREEN	    HSV_GREEN
+// RGB_MAGENTA	    HSV_MAGENTA
+// RGB_ORANGE	    HSV_ORANGE
+// RGB_PINK         HSV_PINK
+// RGB_PURPLE	    HSV_PURPLE
+// RGB_RED	        HSV_RED
+// RGB_SPRINGGREEN	HSV_SPRINGGREEN
+// RGB_TEAL         HSV_TEAL
+// RGB_TURQUOISE	HSV_TURQUOISE
+// RGB_WHITE	    HSV_WHITE
+// RGB_YELLOW	    HSV_YELLOW
 
 
 // Lighting layers
@@ -491,8 +673,8 @@ const rgblight_segment_t PROGMEM rgb_base[] = RGBLIGHT_LAYER_SEGMENTS({0, 10, HS
 const rgblight_segment_t PROGMEM rgb_fun[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_YELLOW});
 const rgblight_segment_t PROGMEM rgb_num[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_CYAN});
 const rgblight_segment_t PROGMEM rgb_sym[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_GREEN});
-const rgblight_segment_t PROGMEM rgb_nav[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, 155, 255, 255});
-const rgblight_segment_t PROGMEM rgb_ext[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_BLUE});
+const rgblight_segment_t PROGMEM rgb_nav[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_CORAL});
+const rgblight_segment_t PROGMEM rgb_ext[] = RGBLIGHT_LAYER_SEGMENTS({10, 1, HSV_AZURE});
 // Array of lighting layers
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_base,
@@ -509,16 +691,12 @@ void keyboard_post_init_user(void) {
 
 void my_choose_rgb(layer_state_t state) {
     bool oss = get_oneshot_mods() & MOD_MASK_SHIFT;
-    #ifdef USE_CAPS_WORD
-    bool cwd = is_caps_word_on();
-    #else
-    bool cwd = false;
-    #endif
-    if (oss || cwd) {
-        rgblight_sethsv_at(HSV_RED, 10);
+    if (oss) {
+        rgblight_sethsv_at(HSV_PURPLE, 10);
     } else {
         // default_layer_state_set_user(layer_state);
         // layer_state_set_user(layer_state);
+        rgblight_sethsv_at(HSV_BLUE, 10);
         rgblight_set_layer_state(0, layer_state_cmp(state, _BASE));
         rgblight_set_layer_state(1, layer_state_cmp(state, _FUN));
         rgblight_set_layer_state(2, layer_state_cmp(state, _NUM));
@@ -548,9 +726,11 @@ void oneshot_mods_changed_user(uint8_t mods) {
 void oneshot_locked_mods_changed_user(uint8_t mods) {
     my_choose_rgb(layer_state);
 }
+#ifdef USE_CAPS_WORD
 void caps_word_set_user(bool active) {
     my_choose_rgb(layer_state);
 }
+#endif
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
