@@ -51,11 +51,11 @@ enum custom_keycodes {
   VS_KC,
   VS_KU,
   TT_OFF,
-//   WIN_1,
-//   WIN_2,
-//   WIN_3,
-//   WIN_4,
-//   WIN_5,
+  WIN_1,
+  WIN_2,
+  WIN_3,
+  WIN_4,
+  WIN_5,
 //   WIN_6,
 //   WIN_7,
 //   WIN_8,
@@ -187,10 +187,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NUM] = LAYOUT_reviung41(
-    ALT_TAB,  K_QUOT,   K_DQUO,   SE_ACUT,  SE_GRV,   SE_DIAE,            KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   ___N___,  SW_AA,
-    ___N___,  KC_LALT,  KC_LGUI,  KC_LSFT,  KC_LCTL,  ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT, SW_OE,    SW_AE,
-    ___N___,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            _______,  KC_BSPC,  ___N___,  KC_DEL,   ___N___,  _______,
-                                            ___N___,  __XXX__,  KC_SPC,   C_BSPC,   ___N___
+    MY_TGRV,  MY_GRV,   K_QUOT,   K_DQUO,   SE_ACUT,   K_QUOT,            KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   WIN_1,    SW_AA,
+    _______,  KC_LALT,  KC_LSFT,  KC_LCTL,  KC_LGUI,  ___N___,            KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT, SW_OE,    SW_AE,
+    _______,  C(KC_Z),  C(KC_X),  C(KC_C),  C(KC_V),  ___N___,            _______,  KC_BSPC,  ___N___,  KC_DEL,   WIN_5,    _______,
+                                            ___N___,  __XXX__,  KC_SPC,   C_BSPC,   KC_BSPC
   ),
   
   [_SYM] = LAYOUT_reviung41(
@@ -201,9 +201,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_reviung41(
-    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  VS_ICAL,  VS_OCAL,  ___N___,  _______,
-    S_F12,    VS_BACK,  VS_FWD,   KC_F12,   ___N___,  ___N___,            VS_CALL,  ___N___,  VS_IVAL,  VS_OVAL,  ___N___,  KC_RSFT, 
-    C_F12,    A_F12,    A_HOME,   VS_KC,    VS_KU,    ___N___,            ___N___,  ___N___,  ___N___, G(KC_DOT), ___N___,  KC_RCTL,
+    ALT_TAB,  G(KC_L),  G(KC_2),  G(KC_E),  ___N___,  ___N___,            ___N___,  ___N___,  VS_ICAL,  VS_OCAL,  WIN_1,    _______,
+    S_F12,    VS_BACK,  VS_FWD,   KC_F12,   ___N___,  ___N___,            VS_CALL,  ___N___,  VS_IVAL,  VS_OVAL,  WIN_2,    KC_RSFT, 
+    C_F12,    A_F12,    A_HOME,   VS_KC,    VS_KU,    ___N___,            ___N___,  ___N___,  ___N___, G(KC_DOT), WIN_3,    KC_RCTL,
                                             __XXX__,  A_F12,     SA_F12,  ___N___,  ___N___    
   ),
 
@@ -371,39 +371,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
         break;
-    // case WIN_1:
-    //     if (record->event.pressed) {
-    //         register_code(KC_LGUI);
-    //         tap_code(KC_Z);
-    //         unregister_code(KC_LGUI);
-    //         tap_code(KC_6);
-    //         tap_code(KC_1);
-    //         //tap_code(KC_ESC);
-    //         return false;
-    //     }
-    //     break;
-    // case WIN_2:
-    //     if (record->event.pressed) {
-    //         register_code(KC_LGUI);
-    //         tap_code(KC_Z);
-    //         unregister_code(KC_LGUI);
-    //         tap_code(KC_6);
-    //         tap_code(KC_2);
-    //         //tap_code(KC_ESC);
-    //         return false;
-    //     }
-    //     break;
-    // case WIN_3:
-    //     if (record->event.pressed) {
-    //         register_code(KC_LGUI);
-    //         tap_code(KC_Z);
-    //         unregister_code(KC_LGUI);
-    //         tap_code(KC_6);
-    //         tap_code(KC_3);
-    //         //tap_code(KC_ESC);
-    //         return false;
-    //     }
-    //     break;
+    case WIN_1:
+        if (record->event.pressed) {
+            register_code(KC_LGUI);
+            tap_code(KC_Z);
+            unregister_code(KC_LGUI);
+            wait_ms(50);
+            tap_code(KC_4);
+            tap_code(KC_1);
+            //tap_code(KC_ESC);
+            return false;
+        }
+        break;
+    case WIN_2:
+        if (record->event.pressed) {
+            register_code(KC_LGUI);
+            tap_code(KC_Z);
+            unregister_code(KC_LGUI);
+            wait_ms(50);
+            tap_code(KC_5);
+            tap_code(KC_1);
+            //tap_code(KC_ESC);
+            return false;
+        }
+        break;
+    case WIN_3:
+        if (record->event.pressed) {
+            register_code(KC_LALT);
+            tap_code(KC_SPACE);
+            unregister_code(KC_LALT);
+            wait_ms(50);
+            tap_code(KC_X);
+            return false;
+        }
+        break;
     // case WIN_4:
     //     if (record->event.pressed) {
     //         register_code(KC_LGUI);
@@ -415,17 +416,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //         return false;
     //     }
     //     break;
-    // case WIN_5:
-    //     if (record->event.pressed) {
-    //         register_code(KC_LGUI);
-    //         tap_code(KC_Z);
-    //         unregister_code(KC_LGUI);
-    //         tap_code(KC_6);
-    //         tap_code(KC_2);
-    //         tap_code(KC_ESC);
-    //         return false;
-    //     }
-    //     break;
+    case WIN_5:
+        if (record->event.pressed) {
+            register_code(KC_LALT);
+            tap_code(KC_SPACE);
+            unregister_code(KC_LALT);
+            wait_ms(50);
+            tap_code(KC_N);
+            return false;
+        }
+        break;
     // case WIN_6:
     //     if (record->event.pressed) {
     //         register_code(KC_LGUI);
@@ -533,7 +533,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 // COMBO_ENABLE = yes Goes in rules.mk
 enum combos {
     CO_1Q,                  // `
-    CO_AS,                  // @
+    CO_AS, CO_SD,           // @ $
     CO_QW, CO_WE, CO_ER,    // ' " ´
     CO_TG, CO_YH,           // | &
     CO_BG, CO_NH,           // fs bs
@@ -556,6 +556,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM co_1q[] = {KC_1, KC_Q, COMBO_END};
 const uint16_t PROGMEM co_as[] = {KC_A, KC_S, COMBO_END};
+const uint16_t PROGMEM co_sd[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM co_qw[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM co_we[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM co_er[] = {KC_E, KC_R, COMBO_END};
@@ -593,7 +594,7 @@ const uint16_t PROGMEM co_f2d[] = {KC_F2, KC_D, COMBO_END};
  * ,-----------------------------------------------------------------.
  * 1  `  Q  '  W  "  E  ´  R  [  T  ~  Y  ]  U  *  I  +  O  =  P  Å  B
  * |-----+-----+-----+-----+---- | --- & ----+-----+-----+-----+-----+
- * S     A  @  S     D  (  F  {  G     H  }  J  )  K     L  Ö  ;  Ä  S
+ * S     A  @  S  $  D  (  F  {  G     H  }  J  )  K     L  Ö  ;  Ä  S
  * |-----+-----+-----+-----+---- / --- \ ----+-----+-----+-----+-----+
  * C     Z     X     C  /  V  <  B     N  >  M  \  ,  ?  .  !  -  Ö  C
  * `-----------------------------------------------------------------'
@@ -610,6 +611,7 @@ const uint16_t PROGMEM co_f2d[] = {KC_F2, KC_D, COMBO_END};
 combo_t key_combos[] = {
     [CO_1Q] = COMBO(co_1q, MY_GRV),
     [CO_AS] = COMBO(co_as, K_AT),
+    [CO_SD] = COMBO(co_sd, K_DOLLAR),
     [CO_QW] = COMBO(co_qw, K_QUOT),
     [CO_WE] = COMBO(co_we, K_DQUO),
     [CO_ER] = COMBO(co_er, SE_ACUT),
@@ -738,7 +740,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case L_MID:
             return 100;
         case NUM_SPC:
-            return 200;
+            return 150;
         case SFT_S:
         case SFT_L:
             return 350;
